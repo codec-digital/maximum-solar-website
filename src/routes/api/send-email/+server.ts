@@ -2,9 +2,15 @@ import { Resend } from 'resend';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { RESEND_API_KEY } from '$env/static/private';
+import type { Config } from '@sveltejs/adapter-vercel';
 
 // Exclude this endpoint from prerendering
 export const prerender = false;
+
+// Configure for Vercel serverless functions
+export const config: Config = {
+	runtime: 'nodejs18.x'
+};
 
 const resend = new Resend(RESEND_API_KEY);
 
