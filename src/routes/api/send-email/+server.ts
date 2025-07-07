@@ -62,7 +62,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
 		const data = await resend.emails.send({
 			from: 'Form Submission <webmaster@quote.maximumsolar.com.au>',
-			to: ['jake@haruassembly.com'],
+			to: ['jake@haruassembly.com', 'info@maximumsolar.com.au'],
 			replyTo: `${email}`,
 			subject: `New ${type} Submission`,
 			html: htmlContent
