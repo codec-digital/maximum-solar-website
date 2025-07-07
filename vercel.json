@@ -1,26 +1,10 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": ".svelte-kit/output/client"
-      }
-    },
-    {
-      "src": ".svelte-kit/output/server/**/*.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/send-email",
-      "dest": ".svelte-kit/output/server/entries/endpoints/api/send-email/_server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/.svelte-kit/output/client/$1"
-    }
-  ]
+	"buildCommand": "npm run build",
+	"outputDirectory": ".svelte-kit/output/client",
+	"rewrites": [
+		{
+			"source": "/api/send-email",
+			"destination": "/.vercel/functions/api/send-email"
+		}
+	]
 }
