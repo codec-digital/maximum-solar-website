@@ -12,6 +12,12 @@
 	// import { EMAIL_ENDPOINT } from '$lib/config/environment';
 	// import { logApiRequest, logApiResponse } from '$lib/utils/api-debug';
 
+	// Temporary fallback values - replace with actual imports when available
+	const EMAIL_ENDPOINT = '/api/send-email';
+	const logApiRequest = (url: string, options: any) => console.log('API Request:', url, options);
+	const logApiResponse = (url: string, response: any) =>
+		console.log('API Response:', url, response);
+
 	let open = false;
 	const isDesktop = new MediaQuery('(min-width: 768px)');
 
@@ -21,7 +27,8 @@
 		email: '',
 		phone: '',
 		preferredContact: 'Either',
-		message: ''
+		message: '',
+		formType: 'General Contact Form'
 	};
 
 	let loading = false;
@@ -35,6 +42,7 @@
 		formData.phone = '';
 		formData.preferredContact = 'Either';
 		formData.message = '';
+		formData.formType = 'General Contact Form';
 		loading = false;
 		error = false;
 		errorMessage = '';
@@ -64,11 +72,11 @@
 			phone: formData.phone,
 			preferredContact: formData.preferredContact,
 			message: formData.message,
-			type: 'Solar Quote Request'
+			type: formData.formType
 		};
 
 		try {
-			const requestOptions = {
+			const requestOptions: RequestInit = {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -106,16 +114,17 @@
 			} else {
 				throw new Error(result.error || 'Failed to send email');
 			}
-		} catch (error) {
-			console.error('Error sending email:', error);
-			logApiResponse(EMAIL_ENDPOINT, error);
+		} catch (err) {
+			console.error('Error sending email:', err);
+			logApiResponse(EMAIL_ENDPOINT, err);
 
 			// Detect CORS errors which typically show up as TypeError or opaque responses
-			if (error.name === 'TypeError' && error.message.includes('fetch')) {
+			if (err instanceof Error && err.name === 'TypeError' && err.message.includes('fetch')) {
 				errorMessage =
 					'Network error: Failed to connect to our server. This might be due to a CORS restriction or network issue.';
 			} else {
-				errorMessage = error.message || 'Failed to send email. Please try again.';
+				errorMessage =
+					err instanceof Error ? err.message : 'Failed to send email. Please try again.';
 			}
 
 			error = true;

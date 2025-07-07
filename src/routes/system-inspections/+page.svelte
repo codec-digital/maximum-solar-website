@@ -3,6 +3,7 @@
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import * as Alert from '$lib/components/ui/alert';
 	import * as Accordion from '$lib/components/ui/accordion';
+	import Seo from '$lib/components/SEO.svelte';
 	import {
 		ArrowRight,
 		Loader2,
@@ -19,13 +20,20 @@
 	import { fly } from 'svelte/transition';
 	import { browser } from '$app/environment';
 
+	// Temporary fallback values - replace with actual imports when available
+	const EMAIL_ENDPOINT = '/api/send-email';
+	const logApiRequest = (url: string, options: any) => console.log('API Request:', url, options);
+	const logApiResponse = (url: string, response: any) =>
+		console.log('API Response:', url, response);
+
 	// Contact form data
 	let formData = {
 		name: '',
 		email: '',
 		phone: '',
 		preferredContact: 'Either',
-		message: ''
+		message: '',
+		formType: 'System Inspections'
 	};
 
 	let loading = false;
@@ -39,6 +47,7 @@
 		formData.phone = '';
 		formData.preferredContact = 'Either';
 		formData.message = '';
+		formData.formType = 'System Inspections';
 		loading = false;
 		error = false;
 		errorMessage = '';
@@ -59,7 +68,7 @@
 			phone: formData.phone,
 			preferredContact: formData.preferredContact,
 			message: formData.message,
-			type: 'System Integrity Inspection Request'
+			type: formData.formType
 		};
 
 		try {
@@ -72,7 +81,8 @@
 				credentials: 'same-origin'
 			};
 
-			const response = await fetch('/api/contact', requestOptions);
+			logApiRequest(EMAIL_ENDPOINT, requestOptions);
+			const response = await fetch(EMAIL_ENDPOINT, requestOptions);
 
 			if (!response.ok) {
 				const errorText = await response.text().catch(() => '');
@@ -100,7 +110,9 @@
 			}
 		} catch (err) {
 			console.error('Error sending email:', err);
+			logApiResponse(EMAIL_ENDPOINT, err);
 
+			// Detect CORS errors which typically show up as TypeError or opaque responses
 			if (err instanceof Error && err.name === 'TypeError' && err.message.includes('fetch')) {
 				errorMessage =
 					'Network error: Failed to connect to our server. This might be due to a CORS restriction or network issue.';
@@ -201,6 +213,13 @@
 		}
 	];
 </script>
+
+<Seo
+	title="Solar System Inspections - Professional Solar Performance Analysis Tasmania"
+	description="Comprehensive solar system inspections in Tasmania. Protect your solar investment with professional performance analysis, safety checks, and detailed reporting. Ensure optimal efficiency and safety."
+	keywords="solar system inspection Tasmania, solar performance analysis, solar safety inspection, solar system check Hobart, solar efficiency testing, solar panel inspection, solar system assessment"
+	type="WebPage"
+/>
 
 <!-- Hero Section -->
 <section class="relative flex w-full flex-col items-center justify-center pt-60 pb-24">

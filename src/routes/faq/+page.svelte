@@ -1,4 +1,5 @@
 <script>
+	import Seo from '$lib/components/SEO.svelte';
 	import * as Accordion from '$lib/components/ui/accordion';
 
 	const faqSections = [
@@ -120,6 +121,12 @@
 	];
 </script>
 
+<Seo
+	title="FAQ - Solar Panel Questions Answered by Maximum Solar Tasmania"
+	description="Get answers to common solar panel questions from Tasmania's solar experts. Learn about solar benefits, system sizing, maintenance, costs, and more. Maximum Solar FAQ guide."
+	keywords="solar panel FAQ, solar questions Tasmania, solar panel benefits, solar system size, solar maintenance, solar costs, solar installation questions, Maximum Solar FAQ"
+	type="WebPage"
+/>
 <section id="about" class="mx-auto">
 	<div
 		class="relative isolate overflow-hidden bg-black px-6 pt-60 pb-24 text-center shadow-2xl sm:px-16"
@@ -149,7 +156,7 @@
 					{#each section.items as item, itemIndex}
 						<Accordion.Item class="border-b">
 							<Accordion.Trigger
-								class="font-heading w-full py-8 text-left text-3xl font-bold text-white"
+								class="font-heading w-full py-4 text-left text-xl font-bold text-white lg:py-8 lg:text-3xl"
 								>{item.question}</Accordion.Trigger
 							>
 							<Accordion.Content class="w-full py-2 pl-4 text-left">

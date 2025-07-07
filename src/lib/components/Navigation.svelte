@@ -134,7 +134,7 @@
 									<a
 										href="/site-maintenance"
 										class="hover:underline"
-										on:click={() => (sheetOpen = false)}>Commercial Solar</a
+										on:click={() => (sheetOpen = false)}>Site Maintenance</a
 									>
 								</Accordion.Content>
 							</Accordion.Item>

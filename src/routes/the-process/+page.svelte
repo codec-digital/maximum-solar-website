@@ -1,7 +1,15 @@
 <script>
+	import Seo from '$lib/components/SEO.svelte';
 	import ContactDialog from '$lib/components/home/ContactDialog.svelte';
 	import { ArrowRight } from '@lucide/svelte';
 </script>
+
+<Seo
+	title="The Solar Process - How Solar Installation Works with Maximum Solar"
+	description="Learn about Maximum Solar's personalized solar installation process in Tasmania. From consultation to installation, discover how we find the right energy solution for your home or business."
+	keywords="solar installation process Tasmania, how solar works, solar consultation process, solar installation steps, Maximum Solar process, personalized solar solutions, solar assessment"
+	type="WebPage"
+/>
 
 <section class="relative flex w-full flex-col items-center justify-center pt-60 pb-24">
 	<enhanced:img

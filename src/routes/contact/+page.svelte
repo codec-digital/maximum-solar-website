@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Seo from '$lib/components/SEO.svelte';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import * as Alert from '$lib/components/ui/alert';
@@ -10,7 +11,7 @@
 	// import { logApiRequest, logApiResponse } from '$lib/utils/api-debug';
 
 	// Temporary fallback values - replace with actual imports when available
-	const EMAIL_ENDPOINT = '/api/contact';
+	const EMAIL_ENDPOINT = '/api/send-email';
 	const logApiRequest = (url: string, options: any) => console.log('API Request:', url, options);
 	const logApiResponse = (url: string, response: any) =>
 		console.log('API Response:', url, response);
@@ -21,7 +22,8 @@
 		email: '',
 		phone: '',
 		preferredContact: 'Either',
-		message: ''
+		message: '',
+		formType: 'General Contact Form'
 	};
 
 	let loading = false;
@@ -35,6 +37,7 @@
 		formData.phone = '';
 		formData.preferredContact = 'Either';
 		formData.message = '';
+		formData.formType = 'General Contact Form';
 		loading = false;
 		error = false;
 		errorMessage = '';
@@ -56,7 +59,7 @@
 			phone: formData.phone,
 			preferredContact: formData.preferredContact,
 			message: formData.message,
-			type: 'Solar Quote Request'
+			type: formData.formType
 		};
 
 		try {
@@ -117,6 +120,13 @@
 		}
 	}
 </script>
+
+<Seo
+	title="Contact Maximum Solar - Get Your Free Solar Quote in Tasmania"
+	description="Book a free solar consultation with Maximum Solar. Expert solar assessments, personalized quotes, and professional advice for your Tasmanian home or business. Contact us today!"
+	keywords="contact Maximum Solar, free solar quote Tasmania, solar consultation Hobart, solar assessment, book solar appointment, Maximum Solar contact details"
+	type="WebPage"
+/>
 
 <section id="about" class="mx-auto">
 	<div
@@ -265,9 +275,9 @@
 					<Alert.Root class="border-[#FFC640] bg-green-50/10 text-white">
 						<CheckCircle class="h-4 w-4 fill-[#FFC640] text-[#FFC640]" />
 						<Alert.Title class="text-white">Your request has been received!</Alert.Title>
-						<Alert.Description class="text-gray-300">
-							Thank you for your interest. A member of our team will get back to you shortly with a
-							free solar quote.
+						<Alert.Description class="text-white">
+							Thank you for your interest. A member of our team will get back to you shortly with
+							more information.
 						</Alert.Description>
 					</Alert.Root>
 					<div class="mt-6 flex justify-center">

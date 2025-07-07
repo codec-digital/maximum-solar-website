@@ -1,4 +1,5 @@
 <script lang="ts">
+	import SEO from '$lib/components/SEO.svelte';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import * as Alert from '$lib/components/ui/alert';
@@ -7,7 +8,7 @@
 	import { browser } from '$app/environment';
 
 	// Temporary fallback values - replace with actual imports when available
-	const EMAIL_ENDPOINT = '/api/careers';
+	const EMAIL_ENDPOINT = '/api/send-email';
 	const logApiRequest = (url: string, options: any) => console.log('API Request:', url, options);
 	const logApiResponse = (url: string, response: any) =>
 		console.log('API Response:', url, response);
@@ -18,7 +19,8 @@
 		email: '',
 		phone: '',
 		jobAreas: [] as string[],
-		message: ''
+		message: '',
+		formType: 'Career Interest'
 	};
 
 	const jobAreaOptions = ['Sales', 'Installation', 'Administration', 'Electrician'];
@@ -34,6 +36,7 @@
 		formData.phone = '';
 		formData.jobAreas = [];
 		formData.message = '';
+		formData.formType = 'Career Interest';
 		loading = false;
 		error = false;
 		errorMessage = '';
@@ -70,7 +73,7 @@
 			phone: formData.phone,
 			jobAreas: formData.jobAreas,
 			message: formData.message,
-			type: 'Career Interest'
+			type: formData.formType
 		};
 
 		try {
@@ -132,6 +135,12 @@
 	}
 </script>
 
+<SEO
+	title="Careers - Join Maximum Solar's Renewable Energy Team in Tasmania"
+	description="Join Tasmania's leading solar company. We're hiring in sales, installation, administration, and electrical roles. Work with a fun, energetic team making a real difference in renewable energy."
+	keywords="solar jobs Tasmania, renewable energy careers, solar installer jobs, electrical jobs Hobart, Maximum Solar careers, green energy jobs, solar technician jobs, clean energy employment"
+	type="WebPage"
+/>
 <section class="relative flex w-full items-center justify-center pt-60 pb-24">
 	<enhanced:img
 		src="/src/lib/assets/images/careers.jpg"

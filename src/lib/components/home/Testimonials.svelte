@@ -141,10 +141,10 @@
 					</CarouselContent>
 					<div class="mt-8 flex items-center justify-center gap-2">
 						<CarouselPrevious
-							class="border border-black bg-black text-white hover:bg-black/80 hover:text-white"
+							class="-top-12 right-14 left-auto border border-black bg-black text-white hover:bg-black/80 hover:text-white sm:top-1/2 sm:right-auto sm:-left-12 sm:-translate-y-1/2"
 						/>
 						<CarouselNext
-							class="border border-black bg-black text-white hover:bg-black/80 hover:text-white"
+							class="-top-12 right-4 border border-black bg-black text-white hover:bg-black/80 hover:text-white sm:top-1/2 sm:-right-12 sm:left-auto sm:-translate-y-1/2"
 						/>
 					</div>
 				</Carousel>

@@ -1,6 +1,14 @@
 <script>
+	import Seo from '$lib/components/SEO.svelte';
 	import { ArrowRight } from '@lucide/svelte';
 </script>
+
+<Seo
+	title="Commercial Solar Solutions - Large Scale Solar Installation Tasmania"
+	description="Professional commercial solar installations for Tasmanian businesses. Reduce operating costs with large-scale solar systems. Expert design, CEC-accredited installers, and up to $10,000 interest-free loans available."
+	keywords="commercial solar Tasmania, business solar panels, large scale solar installation, commercial solar systems Hobart, solar for business, industrial solar panels, commercial renewable energy"
+	type="WebPage"
+/>
 
 <section class="relative flex w-full flex-col items-center justify-center pt-60 pb-24">
 	<enhanced:img

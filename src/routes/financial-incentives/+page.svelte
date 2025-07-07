@@ -1,7 +1,15 @@
 <script>
+	import Seo from '$lib/components/SEO.svelte';
 	import { ArrowRight } from '@lucide/svelte';
 	import * as Accordion from '$lib/components/ui/accordion';
 </script>
+
+<Seo
+	title="Solar Financial Incentives & Rebates - Maximum Solar Tasmania"
+	description="Discover solar rebates, STCs, and financial incentives available in Tasmania. Learn about government solar schemes, referral bonuses, and interest-free loans to make solar affordable."
+	keywords="solar rebates Tasmania, solar incentives, STC certificates, solar financial assistance, government solar schemes, solar loans, renewable energy incentives, Maximum Solar rebates"
+	type="WebPage"
+/>
 
 <section class="relative flex w-full flex-col items-center justify-center pt-60 pb-24">
 	<enhanced:img

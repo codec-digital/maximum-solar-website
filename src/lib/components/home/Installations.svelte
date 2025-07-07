@@ -2,7 +2,7 @@
 </script>
 
 <!-- LOGO CLOUDS -->
-<div class="bg-white py-24 sm:py-32">
+<div class="bg-white pt-12 sm:py-32">
 	<div class="mx-auto max-w-screen-2xl px-6 lg:px-8">
 		<div
 			class="mx-auto grid max-w-lg grid-cols-2 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-4 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-6"
@@ -148,12 +148,12 @@
 		</div>
 		<div class="mx-auto mt-6 flex max-w-2xl items-center justify-center gap-6">
 			<enhanced:img
-				class="h-48 w-auto"
+				class="w-auto lg:h-48"
 				src="/src/lib/assets/images/logos/SEC.png"
 				alt="Smart Energy Council"
 			/>
 			<enhanced:img
-				class="h-60 w-auto"
+				class="w-auto lg:h-60"
 				src="/src/lib/assets/images/logos/CEC.jpg"
 				alt="Clean Energy Council"
 			/>

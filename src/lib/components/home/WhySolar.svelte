@@ -131,7 +131,7 @@
 	</div>
 </div>
 
-<section class="relative flex items-center justify-center overflow-hidden py-48">
+<section class="relative flex items-center justify-center overflow-hidden py-18 lg:py-48">
 	<enhanced:img
 		src="/src/lib/assets/images/why-solar-2.jpg"
 		alt=""

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import {
 		ArrowRight,
 		CheckCircle,
@@ -14,13 +14,22 @@
 	import * as Alert from '$lib/components/ui/alert';
 	import Label from '$lib/components/ui/label/label.svelte';
 	import { fly } from 'svelte/transition';
+	import Seo from '$lib/components/SEO.svelte';
+	import { browser } from '$app/environment';
+
+	// Temporary fallback values - replace with actual imports when available
+	const EMAIL_ENDPOINT = '/api/send-email';
+	const logApiRequest = (url: string, options: any) => console.log('API Request:', url, options);
+	const logApiResponse = (url: string, response: any) =>
+		console.log('API Response:', url, response);
 
 	let formData = {
-		fullName: '',
+		name: '',
 		email: '',
-		phoneNumber: '',
+		phone: '',
 		preferredContact: 'Either',
-		message: ''
+		message: '',
+		formType: 'Maintenance Plans'
 	};
 
 	let loading = false;
@@ -29,65 +38,114 @@
 	let errorMessage = '';
 
 	function resetForm() {
-		formData = {
-			fullName: '',
-			email: '',
-			phoneNumber: '',
-			preferredContact: 'Either',
-			message: ''
-		};
+		formData.name = '';
+		formData.email = '';
+		formData.phone = '';
+		formData.preferredContact = 'Either';
+		formData.message = '';
+		formData.formType = 'Maintenance Plans';
+		loading = false;
 		error = false;
 		errorMessage = '';
 	}
 
-	async function handleSubmit(event) {
-		event.preventDefault();
+	async function handleSubmit(e: SubmitEvent) {
+		e.preventDefault();
+
+		// Only proceed if we're running in the browser
+		if (!browser) return;
+
 		loading = true;
 		error = false;
+		errorMessage = '';
+
+		const submissionData = {
+			name: formData.name,
+			email: formData.email,
+			phone: formData.phone,
+			preferredContact: formData.preferredContact,
+			message: formData.message,
+			type: formData.formType
+		};
 
 		try {
-			const response = await fetch('/api/contact', {
+			const requestOptions: RequestInit = {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({
-					fullName: formData.fullName,
-					email: formData.email,
-					phoneNumber: formData.phoneNumber,
-					preferredContact: formData.preferredContact,
-					message: formData.message,
-					formType: 'maintenance-plans'
-				})
-			});
+				body: JSON.stringify(submissionData),
+				credentials: 'same-origin'
+			};
 
-			if (response.ok) {
-				submitted = true;
+			logApiRequest(EMAIL_ENDPOINT, requestOptions);
+			const response = await fetch(EMAIL_ENDPOINT, requestOptions);
+
+			if (!response.ok) {
+				const errorText = await response.text().catch(() => '');
+				let message = 'Failed to send email';
+
+				try {
+					// Try to parse error as JSON
+					const errorJson = JSON.parse(errorText);
+					if (errorJson && errorJson.error) {
+						message = errorJson.error;
+					}
+				} catch (e) {
+					// If not JSON, use status text
+					message = `Server error: ${response.status} ${response.statusText}`;
+				}
+
+				throw new Error(message);
+			}
+
+			const result = await response.json();
+
+			if (result.success) {
 				resetForm();
+				submitted = true;
 			} else {
-				const errorData = await response.json();
-				error = true;
-				errorMessage = errorData.message || 'Something went wrong. Please try again.';
+				throw new Error(result.error || 'Failed to send email');
 			}
 		} catch (err) {
+			console.error('Error sending email:', err);
+			logApiResponse(EMAIL_ENDPOINT, err);
+
+			// Detect CORS errors which typically show up as TypeError or opaque responses
+			if (err instanceof Error && err.name === 'TypeError' && err.message.includes('fetch')) {
+				errorMessage =
+					'Network error: Failed to connect to our server. This might be due to a CORS restriction or network issue.';
+			} else {
+				errorMessage =
+					err instanceof Error ? err.message : 'Failed to send email. Please try again.';
+			}
+
 			error = true;
-			errorMessage = 'Network error. Please check your connection and try again.';
 		} finally {
 			loading = false;
 		}
 	}
 
-	function handleAnchorClick(event) {
+	function handleAnchorClick(event: Event) {
 		event.preventDefault();
-		const link = event.currentTarget;
+		const link = event.currentTarget as HTMLAnchorElement;
 		const anchorId = new URL(link.href).hash.replace('#', '');
 		const anchor = document.getElementById(anchorId);
-		window.scrollTo({
-			top: anchor.offsetTop - 100,
-			behavior: 'smooth'
-		});
+		if (anchor) {
+			window.scrollTo({
+				top: anchor.offsetTop - 100,
+				behavior: 'smooth'
+			});
+		}
 	}
 </script>
+
+<Seo
+	title="Solar Maintenance Plans - Keep Your System Running at Peak Performance"
+	description="Professional solar maintenance plans in Tasmania. Keep your solar panels performing optimally with regular inspections, cleaning, and professional care. Protect your solar investment with Maximum Solar."
+	keywords="solar maintenance Tasmania, solar panel cleaning, solar system servicing, solar inspection plans, solar panel maintenance Hobart, solar system care, preventive solar maintenance"
+	type="WebPage"
+/>
 
 <svelte:head>
 	<title>Solar Maintenance Plans - Maximum Solar Tasmania</title>
@@ -515,7 +573,7 @@
 									autocomplete="name"
 									bind:value={formData.name}
 									required
-									class="block w-full rounded-full bg-zinc-800 px-6 py-3 text-base text-white transition placeholder:text-gray-500 focus:ring-2 focus:ring-[#FFC640] focus:ring-offset-2 focus:ring-offset-black focus:outline-none"
+									class="block w-full rounded-full bg-zinc-800 px-6 py-2 text-base text-white placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-[#FFC640]"
 								/>
 							</div>
 						</div>
@@ -529,7 +587,7 @@
 									autocomplete="email"
 									bind:value={formData.email}
 									required
-									class="block w-full rounded-full bg-zinc-800 px-6 py-3 text-base text-white transition placeholder:text-gray-500 focus:ring-2 focus:ring-[#FFC640] focus:ring-offset-2 focus:ring-offset-black focus:outline-none"
+									class="block w-full rounded-full bg-zinc-800 px-6 py-2 text-base text-white placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-[#FFC640]"
 								/>
 							</div>
 						</div>
@@ -549,7 +607,7 @@
 									autocomplete="tel"
 									bind:value={formData.phone}
 									required
-									class="block w-full rounded-full bg-zinc-800 px-6 py-3 text-base text-white transition placeholder:text-gray-500 focus:ring-2 focus:ring-[#FFC640] focus:ring-offset-2 focus:ring-offset-black focus:outline-none"
+									class="block w-full rounded-full bg-zinc-800 px-6 py-2 text-base text-white placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-[#FFC640]"
 								/>
 							</div>
 						</div>

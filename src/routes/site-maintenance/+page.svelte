@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Seo from '$lib/components/SEO.svelte';
 	import * as Accordion from '$lib/components/ui/accordion';
 	import * as Carousel from '$lib/components/ui/carousel';
 	import * as Tabs from '$lib/components/ui/tabs';
@@ -192,6 +193,13 @@
 	}
 </script>
 
+<Seo
+	title="Site Maintenance Services - Professional Property & Solar System Care"
+	description="Comprehensive site maintenance services in Tasmania including roofing, electrical work, solar system care, and property maintenance. Professional, reliable service for residential and commercial properties."
+	keywords="site maintenance Tasmania, property maintenance services, roofing services Hobart, electrical maintenance, solar system maintenance, building maintenance, residential maintenance"
+	type="WebPage"
+/>
+
 <svelte:head>
 	<title>Maintenance Division - Tasmania's Trusted Experts | Maximum Solar</title>
 	<meta
@@ -275,39 +283,40 @@
 		</div>
 
 		<div class="mx-auto mt-16 max-w-7xl">
-			<Tabs.Root bind:value={activeTab} class="w-full">
-				<Tabs.List class="mx-auto grid w-full max-w-xl grid-cols-4 rounded-full bg-zinc-800">
-					<Tabs.Trigger
-						value="all"
-						class="rounded-full text-white data-[state=active]:bg-[#FFC640] data-[state=active]:text-black"
-					>
-						<Shield class="mr-2 h-4 w-4" />
-						All
-					</Tabs.Trigger>
-					<Tabs.Trigger
-						value="roofing"
-						class="rounded-full text-white data-[state=active]:bg-[#FFC640] data-[state=active]:text-black"
-					>
-						<Home class="mr-2 h-4 w-4" />
-						Roofing
-					</Tabs.Trigger>
-					<Tabs.Trigger
-						value="electrical"
-						class="rounded-full text-white data-[state=active]:bg-[#FFC640] data-[state=active]:text-black"
-					>
-						<Zap class="mr-2 h-4 w-4" />
-						Electrical
-					</Tabs.Trigger>
-					<Tabs.Trigger
-						value="heatpumps"
-						class="rounded-full text-white data-[state=active]:bg-[#FFC640] data-[state=active]:text-black"
-					>
-						<Wrench class="mr-2 h-4 w-4" />
-						Heat Pumps
-					</Tabs.Trigger>
-				</Tabs.List>
-
-				<Tabs.Content value="all" class="mt-12">
+			<Tabs.Root bind:value={activeTab} class="w-full ">
+				<div class="w-full overflow-auto lg:overflow-hidden">
+					<Tabs.List class="mx-auto grid w-xl  grid-cols-4 overflow-auto rounded-full bg-zinc-800">
+						<Tabs.Trigger
+							value="all"
+							class="rounded-full text-white data-[state=active]:bg-[#FFC640] data-[state=active]:text-black"
+						>
+							<Shield class="mr-2 h-4 w-4" />
+							All
+						</Tabs.Trigger>
+						<Tabs.Trigger
+							value="roofing"
+							class="rounded-full text-white data-[state=active]:bg-[#FFC640] data-[state=active]:text-black"
+						>
+							<Home class="mr-2 h-4 w-4" />
+							Roofing
+						</Tabs.Trigger>
+						<Tabs.Trigger
+							value="electrical"
+							class="rounded-full text-white data-[state=active]:bg-[#FFC640] data-[state=active]:text-black"
+						>
+							<Zap class="mr-2 h-4 w-4" />
+							Electrical
+						</Tabs.Trigger>
+						<Tabs.Trigger
+							value="heatpumps"
+							class="rounded-full text-white data-[state=active]:bg-[#FFC640] data-[state=active]:text-black"
+						>
+							<Wrench class="mr-2 h-4 w-4" />
+							Heat Pumps
+						</Tabs.Trigger>
+					</Tabs.List>
+				</div>
+				<Tabs.Content value="all" class="mt-20 lg:mt-12">
 					{#if activeTab === 'all'}
 						<div
 							in:fade={{ duration: 200, delay: 100 }}
@@ -362,10 +371,10 @@
 								</Carousel.Content>
 								<div class="mt-8 flex items-center justify-center gap-2">
 									<Carousel.Previous
-										class="border border-[#FFC640] bg-[#FFC640] text-black hover:bg-[#FFD700] hover:text-black"
+										class="-top-12 right-14 left-auto border border-[#FFC640] bg-[#FFC640] text-black hover:bg-[#FFD700] hover:text-black sm:top-1/2 sm:right-auto sm:-left-12 sm:-translate-y-1/2"
 									/>
 									<Carousel.Next
-										class="border border-[#FFC640] bg-[#FFC640] text-black hover:bg-[#FFD700] hover:text-black"
+										class="-top-12 right-4 border border-[#FFC640] bg-[#FFC640] text-black hover:bg-[#FFD700] hover:text-black sm:top-1/2 sm:-right-12 sm:left-auto sm:-translate-y-1/2"
 									/>
 								</div>
 							</Carousel.Root>
@@ -374,7 +383,7 @@
 				</Tabs.Content>
 
 				{#each Object.entries(serviceCategories) as [key, category]}
-					<Tabs.Content value={key} class="mt-12">
+					<Tabs.Content value={key} class="mt-20 lg:mt-12">
 						{#if activeTab === key}
 							<div
 								in:fade={{ duration: 200, delay: 100 }}
@@ -406,10 +415,10 @@
 									</Carousel.Content>
 									<div class="mt-8 flex items-center justify-center gap-2">
 										<Carousel.Previous
-											class="border border-[#FFC640] bg-[#FFC640] text-black hover:bg-[#FFD700] hover:text-black"
+											class="-top-12 right-14 left-auto border border-[#FFC640] bg-[#FFC640] text-black hover:bg-[#FFD700] hover:text-black sm:top-1/2 sm:right-auto sm:-left-12 sm:-translate-y-1/2"
 										/>
 										<Carousel.Next
-											class="border border-[#FFC640] bg-[#FFC640] text-black hover:bg-[#FFD700] hover:text-black"
+											class="-top-12 right-4 border border-[#FFC640] bg-[#FFC640] text-black hover:bg-[#FFD700] hover:text-black sm:top-1/2 sm:-right-12 sm:left-auto sm:-translate-y-1/2"
 										/>
 									</div>
 								</Carousel.Root>
@@ -487,7 +496,7 @@
 -->
 
 <!-- Before and After Section -->
-<section class="py-20">
+<!-- <section class="py-20">
 	<div class="mx-auto max-w-screen-2xl px-6">
 		<div class="text-center">
 			<h2 class="font-heading text-4xl font-semibold text-black sm:text-5xl">Before & After</h2>
@@ -523,7 +532,7 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section> -->
 
 <!-- Local Expertise Section -->
 <section class="py-20">

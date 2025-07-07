@@ -1,7 +1,15 @@
 <script>
+	import Seo from '$lib/components/SEO.svelte';
 	import { ArrowRight } from '@lucide/svelte';
 	import * as Carousel from '$lib/components/ui/carousel';
 </script>
+
+<Seo
+	title="Residential Solar Panels - Home Solar Installation Tasmania"
+	description="Professional residential solar panel installation across Tasmania. From rural homes to city dwellings, tin to tile roofs - we've got you covered. Reduce bills, go fully electric, or get off-grid with Maximum Solar."
+	keywords="residential solar panels Tasmania, home solar installation, solar panels for homes, residential solar systems Hobart, house solar panels, home renewable energy, solar for rural homes"
+	type="WebPage"
+/>
 
 <section class="relative flex w-full flex-col items-center justify-center pt-60 pb-24">
 	<video
@@ -53,12 +61,12 @@
 		</p>
 		<div class="mx-auto mt-6 flex max-w-2xl items-center justify-center gap-6">
 			<enhanced:img
-				class="h-48 w-auto"
+				class="w-auto lg:h-48"
 				src="/src/lib/assets/images/logos/SEC.png"
 				alt="Smart Energy Council"
 			/>
 			<enhanced:img
-				class="h-60 w-auto"
+				class="w-auto lg:h-60"
 				src="/src/lib/assets/images/logos/CEC.jpg"
 				alt="Clean Energy Council"
 			/>
