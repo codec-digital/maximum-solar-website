@@ -1,10 +1,13 @@
 <script>
 	import { X, Phone } from '@lucide/svelte';
 	import { Sheet, SheetTrigger, SheetContent } from '$lib/components/ui/sheet'; // Correct import path
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import * as Popover from '$lib/components/ui/popover/index.js';
 	import * as Accordion from '$lib/components/ui/accordion/index.js';
 
 	let sheetOpen = false;
+	let servicesPopoverOpen = false;
+	let maintenancePopoverOpen = false;
+	let aboutPopoverOpen = false;
 
 	/**
 	 * Handles anchor link clicks by closing the sheet and then scrolling to the target section.
@@ -98,8 +101,41 @@
 									>Services</Accordion.Trigger
 								>
 								<Accordion.Content class="mr-2 flex flex-col gap-4 text-lg">
-									<a href="/residential-solar" class="hover:underline">Residential Solar</a>
-									<a href="/commercial-solar" class="hover:underline">Commercial Solar</a>
+									<a
+										href="/residential-solar"
+										class="hover:underline"
+										on:click={() => (sheetOpen = false)}>Residential Solar</a
+									>
+									<a
+										href="/commercial-solar"
+										class="hover:underline"
+										on:click={() => (sheetOpen = false)}>Commercial Solar</a
+									>
+								</Accordion.Content>
+							</Accordion.Item>
+						</Accordion.Root>
+						<Accordion.Root type="single" class="">
+							<Accordion.Item value="item-1">
+								<Accordion.Trigger
+									class="flex flex-row-reverse items-center justify-start text-right text-lg"
+									>Maintenance</Accordion.Trigger
+								>
+								<Accordion.Content class="mr-2 flex flex-col gap-4 text-lg">
+									<a
+										href="/system-inspections"
+										class="hover:underline"
+										on:click={() => (sheetOpen = false)}>System Inspections</a
+									>
+									<a
+										href="/maintenance-plans"
+										class="hover:underline"
+										on:click={() => (sheetOpen = false)}>Maintenance Plans</a
+									>
+									<a
+										href="/site-maintenance"
+										class="hover:underline"
+										on:click={() => (sheetOpen = false)}>Commercial Solar</a
+									>
 								</Accordion.Content>
 							</Accordion.Item>
 						</Accordion.Root>
@@ -110,15 +146,47 @@
 									>About</Accordion.Trigger
 								>
 								<Accordion.Content class="mr-2 flex flex-col gap-4 text-lg">
-									<a href="/the-process" class="hover:underline">The Process</a>
-									<a href="/financial-incentives" class="hover:underline">Financial Incentives</a>
+									<a
+										href="/the-process"
+										class="hover:underline"
+										on:click={() => (sheetOpen = false)}>The Process</a
+									>
+									<a
+										href="/financial-incentives"
+										class="hover:underline"
+										on:click={() => (sheetOpen = false)}>Financial Incentives</a
+									>
 								</Accordion.Content>
 							</Accordion.Item>
 						</Accordion.Root>
-						<a href="/careers" class="mt-3 text-lg hover:underline"> Careers </a>
-						<a href="/contact" class="mt-6 text-lg hover:underline"> Contact </a>
-						<a href="/faq" class="mt-6 text-lg hover:underline"> FAQ </a>
-						<a href="/blog" class="mt-6 text-lg hover:underline"> Blog </a>
+						<a
+							href="/careers"
+							class="mt-3 text-lg hover:underline"
+							on:click={() => (sheetOpen = false)}
+						>
+							Careers
+						</a>
+						<a
+							href="/contact"
+							class="mt-6 text-lg hover:underline"
+							on:click={() => (sheetOpen = false)}
+						>
+							Contact
+						</a>
+						<a
+							href="/faq"
+							class="mt-6 text-lg hover:underline"
+							on:click={() => (sheetOpen = false)}
+						>
+							FAQ
+						</a>
+						<!-- <a
+							href="/blog"
+							class="mt-6 text-lg hover:underline"
+							on:click={() => (sheetOpen = false)}
+						>
+							Blog
+						</a> -->
 					</div>
 
 					<!-- Logo positioned halfway between nav links and bottom -->
@@ -136,50 +204,81 @@
 			</Sheet>
 		</div>
 		<div class="hidden lg:flex lg:gap-x-12">
-			<DropdownMenu.Root>
-				<DropdownMenu.Trigger class="font-heading text-md cursor-pointer text-[#FFC640]"
-					>Services</DropdownMenu.Trigger
+			<Popover.Root bind:open={servicesPopoverOpen}>
+				<Popover.Trigger class="font-heading text-md cursor-pointer text-[#FFC640]"
+					>Services</Popover.Trigger
 				>
-				<DropdownMenu.Content
+				<Popover.Content
 					align="start"
-					class="font-heading border-0 bg-black text-base text-[#FFC640]"
+					class="font-heading w-auto border-0 bg-black p-3 text-base text-[#FFC640]"
 				>
-					<DropdownMenu.Group>
-						<DropdownMenu.Item
-							class="text-md hover:underline data-highlighted:bg-black data-highlighted:text-[#FFC640]"
-							><a href="/residential-solar">Residential Solar</a></DropdownMenu.Item
+					<div class="flex flex-col gap-3">
+						<a
+							href="/residential-solar"
+							class="text-md transition-colors duration-200 hover:underline"
+							on:click={() => (servicesPopoverOpen = false)}>Residential Solar</a
 						>
-						<DropdownMenu.Item
-							class="text-md hover:underline data-highlighted:bg-black data-highlighted:text-[#FFC640]"
-							><a href="/commercial-solar">Commercial Solar</a></DropdownMenu.Item
+						<a
+							href="/commercial-solar"
+							class="text-md transition-colors duration-200 hover:underline"
+							on:click={() => (servicesPopoverOpen = false)}>Commercial Solar</a
 						>
-					</DropdownMenu.Group>
-				</DropdownMenu.Content>
-			</DropdownMenu.Root>
-			<DropdownMenu.Root>
-				<DropdownMenu.Trigger class="font-heading text-md cursor-pointer text-[#FFC640]"
-					>About</DropdownMenu.Trigger
+					</div>
+				</Popover.Content>
+			</Popover.Root>
+			<Popover.Root bind:open={maintenancePopoverOpen}>
+				<Popover.Trigger class="font-heading text-md cursor-pointer text-[#FFC640]"
+					>Maintenance</Popover.Trigger
 				>
-				<DropdownMenu.Content
+				<Popover.Content
 					align="start"
-					class="font-heading border-0 bg-black text-base text-[#FFC640]"
+					class="font-heading w-auto border-0 bg-black p-3 text-base text-[#FFC640]"
 				>
-					<DropdownMenu.Group>
-						<DropdownMenu.Item
-							class="text-md hover:underline data-highlighted:bg-black data-highlighted:text-[#FFC640]"
-							><a href="/the-process">The Process</a></DropdownMenu.Item
+					<div class="flex flex-col gap-3">
+						<a
+							href="/system-inspections"
+							class="text-md transition-colors duration-200 hover:underline"
+							on:click={() => (maintenancePopoverOpen = false)}>System Inspections</a
 						>
-						<DropdownMenu.Item
-							class="text-md hover:underline data-highlighted:bg-black data-highlighted:text-[#FFC640]"
-							><a href="/financial-incentives">Financial Incentives</a></DropdownMenu.Item
+						<a
+							href="/maintenance-plans"
+							class="text-md transition-colors duration-200 hover:underline"
+							on:click={() => (maintenancePopoverOpen = false)}>Maintenance Plans</a
 						>
-					</DropdownMenu.Group>
-				</DropdownMenu.Content>
-			</DropdownMenu.Root>
+						<a
+							href="/site-maintenance"
+							class="text-md transition-colors duration-200 hover:underline"
+							on:click={() => (maintenancePopoverOpen = false)}>Site Maintenance</a
+						>
+					</div>
+				</Popover.Content>
+			</Popover.Root>
+			<Popover.Root bind:open={aboutPopoverOpen}>
+				<Popover.Trigger class="font-heading text-md cursor-pointer text-[#FFC640]"
+					>About</Popover.Trigger
+				>
+				<Popover.Content
+					align="start"
+					class="font-heading w-auto border-0 bg-black p-3 text-base text-[#FFC640]"
+				>
+					<div class="flex flex-col gap-3">
+						<a
+							href="/the-process"
+							class="text-md transition-colors duration-200 hover:underline"
+							on:click={() => (aboutPopoverOpen = false)}>The Process</a
+						>
+						<a
+							href="/financial-incentives"
+							class="text-md transition-colors duration-200 hover:underline"
+							on:click={() => (aboutPopoverOpen = false)}>Financial Incentives</a
+						>
+					</div>
+				</Popover.Content>
+			</Popover.Root>
 			<a href="/careers" class="font-heading text-md text-[#FFC640]"> Careers </a>
 			<a href="/contact" class="font-heading text-md text-[#FFC640]"> Contact </a>
 			<a href="/faq" class="font-heading text-md text-[#FFC640]"> FAQ </a>
-			<a href="/blog" class="font-heading text-md text-[#FFC640]"> Blog </a>
+			<!-- <a href="/blog" class="font-heading text-md text-[#FFC640]"> Blog </a> -->
 		</div>
 		<div class="hidden lg:flex lg:flex-1 lg:justify-end">
 			<a

@@ -62,7 +62,7 @@
 				name="email"
 				bind:value={email}
 				required
-				class="h-12 w-full rounded-full pr-4 pl-4 text-gray-700 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+				class="h-12 w-full rounded-full border-none bg-zinc-800 pr-4 pl-4 text-white placeholder:text-white/60 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
 				on:focus={resetForm}
 			/>
 		</div>

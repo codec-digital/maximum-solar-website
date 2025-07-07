@@ -8,7 +8,7 @@
 		'Maximum Solar is a mission driven company providing exceptional solar energy solutions to the people of Tasmania and Australia. Our services offer peace of mind, high quality installations aimed at helping you reduce both your bills and carbon footprint all in one. Get a quote today. ';
 	export let primaryCTA = 'Get your free quote';
 	export let secondaryCTA = 'How much can I save?';
-	export let videoSrc = '/src/lib/assets/videos/promo-video.mov';
+	export let videoSrc = '/videos/promo-video.mov';
 
 	let videoElement;
 	let loaded = false;

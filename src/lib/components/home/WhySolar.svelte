@@ -4,7 +4,7 @@
 
 <section class="n relative flex items-center justify-center overflow-hidden py-48">
 	<video autoplay muted loop class="absolute top-0 left-0 -z-20 h-full w-full object-cover">
-		<source src="/src/lib/assets/videos/why-solar.mp4" type="video/mp4" />
+		<source src="/videos/why-solar.mp4" type="video/mp4" />
 	</video>
 	<div class="absolute top-0 left-0 -z-10 h-full w-full bg-[#236EA4] opacity-20"></div>
 	<div class="z-10 grid w-full max-w-7xl grid-cols-2 gap-8 p-8 md:grid-cols-4">
