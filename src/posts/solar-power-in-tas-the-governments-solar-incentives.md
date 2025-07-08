@@ -60,7 +60,7 @@ Whether you are decking out your home, your business, or your community centre, 
 
 • **Interest-Free Loans: The Sweetener -** The Tasmanian Energy Efficiency Loan Scheme (TEELS)  is like the cherry on top. Interest-free loans mean you can greenify your energy setup without the  financial sting. Making sustainable living easy. 
 
-![Hobart sunrise.](/images/blog/image-22.jpeg)
+![Hobart sunrise.](/images/blog/image-22.jpg)
 *Imagine a Tassie powered by the sun, with a Maximum solar power system.*
 
 #### Dive into Solar: The Time Is Now

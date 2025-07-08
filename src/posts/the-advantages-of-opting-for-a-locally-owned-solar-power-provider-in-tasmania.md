@@ -46,7 +46,7 @@ Locally operated businesses are more inclined to connect with and give back to t
 
 Our team possess expertise regarding government incentives, rebates and feed in tariffs offered in Tasmania. They can assist you in navigating these programs to ensure you optimise your savings and return on investment making solar energy more cost effective and beneficial.
 
-![Solar panels on tasmanian home](/images/blog/image-18.JPG)
+![Solar panels on tasmanian home](/images/blog/image-18.jpg)
 
 #### Swift Response Times for Maintenance and Concerns
 
