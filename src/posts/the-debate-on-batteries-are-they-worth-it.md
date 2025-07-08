@@ -1,6 +1,6 @@
 ---
 title: "The Debate on Batteries - Are They Worth It?"
-slug: "blog-post-title-three-8lds8"
+slug: "the-debate-on-batteries-are-they-worth-it"
 description: "This article explains the pros and cons of installing a battery to your solar system in Australia."
 publishedAt: "2019-03-11T07:35:52.000Z"
 updatedAt: "2019-03-11T07:35:52.000Z"
@@ -11,8 +11,8 @@ tags:
 categories:
 
 author: "Maximum Solar Team"
-image: ""
-imageAlt: ""
+image: "/images/blog/image-30.jpg"
+imageAlt: "A solar battery storage unit in a home."
 ---
 
 #### **Australia, with its abundant sunshine, is an ideal location for harnessing solar power.**
@@ -21,10 +21,9 @@ imageAlt: ""
 
 **This article explores the pros and cons of integrating a battery with your solar system in the Australian context.**
 
-![](/images/blog/image-30.jpg)
 *Pros:Energy Independence: One of the most significant advantages of having a battery in your solar system is increased energy independence. By storing excess energy generated during the day, homeowners can power their homes during the evening or during cloudy days, reducing reliance on the grid.Reduced Electricity Bills: Batteries allow homeowners to maximize the use of self-generated solar power, leading to reduced dependence on grid electricity. This translates into lower electricity bills, especially during peak usage periods when grid electricity tends to be more expensive.Grid Support and Stability: Battery systems can provide grid support by stabilizing the electricity supply during peak demand or grid outages. This can contribute to a more reliable and resilient energy infrastructure, benefitting both individual homeowners and the broader community.Environmental Impact: Using stored solar energy helps reduce the reliance on traditional energy sources, lowering the carbon footprint of households. Homeowners can contribute to a greener future by harnessing and storing renewable energy for their daily needs.*
 
-![](/images/blog/image-31.jpg)
+![A close-up of a solar battery.](/images/blog/image-31.jpg)
 
 #### **_Cons:_**
 

@@ -6,8 +6,7 @@
 	export let heading = '100% Tasmanian owned and operated.';
 	export let description =
 		'Maximum Solar is a mission driven company providing exceptional solar energy solutions to the people of Tasmania and Australia. Our services offer peace of mind, high quality installations aimed at helping you reduce both your bills and carbon footprint all in one. Get a quote today. ';
-	export let primaryCTA = 'Get your free quote';
-	export let secondaryCTA = 'How much can I save?';
+	
 	export let videoSrc = '/videos/promo-video.mov';
 
 	let videoElement;
@@ -92,6 +91,7 @@
 						class="w-full"
 					>
 						<source src={videoSrc} type="video/mp4" />
+						<track kind="captions" />
 						Your browser does not support the video tag.
 					</video>
 				</div>

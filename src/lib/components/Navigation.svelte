@@ -41,7 +41,7 @@
 			<a href="/" class="-m-1.5 p-1.5">
 				<span class="sr-only">Maximum Solar</span>
 				<enhanced:img
-					src="/src/lib/assets/images/logo-transparent.png"
+					src="/src/lib/assets/images/logo-black.png"
 					alt="Maximum Solar"
 					class="absolute top-4 h-36 w-36"
 				/>
@@ -132,9 +132,9 @@
 										on:click={() => (sheetOpen = false)}>Maintenance Plans</a
 									>
 									<a
-										href="/site-maintenance"
+										href="/home-maintenance"
 										class="hover:underline"
-										on:click={() => (sheetOpen = false)}>Site Maintenance</a
+										on:click={() => (sheetOpen = false)}>Home Maintenance</a
 									>
 								</Accordion.Content>
 							</Accordion.Item>
@@ -180,19 +180,19 @@
 						>
 							FAQ
 						</a>
-						<!-- <a
+						<a
 							href="/blog"
 							class="mt-6 text-lg hover:underline"
 							on:click={() => (sheetOpen = false)}
 						>
 							Blog
-						</a> -->
+						</a>
 					</div>
 
 					<!-- Logo positioned halfway between nav links and bottom -->
 					<div class="mt-auto mb-auto flex justify-center pt-12">
 						<enhanced:img
-							src="/src/lib/assets/images/logo-transparent.png"
+							src="/src/lib/assets/images/logo-black.png"
 							alt="Maximum Solar Logo"
 							class="h-36 w-36"
 						/>
@@ -246,9 +246,9 @@
 							on:click={() => (maintenancePopoverOpen = false)}>Maintenance Plans</a
 						>
 						<a
-							href="/site-maintenance"
+							href="/home-maintenance"
 							class="text-md transition-colors duration-200 hover:underline"
-							on:click={() => (maintenancePopoverOpen = false)}>Site Maintenance</a
+							on:click={() => (maintenancePopoverOpen = false)}>Home Maintenance</a
 						>
 					</div>
 				</Popover.Content>
@@ -278,7 +278,7 @@
 			<a href="/careers" class="font-heading text-md text-[#FFC640]"> Careers </a>
 			<a href="/contact" class="font-heading text-md text-[#FFC640]"> Contact </a>
 			<a href="/faq" class="font-heading text-md text-[#FFC640]"> FAQ </a>
-			<!-- <a href="/blog" class="font-heading text-md text-[#FFC640]"> Blog </a> -->
+			<a href="/blog" class="font-heading text-md text-[#FFC640]"> Blog </a>
 		</div>
 		<div class="hidden lg:flex lg:flex-1 lg:justify-end">
 			<a

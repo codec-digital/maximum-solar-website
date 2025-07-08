@@ -125,3 +125,23 @@
 	--font-heading: 'Anton', sans-serif;
 	--font-sans: 'Open sans', sans-serif;
 }
+
+.prose h1 {
+	@apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+}
+
+.prose h2 {
+	@apply font-heading mt-10 scroll-m-20 pb-2 text-3xl transition-colors first:mt-0;
+}
+.prose h3 {
+	@apply scroll-m-20 text-2xl font-semibold tracking-tight;
+}
+.prose p {
+	@apply leading-7 [&:not(:first-child)]:mt-6;
+}
+.prose ul {
+	@apply my-6 ml-6 list-disc [&>li]:mt-2;
+}
+.prose blockquote {
+	@apply mt-6 border-l-2 pl-6 italic;
+}

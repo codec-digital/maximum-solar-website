@@ -194,9 +194,9 @@
 </script>
 
 <Seo
-	title="Site Maintenance Services - Professional Property & Solar System Care"
-	description="Comprehensive site maintenance services in Tasmania including roofing, electrical work, solar system care, and property maintenance. Professional, reliable service for residential and commercial properties."
-	keywords="site maintenance Tasmania, property maintenance services, roofing services Hobart, electrical maintenance, solar system maintenance, building maintenance, residential maintenance"
+	title="Home Maintenance Services - Professional Property & Solar System Care"
+	description="Comprehensive home maintenance services in Tasmania including roofing, electrical work, solar system care, and property maintenance. Professional, reliable service for residential and commercial properties."
+	keywords="home maintenance Tasmania, property maintenance services, roofing services Hobart, electrical maintenance, solar system maintenance, building maintenance, residential maintenance"
 	type="WebPage"
 />
 
@@ -217,41 +217,38 @@
 			sizes="min(1280px, 100vw)"
 			alt="Professional maintenance services in Tasmania"
 		/>
-		<div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/5"></div>
+		<div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/15 to-black/10"></div>
 	</div>
 
 	<div class="relative mx-auto max-w-7xl px-6 pt-56 pb-24 lg:px-8 lg:pb-20">
-		<div class="max-w-4xl">
-			<div class="text-left">
-				<h1 class="font-heading max-w-5xl text-5xl font-bold text-white lg:text-7xl">
-					<span class="block">Maintenance Division</span>
-				</h1>
-				<p class="font-heading mt-6 max-w-4xl text-2xl font-medium text-white">
-					Tasmania's Trusted Experts in Roofing, Electrical, and Renewable Maintenance
-				</p>
-				<p class="mt-6 max-w-3xl text-lg text-white">
-					Maximum Solar's dedicated Maintenance Division offers comprehensive care for your
-					property's most important systems - roofing, electrical, and renewable energy. As a local
-					Tasmanian business, we understand the unique challenges our climate presents, and we're
-					committed to delivering quality, reliability, and peace of mind for every customer.
-				</p>
-				<div class="mt-10 flex flex-col items-start justify-start gap-4 lg:flex-row">
-					<a
-						href="#contact"
-						on:click={handleAnchorClick}
-						class="inline-flex items-center justify-center rounded-full bg-[#FFC640] px-8 py-4 text-lg font-semibold text-black transition hover:bg-[#FFD700]"
-					>
-						Book Free Consultation
-						<ArrowRight class="ml-2 h-5 w-5" />
-					</a>
-					<a
-						href="#services"
-						on:click={handleAnchorClick}
-						class="inline-flex items-center justify-center rounded-full border-2 border-white/50 bg-black/30 px-8 py-4 text-lg font-semibold text-white transition hover:bg-black/50"
-					>
-						Our Services
-					</a>
-				</div>
+		<div class="mx-auto max-w-4xl text-center">
+			<h1 class="font-heading max-w-5xl text-5xl font-bold text-white lg:text-7xl">
+				<span class="block">Home Maintenance</span>
+			</h1>
+			<p class="font-heading mt-6 max-w-4xl text-2xl font-medium text-white">
+				Maximum Solar gives you the competitive edge when preparing your home for solar.
+			</p>
+			<p class="mt-6 max-w-3xl text-lg font-semibold text-white">
+				As Tasmania’s trusted one-stop shop, we specialise in restoring and optimising your
+				property’s key systems in roofing and electrical to ensure your home is ready for a seamless
+				solar installation.
+			</p>
+			<div class="mt-10 flex flex-col items-center justify-center gap-4 lg:flex-row">
+				<a
+					href="#contact"
+					on:click={handleAnchorClick}
+					class="inline-flex items-center justify-center rounded-full bg-[#FFC640] px-8 py-4 text-lg font-semibold text-black transition hover:bg-[#FFD700]"
+				>
+					Book Free Consultation
+					<ArrowRight class="ml-2 h-5 w-5" />
+				</a>
+				<a
+					href="#services"
+					on:click={handleAnchorClick}
+					class="inline-flex items-center justify-center rounded-full border-2 border-white/50 bg-black/30 px-8 py-4 text-lg font-semibold text-white transition hover:bg-black/50"
+				>
+					Our Services
+				</a>
 			</div>
 		</div>
 	</div>
@@ -269,6 +266,37 @@
 			and the latest in renewable technology, Maximum Solar is your one-stop shop for expert
 			maintenance and installations across Tasmania.
 		</p>
+		<p class="mx-auto mt-4 max-w-3xl text-lg text-gray-700">
+			With our convenient, all-in-one approach, you benefit from local expertise, quality
+			workmanship, and the peace of mind that comes from working with a single, trusted provider.
+		</p>
+	</div>
+	<div class="mx-auto my-12 grid max-w-7xl gap-8 px-4 md:grid-cols-2 lg:my-20">
+		<div class="mx-auto flex flex-col items-center justify-center text-center">
+			<h2 class="font-heading text-2xl lg:text-3xl">Pre-Installation Services</h2>
+			<p class="mt-4 text-lg text-gray-700">
+				We take care of essential tasks like re-roofing and painting to ensure your property is in
+				peak condition before your solar system is installed. Our tailored approach prepares your
+				home for optimal solar performance and helps prevent future issues.
+			</p>
+		</div>
+		<div class="mx-auto flex flex-col items-center justify-center text-center">
+			<h2 class="font-heading text-2xl lg:text-3xl">Post-Installation Integrity Checks</h2>
+			<p class="mt-4 text-lg text-gray-700">
+				For homes with existing solar, our team conducts thorough integrity checks to make sure your
+				roof continues to support your solar system safely and reliably. This proactive service
+				helps maintain the performance and longevity of your solar investment.
+			</p>
+		</div>
+	</div>
+	<div class="mx-auto max-w-4xl px-6 text-center">
+		<a
+			href="/contact"
+			class="z-10 mt-8 rounded-full bg-black px-8 py-3 text-center text-sm font-semibold text-white hover:bg-gray-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+		>
+			Book an appointment
+			<ArrowRight class="ml-2 inline h-4 w-4" />
+		</a>
 	</div>
 </section>
 

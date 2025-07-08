@@ -1,6 +1,6 @@
 ---
 title: "5 Common Objections: Why Solar Panels Are a Smart Investment"
-slug: "blog-post-title-two-ph32a"
+slug: "5-common-objections-why-solar-panels-are-a-smart-investment"
 description: "This article covers 5 common objections as to why people don’t think solar is a good idea."
 publishedAt: "2019-03-11T07:37:41.000Z"
 updatedAt: "2019-03-11T07:37:41.000Z"
@@ -11,8 +11,8 @@ tags:
 categories:
 
 author: "Maximum Solar Team"
-image: ""
-imageAlt: ""
+image: "/images/blog/image-28.jpg"
+imageAlt: "A person looking at a solar panel."
 ---
 
 _As the world increasingly turns towards sustainable living, the adoption of solar panels has gained momentum. However, some individuals still harbour reservations about investing in solar energy. In this blog post, we'll address and debunk some of the most common objections people have towards buying solar panels, shedding light on the numerous benefits that make them a wise and sustainable choice._  
@@ -36,7 +36,6 @@ Solar technology has advanced significantly, and modern solar panels are designe
 
 While payback periods can vary, they are decreasing as technology improves and costs continue to fall. On average, many solar panel systems pay for themselves within 4-10 years, and the lifespan of modern solar panels is typically 25 years or more. This means significant savings on energy bills over an extended period, making the initial investment worthwhile.  
 
-![](/images/blog/image-28.jpg)
 
   
 
@@ -54,7 +53,7 @@ Solar panel technology has evolved to be more aesthetically pleasing. There are 
 
 Solar panels generally require minimal maintenance. Routine cleaning and occasional check-ups by professionals are usually sufficient. Many manufacturers offer warranties covering maintenance for a specified period, ensuring that any unforeseen issues are addressed without additional costs.
 
-![](/images/blog/image-29.jpg)
+![A close-up of a solar panel being cleaned.](/images/blog/image-29.jpg)
 
 _In addressing these common objections, it becomes clear that the benefits of investing in solar panels far outweigh the concerns. From long-term cost savings and environmental impact to the continuous advancements in technology, solar energy is proving to be a smart and sustainable choice for homeowners._
 

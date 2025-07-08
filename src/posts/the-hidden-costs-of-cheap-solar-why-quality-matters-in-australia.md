@@ -11,15 +11,14 @@ tags:
 categories:
 
 author: "Maximum Solar Team"
-image: ""
-imageAlt: ""
+image: "/images/blog/image-23.jpg"
+imageAlt: "A damaged solar panel on a roof."
 ---
 
 **_Australia, with its abundant sunshine and commitment to sustainability, has witnessed a surge in solar installations over the past decade. While the idea of harnessing clean energy from the sun is undoubtedly appealing, the old adage "you get what you pay for" holds true, especially when it comes to solar panels._**
 
 **_In this article, we'll explore why buying cheap solar is not a good idea and why investing in quality solar solutions is crucial for long-term benefits._**
 
-![](/images/blog/image-23.jpg)
 *Destruction of solar panels as a result of a fire after a bad quality installation.*
 
 1.  #### Performance Discrepancies:

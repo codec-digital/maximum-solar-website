@@ -5,6 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
+		"prebuild": "node src/lib/sitemap-generator.js",
 		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
@@ -46,6 +47,7 @@
 		"clsx": "^2.1.1",
 		"embla-carousel-svelte": "^8.6.0",
 		"leaflet": "^1.9.4",
+		"posthog-js": "^1.256.2",
 		"resend": "^4.6.0",
 		"tailwind-merge": "^3.3.1",
 		"tailwind-variants": "^1.0.0",

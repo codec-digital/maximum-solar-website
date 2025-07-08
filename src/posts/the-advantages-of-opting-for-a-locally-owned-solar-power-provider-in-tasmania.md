@@ -1,7 +1,7 @@
 ---
 title: "The Advantages of Opting for a Locally Owned Solar Power Provider, in Tasmania"
 slug: "the-advantages-of-opting-for-a-locally-owned-solar-power-provider-in-tasmania"
-description: "When thinking about setting up solar power in Tasmania, choosing a provider that is locally owned comes with several benefits that go beyond just your home or b"
+description: "When thinking about setting up solar power in Tasmania, choosing a provider that is locally owned comes with several benefits that go beyond just your home or business."
 publishedAt: "2024-04-18T12:39:15.000Z"
 updatedAt: "2024-04-18T12:39:15.000Z"
 featured: false
@@ -11,15 +11,14 @@ tags:
 categories:
 
 author: "Maximum Solar Team"
-image: ""
-imageAlt: ""
+image: "/images/blog/image-16.jpg"
+imageAlt: "Hobart suburb Tasmania"
 ---
 
 When thinking about setting up solar power in Tasmania, choosing a provider that is locally owned comes with several benefits that go beyond just your home or business.
 
 Here's why deciding to source your solar solutions locally can be the right move for Tasmanians;
 
-![Hobart suburb Tasmania](/images/blog/image-16.jpg)
 
 #### Contribute to the Local Economy
 
@@ -59,7 +58,7 @@ The weather, in Tasmania can be unpredictable and a local solar company like our
 
 #### Talk to us today!
 
-Opting for a power provider based in Tasmania guarantees a solar system tailored to your individual requirements and the local environment. Moreover, it contributes to the growth of the economy and community. By choosing local you are fostering a future for your household and the broader Tasmanian community.  
+Opting for a power provider based in Tasmania guarantees a solar system tailored to your individual requirements and the local environment. Moreover, it contributes to the growth of the economy and community. By choosing local you are fostering a future for your household and the broader Tasmanian community.
 
 Talk to us today to see how we can find you a tailored solar solution to meet all your needs and help you save on rising electricity costs.
 

@@ -19,7 +19,7 @@
 	export let canonical = $page.url.href;
 	export let siteName = 'Maximum Solar';
 	export let imageURL = '$lib/assets/images/hero.jpg';
-	export let logo = '$lib/assets/images/logo-transparent.png';
+	export let logo = '$lib/assets/images/logo-black.png';
 	export let author = 'Maximum Solar';
 	export let type: SchemaType = 'WebSite';
 	export let name = 'Maximum Solar';

@@ -1,7 +1,7 @@
 ---
 title: "Harnessing the Sun: How Solar Power is Revolutionising Australian Homes"
 slug: "harnessing-the-sun-how-solar-power-is-revolutionising-australian-homes"
-description: "Lately solar energy has become a game changer in Australia's energy scene providing a budget friendly self reliant option compared to conventional power sources"
+description: "Lately solar energy has become a game changer in Australia's energy scene providing a budget friendly self reliant option compared to conventional power sources."
 publishedAt: "2024-04-22T16:31:33.000Z"
 updatedAt: "2024-04-22T16:31:33.000Z"
 featured: false
@@ -17,8 +17,8 @@ categories:
   - Sustainability
 
 author: "Maximum Solar Team"
-image: ""
-imageAlt: ""
+image: "/images/blog/image-14.jpg"
+imageAlt: "Hobart market"
 ---
 
 _Lately solar energy has become a game changer in Australia's energy scene providing a budget friendly self reliant option compared to conventional power sources. This shift is noticeable in Tasmania, where residents are embracing solar power more than ever before for their households. When working alongside specialists such as Maximum Solar, Tasmanians are uncovering the advantages of utilising solar energy from the sun every single day._ 
@@ -35,7 +35,7 @@ Solar power is considered a game changer now for many reasons; 
 
 These benefits make solar power an appealing choice for homeowners in Tasmania, where the climate and geographical conditions are ideal for solar installations. 
 
-![Hobart market](/images/blog/image-14.jpg)
+
 
 #### How Is Maximum Solar Leading the Solar Revolution in Tasmania? 
 

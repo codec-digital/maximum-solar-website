@@ -1,7 +1,7 @@
 ---
 title: "Solar Battery Storage: The Key to Maximising Your Solar Investment"
 slug: "solar-battery-storage-the-key-to-maximising-your-solar-investment"
-description: "The transition to solar energy is a significant step towards achieving energy independence and sustainability. For Tasmanian homeowners, the journey doesn't end"
+description: "The transition to solar energy is a significant step towards achieving energy independence and sustainability. "
 publishedAt: "2024-04-13T20:09:16.000Z"
 updatedAt: "2024-04-13T20:09:16.000Z"
 featured: false
@@ -11,13 +11,11 @@ tags:
 categories:
 
 author: "Maximum Solar Team"
-image: ""
-imageAlt: ""
+image: "/images/blog/image-19.jpg"
+imageAlt: "Sunset Tasmania"
 ---
 
 _The transition to solar energy is a significant step towards achieving energy independence and sustainability. For Tasmanian homeowners, the journey doesn't end with installing solar panels; it's further enhanced by integrating solar battery storage systems. This technology is revolutionizing how households consume and store energy, making solar investments even more valuable._
-
-![Sunset Tasmania](/images/blog/image-19.jpeg)
 
 #### What Is Solar Battery Storage and How Does It Work? 
 
@@ -29,7 +27,7 @@ Tasmania's unique climate and energy needs make solar battery storage an essenti
 
 The ability to store and use solar energy on demand ensures that households can remain powered during outages or periods of low sunlight. 
 
-![](/images/blog/image-20.jpg)
+![A solar battery storage unit.](/images/blog/image-20.jpg)
 
 
 #### How Can Solar Battery Storage Maximise Your Solar Investment? 
