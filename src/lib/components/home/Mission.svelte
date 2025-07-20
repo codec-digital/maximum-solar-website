@@ -34,11 +34,11 @@
 			<div
 				class="mx-auto grid max-w-2xl grid-cols-1 items-start gap-x-12 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2"
 			>
-				<div class=" h-full w-full object-cover">
+				<div class="h-auto w-full overflow-hidden">
 					<enhanced:img
 						alt="Coal River Valley"
 						src="$lib/assets/images/mission.jpg"
-						class="block h-full w-auto object-cover"
+						class="block w-full object-contain object-center"
 						loading="lazy"
 					/>
 				</div>
