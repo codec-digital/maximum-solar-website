@@ -329,8 +329,10 @@
 						<h3 class="font-heading mb-4 text-5xl text-white">Contact</h3>
 						<div class="space-y-2 text-gray-300">
 							<p>
-								Email: <a href="mailto:info@maxsolar.com.au" target="_blank" class="hover:underline"
-									>info@maxsolar.com.au</a
+								Email: <a
+									href="mailto:info@maximumsolar.com.au"
+									target="_blank"
+									class="hover:underline">info@maximumsolar.com.au</a
 								>
 							</p>
 							<p>
