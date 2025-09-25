@@ -66,7 +66,7 @@
 			</a>
 			<a
 				target="_blank"
-				href="https://au.linkedin.com/in/maximum-solar-64b12b299"
+				href="https://au.linkedin.com/company/maximum-solar-australia"
 				class="text-white hover:text-[#FFC640]"
 			>
 				<span class="sr-only">LinkedIn</span>
