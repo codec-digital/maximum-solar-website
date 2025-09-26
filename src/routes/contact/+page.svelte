@@ -317,7 +317,7 @@
 								target="_blank"
 								class="hover:underline"
 							>
-								6/111 Macquarie Street.<br />
+								Level 6/111 Macquarie Street.<br />
 								Hobart TAS<br />
 								7000
 							</a>
