@@ -26,6 +26,7 @@
 		name: '',
 		email: '',
 		phone: '',
+		postCode: '',
 		preferredContact: 'Either',
 		message: '',
 		formType: 'General Contact Form'
@@ -40,6 +41,7 @@
 		formData.name = '';
 		formData.email = '';
 		formData.phone = '';
+		formData.postCode = '';
 		formData.preferredContact = 'Either';
 		formData.message = '';
 		formData.formType = 'General Contact Form';
@@ -70,6 +72,7 @@
 			name: formData.name,
 			email: formData.email,
 			phone: formData.phone,
+			postCode: formData.postCode,
 			preferredContact: formData.preferredContact,
 			message: formData.message,
 			type: formData.formType
@@ -205,6 +208,21 @@
 								autocomplete="tel"
 								bind:value={formData.phone}
 								required
+								class="block w-full rounded-full bg-zinc-800 px-6 py-2 text-base text-white placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-[#FFC640]"
+							/>
+						</div>
+					</div>
+					<div class="grid gap-2">
+						<Label for="postcode" class="text-sm/6 font-semibold text-white"
+							>Suburb / Postcode</Label
+						>
+						<div class="mt-2.5">
+							<input
+								type="text"
+								id="postcode"
+								name="postcode"
+								autocomplete="postal-code"
+								bind:value={formData.postCode}
 								class="block w-full rounded-full bg-zinc-800 px-6 py-2 text-base text-white placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-[#FFC640]"
 							/>
 						</div>
@@ -371,6 +389,21 @@
 									autocomplete="tel"
 									bind:value={formData.phone}
 									required
+									class="block w-full rounded-full bg-zinc-800 px-6 py-2 text-base text-white placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-[#FFC640]"
+								/>
+							</div>
+						</div>
+						<div class="grid gap-2">
+							<Label for="mobile-postcode" class="text-sm/6 font-semibold text-white"
+								>Suburb / Postcode</Label
+							>
+							<div class="mt-2.5">
+								<input
+									type="text"
+									id="mobile-postcode"
+									name="postcode"
+									autocomplete="postal-code"
+									bind:value={formData.postCode}
 									class="block w-full rounded-full bg-zinc-800 px-6 py-2 text-base text-white placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-[#FFC640]"
 								/>
 							</div>

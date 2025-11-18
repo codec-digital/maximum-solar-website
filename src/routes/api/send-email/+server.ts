@@ -29,7 +29,7 @@ export const POST: RequestHandler = async ({ request }) => {
 	}
 
 	const body = await request.json();
-	const { name, email, phone, message, type } = body;
+	const { name, email, phone, postCode, message, type } = body;
 
 	try {
 		let htmlContent: string;
@@ -42,6 +42,7 @@ export const POST: RequestHandler = async ({ request }) => {
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Phone:</strong> ${phone}</p>
+                <p><strong>Suburb / Postcode:</strong> ${postCode || 'Not provided'}</p>
                 <p><strong>Job Areas of Interest:</strong> ${jobAreas.join(', ')}</p>
                 <p><strong>Message:</strong></p>
                 <p>${message}</p>
@@ -54,6 +55,7 @@ export const POST: RequestHandler = async ({ request }) => {
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Phone:</strong> ${phone}</p>
+                <p><strong>Suburb / Postcode:</strong> ${postCode || 'Not provided'}</p>
                 <p><strong>Preferred Contact Method:</strong> ${preferredContact}</p>
                 <p><strong>Message:</strong></p>
                 <p>${message}</p>
