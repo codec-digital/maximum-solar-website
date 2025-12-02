@@ -1,14 +1,14 @@
 ---
-title: "Tasmania's No.1 Installer of Tindo Solar Panels"
+title: "Australia's No.1 Installer of Tindo Solar Panels"
 slug: "tasmania-no-1-installer-tindo-solar-panels"
-description: "Discover why Maximum Solar is Tasmania's number one installer of Tindo Solar panels, combining Australian-made quality, local expertise, and exceptional customer service for reliable renewable energy solutions."
+description: "Discover why Maximum Solar is Australia's number one installer of Tindo Solar panels, combining Australian-made quality, local expertise, and exceptional customer service for reliable renewable energy solutions."
 publishedAt: "2025-10-31T00:00:00.000Z"
 updatedAt: "2025-10-31T00:00:00.000Z"
 featured: true
 draft: false
 author: "Maximum Solar Team"
 image: "/images/blog/tindo-blog.webp"
-imageAlt: "Tasmania's No.1 Installer of Tindo Solar Panels"
+imageAlt: "Australia's No.1 Installer of Tindo Solar Panels"
 tags:
   - solar energy
   - renewable energy

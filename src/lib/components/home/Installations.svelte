@@ -153,7 +153,7 @@
 				alt="Smart Energy Council"
 			/>
 			<enhanced:img
-				class="w-auto lg:h-60"
+				class="w-auto lg:h-48"
 				src="/src/lib/assets/images/logos/CEC.jpg"
 				alt="Clean Energy Council"
 			/>
