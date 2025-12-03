@@ -100,8 +100,8 @@
 				<h3 class="font-heading mb-4 text-left text-3xl">High Quality Installation.</h3>
 				<p class="text-left text-base font-medium">
 					Once we have exactly what we need to proceed with installation and the solution has been
-					agreed upon. We will use our Clean Energy Council accredited installers to ensure the
-					commercial systems are fitted and installed to the highest standards.
+					agreed upon. We will use our Solar Accreditation Australia accredited installers to ensure
+					the commercial systems are fitted and installed to the highest standards.
 				</p>
 			</div>
 			<div class="bottom-40 left-10 mt-12 text-center lg:absolute">
@@ -124,10 +124,10 @@
 		</h2>
 		<p class="mx-auto mt-10 max-w-3xl text-center text-base lg:text-lg">
 			At Maximum Solar we take pride in having a team of highly skilled and qualified installers who
-			are accredited by the Clean Energy Council (CEC). This accreditation ensures that we have only
-			the best people working on your solar installation. Our installers have undergone extensive
-			training and assessments to meet the industry standards set by the CEC. We believe in
-			delivering quality workmanship to our customers.
+			are accredited by Solar Accreditation Australia (SAA). This accreditation ensures that we have
+			only the best people working on your solar installation. Our installers have undergone
+			extensive training and assessments to meet the industry standards set by the CEC. We believe
+			in delivering quality workmanship to our customers.
 		</p>
 		<p class="mx-auto mt-10 max-w-3xl text-center text-base lg:text-lg">
 			Our installers are experienced professionals who are committed to providing installations of

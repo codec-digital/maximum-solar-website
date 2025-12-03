@@ -263,8 +263,8 @@
 				</div>
 				<h3 class="font-heading mb-4 text-xl font-semibold text-black">Professional Service</h3>
 				<p class="text-center text-base text-gray-600">
-					All work is performed by experienced, Clean Energy Council-accredited technicians who know
-					Tasmanian solar inside and out.
+					All work is performed by experienced, Solar Accreditation Australia-accredited technicians
+					who know Tasmanian solar inside and out.
 				</p>
 			</div>
 
@@ -615,9 +615,7 @@
 							</div>
 						</div>
 						<div class="grid gap-2">
-							<Label for="postcode" class="text-sm/6  text-white">
-								Suburb / Postcode
-							</Label>
+							<Label for="postcode" class="text-sm/6  text-white">Suburb / Postcode</Label>
 							<div class="mt-2.5">
 								<input
 									type="text"

@@ -143,7 +143,7 @@
 			question: 'Who will carry out my inspection?',
 			answer: `
 				<p class="pb-4 text-base ">
-					All Maximum Solar inspections are performed by Clean Energy Council-accredited electricians with extensive experience in Tasmania's solar industry. Our team is fully licensed, insured, and up-to-date with the latest standards.
+					All Maximum Solar inspections are performed by  Solar Accreditation Australia-accredited electricians with extensive experience in Tasmania's solar industry. Our team is fully licensed, insured, and up-to-date with the latest standards.
 				</p>
 			`
 		},
@@ -297,8 +297,8 @@
 		<div class="text-center">
 			<h2 class="font-heading text-4xl sm:text-5xl">Comprehensive Solar System Inspections</h2>
 			<p class="mx-auto mt-6 max-w-3xl text-xl text-gray-600">
-				Our Clean Energy Council-accredited professionals provide thorough assessments tailored to
-				Tasmania's unique weather conditions.
+				Our Solar Accreditation Australia-accredited professionals provide thorough assessments
+				tailored to Tasmania's unique weather conditions.
 			</p>
 		</div>
 
@@ -346,7 +346,7 @@
 						<h3 class="font-heading mb-2 text-xl">Safety & Compliance Checks</h3>
 						<p class="text-gray-600">
 							We ensure your system meets all Tasmanian and Australian electrical safety
-							regulations, including AS/NZS 5033 and Clean Energy Council guidelines.
+							regulations, including AS/NZS 5033 and Solar Accreditation Australia guidelines.
 						</p>
 					</div>
 				</div>
@@ -606,9 +606,7 @@
 							</div>
 						</div>
 						<div class="grid gap-2">
-							<Label for="postcode" class="text-sm/6  text-white">
-								Suburb / Postcode
-							</Label>
+							<Label for="postcode" class="text-sm/6  text-white">Suburb / Postcode</Label>
 							<div class="mt-2.5">
 								<input
 									type="text"

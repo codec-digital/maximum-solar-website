@@ -54,10 +54,10 @@
 		<p class="mx-auto mt-10 max-w-3xl text-center text-base lg:text-lg">
 			Our installation services are comprehensive to your specific requirements. We have experience
 			in installing systems of all sizes, from small residential setups to large-scale commercial
-			installations. Our trained professionals accredited by the Clean Energy Council (CEC) will
-			guarantee that your solar panels are properly and effectively fitted, maximising their energy
-			output potential. Solar energy not only helps you save on your electricity bills but also
-			contributes to a greener and more sustainable future.
+			installations. Our trained professionals accredited by Solar Accreditation Australia (SAA)
+			will guarantee that your solar panels are properly and effectively fitted, maximising their
+			energy output potential. Solar energy not only helps you save on your electricity bills but
+			also contributes to a greener and more sustainable future.
 		</p>
 		<div class="mx-auto mt-6 flex max-w-2xl items-center justify-center gap-6">
 			<enhanced:img
@@ -161,8 +161,8 @@
 		</h2>
 		<p class="mx-auto mt-10 max-w-3xl text-center text-base font-bold text-white lg:text-lg">
 			At Maximum Solar we take pride in having a team of highly skilled and qualified installers who
-			are accredited by the Clean Energy Council (CEC). This accreditation ensures that we have only
-			the best people working on your solar installation.
+			are accredited by the Solar Accreditation Australia (SAA). This accreditation ensures that we
+			have only the best people working on your solar installation.
 		</p>
 		<p class="mx-auto mt-10 max-w-3xl text-center text-base text-white lg:text-lg">
 			Our installers have undergone extensive training and assessments to meet the industry
