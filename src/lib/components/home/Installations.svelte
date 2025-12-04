@@ -146,16 +146,21 @@
 				height="300"
 			/>
 		</div>
-		<div class="mx-auto mt-6 flex max-w-2xl items-center justify-center gap-6">
+		<div class="mx-auto mt-6 flex max-w-5xl flex-col items-center justify-center gap-8 lg:flex-row">
 			<enhanced:img
-				class="w-auto lg:h-48"
-				src="/src/lib/assets/images/logos/SEC.png"
-				alt="Smart Energy Council"
+				class="h-32 w-auto lg:h-48"
+				src="/src/lib/assets/images/logos/approved-seller.jpg"
+				alt="Clean Energy Council"
 			/>
 			<enhanced:img
-				class="w-auto lg:h-48"
+				class="h-32 w-auto lg:h-48"
 				src="/src/lib/assets/images/logos/CEC.jpg"
 				alt="Clean Energy Council"
+			/>
+			<enhanced:img
+				class="h-32 w-auto lg:h-48"
+				src="/src/lib/assets/images/logos/SEC-member.png"
+				alt="Smart Energy Council"
 			/>
 		</div>
 	</div>
