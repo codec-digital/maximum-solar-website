@@ -59,7 +59,9 @@
 			energy output potential. Solar energy not only helps you save on your electricity bills but
 			also contributes to a greener and more sustainable future.
 		</p>
-		<div class="mx-auto mt-6 flex max-w-3xl flex-col items-center justify-center gap-6 lg:flex-row">
+		<div
+			class="mx-auto mt-12 flex max-w-3xl flex-col items-center justify-center gap-6 lg:mt-24 lg:flex-row"
+		>
 			<enhanced:img
 				class="h-32 w-auto lg:h-48"
 				src="/src/lib/assets/images/logos/SEC-member.png"
