@@ -312,13 +312,13 @@
 						<h3 class="font-heading mb-4 text-5xl text-white">Hobart</h3>
 						<p class="text-gray-300">
 							<a
-								href="https://www.google.com/maps/place/Maximum+Solar/@-42.8833073,147.3243845,1128m/data=!3m3!1e3!4b1!5s0xaa6e7506c947d77d:0x50837726367d10e0!4m6!3m5!1s0xaa6e75cf1732d60d:0x4baa3a0e617bda0!8m2!3d-42.8833074!4d147.3292554!16s%2Fg%2F11y2k5_dg5?entry=ttu&g_ep=EgoyMDI1MDYyNi4wIKXMDSoASAFQAw%3D%3D"
+								href="https://www.google.com/maps/place/Maximum+Solar/@-42.8596256,147.3901282,1149m/data=!3m3!1e3!4b1!5s0xaa6e7506c947d77d:0x50837726367d10e0!4m6!3m5!1s0xaa6e75cf1732d60d:0x4baa3a0e617bda0!8m2!3d-42.8596256!4d147.3927031!16s%2Fg%2F11y2k5_dg5?entry=ttu&g_ep=EgoyMDI2MDMwMi4wIKXMDSoASAFQAw%3D%3D"
 								target="_blank"
 								class="hover:underline"
 							>
-								Level 6/111 Macquarie Street.<br />
-								Hobart TAS<br />
-								7000
+								Warehouse 3, Lot 4/21 South Arm Hwy<br />
+								Mornington TAS<br />
+								7018
 							</a>
 						</p>
 					</div>

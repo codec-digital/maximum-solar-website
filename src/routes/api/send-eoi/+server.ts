@@ -129,7 +129,7 @@ export const POST: RequestHandler = async ({ request }) => {
                     <tr>
                         <td style="background-color: #f9f9f9; padding: 20px 30px; text-align: center; border-radius: 0 0 8px 8px; border-top: 1px solid #e0e0e0;">
                             <p style="margin: 0; color: #666666; font-size: 12px;">This email was sent from the Expression of Interest form at quote.maximumsolar.com.au</p>
-                            <p style="margin: 10px 0 0 0; color: #666666; font-size: 12px;">Maximum Solar | Level 6/111 Macquarie Street, Hobart TAS 7000</p>
+                            <p style="margin: 10px 0 0 0; color: #666666; font-size: 12px;">Maximum Solar | Warehouse 3, Lot 4/21 South Arm Hwy, Mornington TAS 7018</p>
                         </td>
                     </tr>
                 </table>

@@ -3,8 +3,8 @@
 	import { browser } from '$app/environment';
 
 	// Hobart office coordinates
-	const lat = -42.8831729;
-	const lng = 147.3292619;
+	const lat = -42.8596256;
+	const lng = 147.3927031;
 	const zoom = 16;
 
 	let mapContainer;
@@ -14,7 +14,7 @@
 	// Maximum Solar office details for the popup
 	const officeInfo = {
 		name: 'Maximum Solar',
-		address: '6/111 Macquarie St<br>Hobart TAS 7000',
+		address: 'Warehouse 3, Lot 4/21 South Arm Hwy<br>Mornington TAS 7018',
 		phone: '1300 457 542',
 		email: 'info@maximumsolar.com.au'
 	};
