@@ -101,7 +101,7 @@
 		<div class="relative mx-auto w-full max-w-7xl font-sans">
 			<div class="mt-20 overflow-hidden rounded-3xl">
 				<enhanced:img
-					src="/src/lib/assets/images/why-solar.jpg"
+					src="/src/lib/assets/images/community-groups.jpg"
 					alt="A multi-generational family with a Black man holding a baby, standing next to an older white couple in a garden setting."
 					class="h-auto w-full max-w-4xl rounded-3xl"
 				/>
