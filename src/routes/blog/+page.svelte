@@ -33,7 +33,7 @@
 			</p>
 		</div>
 
-		<div class="mt-16 grid grid-cols-1 gap-x-8 gap-y-12 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+		<div class="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 			{#each data.posts as post}
 				<a href="/blog/{post.slug}" class="flex flex-col items-start justify-between">
 					<Card.Root className="">
@@ -41,12 +41,12 @@
 							<img
 								src={post.image}
 								alt={post.imageAlt}
-								class="aspect-[16/9] w-full rounded-none object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+								class="aspect-[16/9] w-full rounded-none object-cover"
 							/>
 							<div class="absolute inset-0 rounded-2xl ring-1 ring-gray-900/10 ring-inset"></div>
 						</div>
 						<div class="max-w-xl">
-							<div class=" flex items-center gap-x-4 text-sm">
+							<div class="flex items-center gap-x-4 text-sm">
 								<time datetime={post.publishedAt} class="text-white">
 									{new Date(post.publishedAt).toLocaleDateString('en-AU', {
 										year: 'numeric',
@@ -56,10 +56,10 @@
 								</time>
 							</div>
 							<div class="group relative">
-								<h3 class="font-heading mt-3 text-lg leading-10 text-white lg:text-3xl">
+								<h3 class="font-heading mt-3 text-base leading-7 text-white lg:text-xl">
 									{post.title}
 								</h3>
-								<p class="mt-5 line-clamp-3 text-base leading-6 text-white">
+								<p class="mt-3 line-clamp-3 text-sm leading-6 text-white">
 									{post.description}
 								</p>
 							</div>

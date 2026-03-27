@@ -2,7 +2,7 @@
 title: "Before You Go Solar in Tasmania, Ask These 3 Questions"
 slug: "before-you-go-solar-in-tasmania-ask-these-3-questions"
 description: "Discover the three essential questions every Tasmanian homeowner should ask before going solar. Learn how to evaluate long-term savings, installation quality, and warranty support."
-publishedAt: "2026-01-15T00:00:00.000Z"
+publishedAt: "2025-12-15T00:00:00.000Z"
 updatedAt: "2026-01-15T00:00:00.000Z"
 featured: false
 draft: false
