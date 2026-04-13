@@ -357,8 +357,8 @@
 								>
 							</p>
 							<p>
-								Phone: <a href="tel:+61362345678" target="_blank" class="hover:underline"
-									>(03) 6234 5678</a
+								Phone: <a href="tel:1300457542" target="_blank" class="hover:underline"
+									>1300 457 542</a
 								>
 							</p>
 						</div>
