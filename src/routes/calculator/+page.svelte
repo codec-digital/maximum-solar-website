@@ -22,6 +22,16 @@
 	let submitting = $state(false);
 	let submitError = $state('');
 
+	// Scroll to the calculator card on step transitions, but not on initial page load.
+	let stepInitialized = false;
+	$effect(() => {
+		quizState.currentStep; // reactive dependency
+		if (stepInitialized) {
+			document.getElementById('calculator-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
+		stepInitialized = true;
+	});
+
 	const TOTAL_STEPS = 7;
 
 	const showProgress = $derived(!quizState.exitType && !resultsVisible);
@@ -162,7 +172,7 @@
 		</div>
 
 		<!-- Main card -->
-		<div class="rounded-2xl bg-zinc-900 p-6 ring-1 ring-white/10 sm:p-8">
+		<div id="calculator-card" class="rounded-2xl bg-zinc-900 p-6 ring-1 ring-white/10 sm:p-8">
 			{#if resultsVisible && resultsStore.result}
 				<ResultsDashboard
 					result={resultsStore.result}

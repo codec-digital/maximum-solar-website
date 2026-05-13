@@ -29,7 +29,7 @@
 			<span class="font-heading text-4xl font-bold text-white"
 				>{result.simplePaybackYears} years</span
 			>
-			<span class="text-sm text-zinc-500">System cost: {formatCurrency(result.estimatedSystemCost)}</span>
+			<span class="text-sm text-zinc-500">System cost: {formatCurrency(result.estimatedSystemCostMid)}</span>
 		</div>
 
 		<div class="relative h-4 w-full overflow-hidden rounded-full bg-zinc-800">

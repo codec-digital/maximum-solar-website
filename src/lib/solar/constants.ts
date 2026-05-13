@@ -160,7 +160,7 @@ export const SYSTEM_SIZE_MAP: Array<{
 		quarterlyBillMax: 300,
 		label: 'Under $300',
 		baseSystemSizeKw: 0,
-		recommendedDescription: 'not_recommended'
+		recommendedDescription: 'not recommended'
 	},
 	{
 		quarterlyBillMin: 300,
@@ -168,7 +168,7 @@ export const SYSTEM_SIZE_MAP: Array<{
 		label: '$300 – $500',
 		baseSystemSizeKw: 6.6,
 		recommendedDescription:
-			"A 6.6kW system is ideal for your usage level — Tasmania's most popular residential system."
+			"A 6.6kW system is ideal for your usage level. Tasmania's most popular residential system."
 	},
 	{
 		quarterlyBillMin: 500,
@@ -190,7 +190,7 @@ export const SYSTEM_SIZE_MAP: Array<{
 		quarterlyBillMax: Infinity,
 		label: 'Over $1,000',
 		baseSystemSizeKw: 13.2,
-		recommendedDescription: 'A 13.2kW system is recommended — designed for high-consumption homes.'
+		recommendedDescription: 'A 13.2kW system is recommended. Designed for high-consumption homes.'
 	}
 ];
 

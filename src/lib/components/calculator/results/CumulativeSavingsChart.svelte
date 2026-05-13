@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { CalculationResult } from '$lib/solar/calculator';
 	import { AreaChart } from 'layerchart';
+	import { curveMonotoneX } from 'd3-shape';
 
 	interface Props {
 		result: CalculationResult;
@@ -10,7 +11,9 @@
 
 	const data = $derived(
 		[{ year: 0, savings: -result.estimatedSystemCostMid }].concat(
-			result.yearProjections.map((p) => ({ year: p.year, savings: p.cumulativeSavings }))
+			result.yearProjections
+				.filter((p) => p.year % 5 === 0)
+				.map((p) => ({ year: p.year, savings: p.cumulativeSavings }))
 		)
 	);
 
@@ -45,6 +48,8 @@
 			x="year"
 			y="savings"
 			axis={true}
+			xDomain={[-0.5, 25.5]}
+			padding={{ top: 4, left: 56, bottom: 20, right: 8 }}
 			series={[
 				{
 					key: 'savings',
@@ -55,6 +60,10 @@
 			]}
 			grid={true}
 			props={{
+				area: {
+					stroke: 'none',
+					curve: curveMonotoneX
+				},
 				xAxis: {
 					tickLabelProps: { fill: '#a1a1aa' }
 				},

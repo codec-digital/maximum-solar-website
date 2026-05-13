@@ -44,9 +44,9 @@
 		<MonthlyProductionChart {result} />
 	{/if}
 
-	<SystemDetailsSummary {result} />
-
 	<EnvironmentalImpact {result} />
+
+	<SystemDetailsSummary {result} />
 
 	{#if result.batteryScenario}
 		<BatteryScenario {result} />
