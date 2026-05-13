@@ -142,6 +142,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
 		const data = await resend.emails.send({
 			from: 'Expression of Interest <webmaster@quote.maximumsolar.com.au>',
+			// to: ['jake@haruassembly.com'],
 			to: ['jake@haruassembly.com', 'info@maximumsolar.com.au'],
 			replyTo: email,
 			subject: `New Expression of Interest from ${companyName} - ${yourName}`,
