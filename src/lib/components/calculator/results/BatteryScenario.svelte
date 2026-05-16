@@ -36,7 +36,7 @@
 			</div>
 		</div>
 
-		<div class="mb-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
+		<div class="mb-5 grid grid-cols-3 gap-4">
 			<div class="rounded-xl bg-zinc-800/60 p-4 text-center">
 				<p class="font-heading text-2xl font-bold text-white">
 					{formatCurrency(result.batteryScenario.combinedAnnualSavings)}
@@ -55,20 +55,13 @@
 				</p>
 				<p class="mt-1 text-xs text-zinc-500">Battery payback</p>
 			</div>
-			<div class="rounded-xl bg-zinc-800/60 p-4 text-center">
-				<p class="font-heading text-2xl font-bold text-white">
-					{formatCurrency(result.batteryScenario.batteryCost)}
-				</p>
-				<p class="mt-1 text-xs text-zinc-500">Battery cost (est.)</p>
-			</div>
 		</div>
 
 		<div class="flex items-start gap-3 rounded-xl bg-zinc-800/50 p-4">
 			<TrendingUp class="mt-0.5 size-4 flex-shrink-0 text-zinc-400" />
 			<p class="text-sm text-zinc-300">
 				A battery stores energy you'd otherwise export at 8.78c/kWh, making it available for evening
-				use at 25.35c/kWh. nearly 3× the value. Estimate assumes a 10kWh system with 90% round-trip
-				efficiency.
+				use at 25.35c/kWh — nearly 3× the value.
 			</p>
 		</div>
 	</div>

@@ -19,9 +19,20 @@
 	</button>
 
 	{#if open}
-		<div transition:slide={{ duration: 200 }} class="border-t border-zinc-800 px-5 pb-5 pt-4">
+		<div transition:slide={{ duration: 200 }} class="border-t border-zinc-800 px-5 pt-4 pb-5">
 			<p class="text-xs leading-relaxed text-zinc-600">
-				These figures are estimates based on average Tasmanian conditions and are not a guarantee of financial return. Calculations assume: Aurora Energy Tariff 93 blended rate of 25.35c/kWh; feed-in tariff of 8.78c/kWh (2025–26 regulated minimum, held flat in projections as the trend is declining); regional solar yield of 1,150–1,220 kWh/kW/year adjusted for roof orientation; 3% annual electricity price increase applied to grid savings only; 0.5% annual panel degradation applied across 25-year projection; system cost range post-STC rebate (mid-point used for calculations). Battery scenario assumes 10kWh system at $12,000 installed with 90% round-trip efficiency. A fixed daily supply charge of ~$552/year cannot be offset by solar and is included in projected bills. Actual results will vary based on shading, roof pitch, household behaviour, and future tariff changes. Maximum Solar recommends a free in-home site assessment before making any investment decision.
+				These figures are estimates based on average Tasmanian conditions and are not a guarantee of
+				financial return. Calculations assume: Aurora Energy Tariff 93 blended rate of 25.35c/kWh;
+				feed-in tariff of 8.78c/kWh (2025–26 regulated minimum, held flat in projections as the
+				trend is declining); regional solar yield of 1,150–1,220 kWh/kW/year with a fixed
+				orientation factor of 0.88 applied to reflect a typical suburban roof mix; 5% annual
+				electricity price increase applied to grid savings only, consistent with Aurora Energy's
+				historical pricing trend; no panel degradation applied. Battery scenario assumes a 10kWh
+				system with 90% round-trip efficiency. Battery pricing is confirmed at your free site
+				assessment. A fixed daily supply charge of ~$552/year cannot be offset by solar and is
+				included in projected bills. Actual results will vary based on shading, roof pitch,
+				household behaviour, and future tariff changes. Maximum Solar recommends a free in-home site
+				assessment before making any investment decision.
 			</p>
 		</div>
 	{/if}

@@ -51,23 +51,21 @@ export const FEED_IN_TARIFF = 0.08782; // $ per kWh
 // BILL INFLATION RATE
 // Applied ONLY to the grid offset (avoided cost) component of savings.
 // NOT applied to the FiT export component. See calculator.ts Step 9.
-// Source: AEMC data; consistent with SolarCalculator.com.au industry standard.
+// Source: Aurora Energy historical price increase data; consistent with
+// competitor tools (SolarCalculator.com.au, TSS). Aurora's increases have
+// exceeded this figure in several recent years.
 // ============================================================
-export const ANNUAL_BILL_INFLATION_RATE = 0.03; // 3% per year — offset savings only
+export const ANNUAL_BILL_INFLATION_RATE = 0.05; // 5% per year — offset savings only
 
-// ============================================================
-// PANEL DEGRADATION RATE
-// Solar panels degrade at approximately 0.5% per year (industry standard
-// warranty figure for tier-1 panels). Applied in the 25-year projection loop.
-// Without this, the 25-year savings figure is overstated by ~6–8%.
-// ============================================================
-export const PANEL_DEGRADATION_RATE = 0.005; // 0.5% per year
+// NOTE: Panel degradation is NOT modelled in this calculator.
+// Tier-1 panels carry a 25-year performance warranty. Degradation is
+// a Phase 2 consideration if required. See §16.
 
 // ============================================================
 // SOLAR YIELD CONSTANTS — Region-specific, Tasmania
 // Source: BOM solar exposure data + Australian PV Institute.
-// Values are CONSERVATIVE — north-facing, unshaded, optimal tilt baseline.
-// Orientation multipliers are applied on top (see ORIENTATION_MULTIPLIERS).
+// Values assume unshaded installation. DEFAULT_ORIENTATION_FACTOR
+// is applied on top to silently account for typical suburban roof mix.
 // Note: Hobart is lower than Launceston/Burnie due to higher latitude.
 // ============================================================
 export const KWH_PER_KW_PER_YEAR: Record<string, number> = {
@@ -78,19 +76,15 @@ export const KWH_PER_KW_PER_YEAR: Record<string, number> = {
 export const DEFAULT_KWH_PER_KW_PER_YEAR = 1150; // Fallback — uses conservative Hobart value
 
 // ============================================================
-// ROOF ORIENTATION MULTIPLIERS
-// Applied to annualYieldKwh to adjust for non-optimal roof orientation.
-// North-facing at optimal tilt = 1.00 (baseline).
-// 'not_sure' uses a conservative assumption reflecting typical suburban mix.
-// Source: Clean Energy Council installer guidelines; APVI orientation data.
+// DEFAULT ORIENTATION FACTOR
+// Roof orientation is NOT asked of the user (removed for UX simplicity).
+// A fixed conservative factor of 0.88 is applied to all yield calculations,
+// reflecting the typical suburban mix of roof orientations (not all north-facing).
+// This silently accounts for orientation without burdening the user with the question.
+// Source: Clean Energy Council installer guidelines — 0.88 represents a typical
+// suburban roof orientation blend weighted toward north but not exclusively so.
 // ============================================================
-export const ORIENTATION_MULTIPLIERS: Record<string, number> = {
-	north: 1.0,
-	north_east_west: 0.9,
-	east_west: 0.82,
-	south: 0.65,
-	not_sure: 0.88 // Conservative assumption for unknown orientation
-};
+export const DEFAULT_ORIENTATION_FACTOR = 0.88;
 
 // ============================================================
 // SEASONAL MONTHLY YIELD MULTIPLIERS — Tasmania-specific
@@ -236,13 +230,11 @@ export const SC_RATIO_CAP = 0.85;
 export const SC_RATIO_FLOOR = 0.1;
 
 // ============================================================
-// SYSTEM COST ESTIMATES
-// Displayed as a RANGE on the results page, not a single figure.
-// Solar installation costs vary ±20% based on roof complexity, panel
-// brand, inverter brand, and storey height. Presenting a single figure
-// creates price anchors that can damage trust if the actual quote differs.
-// 'mid' is used for payback/savings calculations. 'low' and 'high' are
-// displayed on the results page as the estimated range.
+// SYSTEM COST ESTIMATES — INTERNAL USE ONLY (not displayed on results page)
+// Used exclusively for payback period and daily solar cost calculations.
+// System cost, STC rebate, and cost range are NOT shown to the user —
+// pricing is confirmed at the site assessment to avoid price anchoring.
+// 'netMid' is the only value used in calculations.
 // Source: Tasmania industry benchmarks 2025–26. Review annually.
 // ============================================================
 export const SYSTEM_COSTS: Record<
@@ -303,7 +295,7 @@ export const BATTERY = {
 	dailyMaxCaptureKwh: 10,
 	roundTripEfficiency: 0.9, // 90% — energy lost in charge/discharge
 	annualCaptureDiscount: 0.85, // Conservative factor: limited export on short winter days
-	estimatedCost: 12000 // $ installed, post-incentive
+	estimatedCost: 12000  // INTERNAL ONLY — used for payback calc, not displayed in UI
 };
 
 // ============================================================

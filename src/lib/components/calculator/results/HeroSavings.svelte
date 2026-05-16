@@ -13,17 +13,6 @@
 
 	const regionLabel = $derived(REGIONS[inputs.region]?.label ?? 'Tasmania');
 
-	const orientationLabel: Record<string, string> = {
-		north: 'north-facing',
-		north_east_west: 'north-east/west-facing',
-		east_west: 'east/west-facing',
-		south: 'south-facing',
-		not_sure: 'estimated-orientation'
-	};
-	const orientationText = $derived(
-		inputs.roofOrientation ? (orientationLabel[inputs.roofOrientation] ?? '') : ''
-	);
-
 	function formatCurrency(value: number) {
 		return new Intl.NumberFormat('en-AU', {
 			style: 'currency',

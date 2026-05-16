@@ -3,10 +3,9 @@ import {
 	FEED_IN_TARIFF,
 	ANNUAL_SUPPLY_CHARGE,
 	ANNUAL_BILL_INFLATION_RATE,
-	PANEL_DEGRADATION_RATE,
+	DEFAULT_ORIENTATION_FACTOR,
 	KWH_PER_KW_PER_YEAR,
 	DEFAULT_KWH_PER_KW_PER_YEAR,
-	ORIENTATION_MULTIPLIERS,
 	SEASONAL_MULTIPLIERS,
 	SELF_CONSUMPTION_BASE,
 	SC_MODIFIERS,
@@ -33,11 +32,10 @@ export interface QuizInputs {
 	// Step 3 — bill normalised to quarterly equivalent
 	quarterlyBill: number;
 
-	// Step 4 — Your Home (4 questions)
+	// Step 4 — Your Home (3 questions — orientation removed, fixed factor applied internally)
 	occupancyProfile: 'all_day' | 'morning_evening' | 'night_only';
 	householdSize:    '1_2' | '3_4' | '5_plus';
 	homeSize:         'apartment' | 'medium' | 'large' | 'rural';
-	roofOrientation:  'north' | 'north_east_west' | 'east_west' | 'south' | 'not_sure';
 
 	// Step 5 — Appliances & EV
 	hasElectricHotWater: boolean;
@@ -54,16 +52,15 @@ export interface QuizInputs {
 
 export interface YearProjection {
 	year:                   number;
-	annualBillWithoutSolar: number; // $ — grid bill inflated at 3%
+	annualBillWithoutSolar: number; // $ — grid bill inflated at 5%
 	annualBillWithSolar:    number; // $ — remaining grid cost after solar offset
-	annualSavings:          number; // $ — offset savings (inflated) + FiT savings (flat) − degradation
+	annualSavings:          number; // $ — offset savings (inflated at 5%) + FiT savings (flat)
 	cumulativeSavings:      number; // $ — net of system cost (starts negative)
 }
 
 export interface BatteryScenario {
 	additionalAnnualSavings: number;
 	combinedAnnualSavings:   number;
-	batteryCost:             number;
 	batteryPaybackYears:     number;
 }
 
@@ -99,12 +96,9 @@ export interface CalculationResult {
 	newAnnualBill:          number;   // Cannot go below annualSupplyCharge
 	dailySolarCost:         number;
 
-	// System cost (ranges)
-	estimatedSystemCostMid:  number;  // Used in calculations
-	estimatedSystemCostLow:  number;  // Displayed as range low
-	estimatedSystemCostHigh: number;  // Displayed as range high
-	stcRebate:               number;
-	grossSystemCostMid:      number;
+	// System cost — INTERNAL USE ONLY (not rendered in UI)
+	// Used only for payback period and daily cost calculations.
+	estimatedSystemCostMid:  number;
 
 	// Payback
 	simplePaybackYears:     number;
@@ -181,10 +175,11 @@ export function calculate(inputs: QuizInputs): CalculationResult {
 	sc = Math.min(sc, SC_RATIO_CAP);
 	sc = Math.max(sc, SC_RATIO_FLOOR);
 
-	// 4. ANNUAL YIELD — region-specific constant × orientation multiplier
+	// 4. ANNUAL YIELD — region-specific constant × fixed orientation factor (0.88)
+	// Orientation is not asked of the user. DEFAULT_ORIENTATION_FACTOR (0.88)
+	// is applied silently to account for the typical suburban roof mix.
 	const baseYieldPerKw    = KWH_PER_KW_PER_YEAR[inputs.region] ?? DEFAULT_KWH_PER_KW_PER_YEAR;
-	const orientationFactor = ORIENTATION_MULTIPLIERS[inputs.roofOrientation] ?? ORIENTATION_MULTIPLIERS['not_sure'];
-	const annualYieldKwh    = systemSizeKw * baseYieldPerKw * orientationFactor;
+	const annualYieldKwh    = systemSizeKw * baseYieldPerKw * DEFAULT_ORIENTATION_FACTOR;
 
 	const annualSavedFromGrid  = annualYieldKwh * sc;
 	const annualExportedToGrid = annualYieldKwh * (1 - sc);
@@ -210,31 +205,25 @@ export function calculate(inputs: QuizInputs): CalculationResult {
 	const newAnnualBill             = ANNUAL_SUPPLY_CHARGE + Math.max(0, saveableBill - actualOffsetSavings);
 	const newQuarterlyBill          = Math.round(newAnnualBill / 4);
 
-	// 8. SYSTEM COST & PAYBACK
-	const costData               = SYSTEM_COSTS[systemSizeKw] ?? SYSTEM_COSTS[6.6];
-	const estimatedSystemCostMid  = costData.netMid;
-	const estimatedSystemCostLow  = costData.netLow;
-	const estimatedSystemCostHigh = costData.netHigh;
-	const stcRebate               = costData.stcRebate;
-	const grossSystemCostMid      = costData.grossMid;
+	// 8. SYSTEM COST & PAYBACK — cost is internal only, not shown in UI
+	const costData              = SYSTEM_COSTS[systemSizeKw] ?? SYSTEM_COSTS[6.6];
+	const estimatedSystemCostMid  = costData.netMid;  // used for payback calc only
 	const simplePaybackYears      = estimatedSystemCostMid / annualSavings;
 	const dailySolarCost          = estimatedSystemCostMid / (simplePaybackYears * 365);
 
 	// 9. 25-YEAR PROJECTIONS
-	// Grid offset savings are inflated at 3% per year (tariff escalation).
-	// FiT export savings are held FLAT — the regulated FiT has declined year-on-year
-	// and applying 3% inflation to it would overstate lifetime savings.
-	// Panel degradation of 0.5%/year is applied to the yield in each year.
+	// Grid offset savings inflated at 5%/year (Aurora historical trend).
+	// FiT export savings held FLAT — regulated FiT has declined year-on-year.
+	// No panel degradation applied — tier-1 panels carry 25-year performance warranty.
 	const yearProjections: YearProjection[] = [];
 	let cumulativeSavings = -estimatedSystemCostMid; // Year 0 outlay
 
 	for (let y = 1; y <= 25; y++) {
-		const degradationFactor   = Math.pow(1 - PANEL_DEGRADATION_RATE, y - 1);
-		const gridInflationFactor = Math.pow(1 + ANNUAL_BILL_INFLATION_RATE, y - 1);
+		const gridInflationFactor    = Math.pow(1 + ANNUAL_BILL_INFLATION_RATE, y - 1);
 
-		const yearOffsetSavings   = savingsFromOffset * gridInflationFactor * degradationFactor;
-		const yearExportSavings   = savingsFromExport * degradationFactor; // FiT: flat, degradation only
-		const yearTotalSavings    = yearOffsetSavings + yearExportSavings;
+		const yearOffsetSavings      = savingsFromOffset * gridInflationFactor;
+		const yearExportSavings      = savingsFromExport; // FiT: flat, no inflation, no degradation
+		const yearTotalSavings       = yearOffsetSavings + yearExportSavings;
 
 		const annualBillWithoutSolar = Math.round(currentAnnualBill * gridInflationFactor);
 		const annualBillWithSolar    = Math.max(
@@ -281,7 +270,6 @@ export function calculate(inputs: QuizInputs): CalculationResult {
 		batteryScenario = {
 			additionalAnnualSavings,
 			combinedAnnualSavings,
-			batteryCost: BATTERY.estimatedCost,
 			batteryPaybackYears
 		};
 	}
@@ -311,11 +299,7 @@ export function calculate(inputs: QuizInputs): CalculationResult {
 		newQuarterlyBill,
 		newAnnualBill:            Math.round(newAnnualBill),
 		dailySolarCost:           Math.round(dailySolarCost * 100) / 100,
-		estimatedSystemCostMid,
-		estimatedSystemCostLow,
-		estimatedSystemCostHigh,
-		stcRebate,
-		grossSystemCostMid,
+		estimatedSystemCostMid,   // internal only — not rendered in UI
 		simplePaybackYears:       Math.round(simplePaybackYears * 10) / 10,
 		yearProjections,
 		lifetimeSavings,
@@ -378,10 +362,6 @@ function buildNonViableResult(quarterlyBill: number): CalculationResult {
 		newAnnualBill:           0,
 		dailySolarCost:          0,
 		estimatedSystemCostMid:  0,
-		estimatedSystemCostLow:  0,
-		estimatedSystemCostHigh: 0,
-		stcRebate:               0,
-		grossSystemCostMid:      0,
 		simplePaybackYears:      0,
 		yearProjections:         empty25,
 		lifetimeSavings:         0,

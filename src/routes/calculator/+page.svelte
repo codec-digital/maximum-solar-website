@@ -45,7 +45,6 @@
 			occupancyProfile: inp.occupancyProfile ?? 'morning_evening',
 			householdSize: inp.householdSize ?? '3_4',
 			homeSize: inp.homeSize ?? 'medium',
-			roofOrientation: inp.roofOrientation ?? 'not_sure',
 			hasElectricHotWater: inp.hasElectricHotWater,
 			hasDucatedHvac: inp.hasDucatedHvac,
 			hasPool: inp.hasPool,
@@ -129,7 +128,6 @@
 		fd.append('occupancyProfile', inp.occupancyProfile ?? 'morning_evening');
 		fd.append('householdSize', inp.householdSize ?? '3_4');
 		fd.append('homeSize', inp.homeSize ?? 'medium');
-		fd.append('roofOrientation', inp.roofOrientation ?? 'not_sure');
 		fd.append('hasElectricHotWater', String(inp.hasElectricHotWater));
 		fd.append('hasDucatedHvac', String(inp.hasDucatedHvac));
 		fd.append('hasPool', String(inp.hasPool));

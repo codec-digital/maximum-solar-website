@@ -26,10 +26,7 @@
 		{ label: 'Annual generation', value: `${formatNumber(result.annualYieldKwh)} kWh` },
 		{ label: 'Daily average generation', value: `${result.dailyYieldKwh} kWh` },
 		{ label: 'Daily average export', value: `${result.dailyExportKwh} kWh` },
-		{ label: 'Self-consumption rate', value: `${Math.round(result.selfConsumptionRatio * 100)}%` },
-		{ label: 'System cost (before rebate)', value: formatCurrency(result.grossSystemCostMid) },
-		{ label: 'Federal STC rebate', value: `−${formatCurrency(result.stcRebate)}`, highlight: 'green' },
-		{ label: 'Estimated cost range (after rebate)', value: `${formatCurrency(result.estimatedSystemCostLow)} – ${formatCurrency(result.estimatedSystemCostHigh)}`, bold: true }
+		{ label: 'Self-consumption rate', value: `${Math.round(result.selfConsumptionRatio * 100)}%` }
 	]);
 </script>
 
@@ -49,6 +46,6 @@
 	</dl>
 
 	<p class="mt-4 text-xs text-zinc-600">
-		Final pricing confirmed at your free site assessment and depends on your roof, preferred panels, and inverter.
+		System cost and pricing are confirmed at your free site assessment and depend on your roof, preferred panels, and inverter.
 	</p>
 </div>

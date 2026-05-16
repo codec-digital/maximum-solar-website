@@ -1,7 +1,7 @@
 <script lang="ts">
 	import StepWrapper from '../StepWrapper.svelte';
 	import { quizState } from '$lib/state/quiz.svelte';
-	import { Sun, Briefcase, Moon, Home, Building2, Trees, Tractor, Compass } from '@lucide/svelte';
+	import { Sun, Briefcase, Moon, Home, Building2, Trees, Tractor } from '@lucide/svelte';
 	import { cn } from '$lib/utils';
 
 	type OccupancyOption = {
@@ -16,11 +16,6 @@
 		label: string;
 		subtext: string;
 		icon: typeof Home;
-	};
-	type OrientationOption = {
-		value: 'north' | 'north_east_west' | 'east_west' | 'south' | 'not_sure';
-		label: string;
-		subtext: string;
 	};
 
 	const occupancyOptions: OccupancyOption[] = [
@@ -57,28 +52,15 @@
 		{ value: 'rural', label: 'Rural or acreage', subtext: 'Farm or large property', icon: Tractor }
 	];
 
-	const orientationOptions: OrientationOption[] = [
-		{ value: 'north', label: 'Mainly north', subtext: 'Optimal. Best solar output' },
-		{
-			value: 'north_east_west',
-			label: 'North-east or north-west',
-			subtext: '−10% vs north-facing'
-		},
-		{ value: 'east_west', label: 'East or west', subtext: '−18% vs north-facing' },
-		{ value: 'south', label: 'Mainly south', subtext: '−35% vs north-facing' },
-		{ value: 'not_sure', label: 'Not sure', subtext: "We'll use a conservative estimate" }
-	];
-
 	let error = $state('');
 
 	function handleContinue() {
 		if (
 			!quizState.inputs.occupancyProfile ||
 			!quizState.inputs.householdSize ||
-			!quizState.inputs.homeSize ||
-			!quizState.inputs.roofOrientation
+			!quizState.inputs.homeSize
 		) {
-			error = 'Please answer all four questions to continue.';
+			error = 'Please answer all three questions to continue.';
 			return;
 		}
 		error = '';
@@ -180,47 +162,6 @@
 						<div>
 							<p class="text-sm font-semibold text-white">{option.label}</p>
 							<p class="text-xs text-zinc-500">{option.subtext}</p>
-						</div>
-					</button>
-				{/each}
-			</div>
-		</div>
-
-		<!-- Question D: Roof orientation -->
-		<div>
-			<p class="mb-1 text-sm font-semibold text-zinc-300">
-				Which direction does your main roof face?
-			</p>
-			<p class="mb-3 text-xs text-zinc-500">
-				Face your home from the street. Which way does the largest roof area point?
-			</p>
-			<div class="flex flex-col gap-2">
-				{#each orientationOptions as option}
-					<button
-						onclick={() => {
-							quizState.inputs.roofOrientation = option.value;
-							error = '';
-						}}
-						class={cn(
-							'flex items-center gap-4 rounded-xl border-2 p-3.5 text-left transition-all hover:border-[#FFC640] hover:bg-zinc-800',
-							quizState.inputs.roofOrientation === option.value
-								? 'border-[#FFC640] bg-zinc-800'
-								: 'border-zinc-700 bg-zinc-900/50'
-						)}
-					>
-						<div
-							class={cn(
-								'flex size-10 flex-shrink-0 items-center justify-center rounded-full transition-colors',
-								quizState.inputs.roofOrientation === option.value
-									? 'bg-[#FFC640] text-zinc-900'
-									: 'bg-zinc-800 text-zinc-400'
-							)}
-						>
-							<Compass class="size-5" />
-						</div>
-						<div>
-							<p class="font-semibold text-white">{option.label}</p>
-							<p class="text-sm text-zinc-400">{option.subtext}</p>
 						</div>
 					</button>
 				{/each}

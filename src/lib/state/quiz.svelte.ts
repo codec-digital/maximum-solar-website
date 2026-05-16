@@ -8,7 +8,6 @@ export interface QuizStateInputs {
 	occupancyProfile: 'all_day' | 'morning_evening' | 'night_only' | null;
 	householdSize: '1_2' | '3_4' | '5_plus' | null;
 	homeSize: 'apartment' | 'medium' | 'large' | 'rural' | null;
-	roofOrientation: 'north' | 'north_east_west' | 'east_west' | 'south' | 'not_sure' | null;
 	hasElectricHotWater: boolean;
 	hasDucatedHvac: boolean;
 	hasPool: boolean;
@@ -36,7 +35,6 @@ export const quizState = $state({
 		occupancyProfile: null as 'all_day' | 'morning_evening' | 'night_only' | null,
 		householdSize: null as '1_2' | '3_4' | '5_plus' | null,
 		homeSize: null as 'apartment' | 'medium' | 'large' | 'rural' | null,
-		roofOrientation: null as 'north' | 'north_east_west' | 'east_west' | 'south' | 'not_sure' | null,
 		hasElectricHotWater: false,
 		hasDucatedHvac: false,
 		hasPool: false,

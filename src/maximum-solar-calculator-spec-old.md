@@ -1,10 +1,10 @@
 # Maximum Solar — Solar Savings Calculator
 ## Project Specification Document
-**Version:** 4.0
+**Version:** 3.0
 **Client:** Maximum Solar (maximumsolar.com.au)
 **Prepared by:** Codec Digital
 **Status:** Active Reference Document
-**Supersedes:** Version 3.0
+**Supersedes:** Version 2.0
 
 ---
 
@@ -42,7 +42,7 @@ A solar savings calculator embedded as a standalone page on the Maximum Solar we
 - All calculations are defensible, Tasmanian-specific, and disclosed as estimates
 
 ### Calculation Philosophy
-Estimates are designed to be **commercially competitive while remaining defensible**. Core structural assumptions (self-consumption ratios, supply charge floor, battery efficiency factors) are set conservatively to protect against misleading results. Projection assumptions (electricity price inflation, panel longevity) are set at the optimistic-but-plausible end of the reasonable range, consistent with competitor tools and industry practice. All assumptions are disclosed. The goal is a result that is compelling enough to convert the lead and honest enough to survive scrutiny at the site assessment.
+All estimates are intentionally **conservative rather than optimistic**. Every assumption is set at or below the midpoint of the reasonable range. The goal is that a customer who proceeds to a site assessment arrives with calibrated expectations that Maximum Solar can meet or exceed — not inflated expectations that create disappointment. A conservative estimate that leads to a pleasant surprise is better than an optimistic estimate that leads to a complaint.
 
 ### Out of Scope (MVP)
 - LiDAR / satellite roof mapping
@@ -202,22 +202,24 @@ export const FEED_IN_TARIFF = 0.08782; // $ per kWh
 // ============================================================
 // BILL INFLATION RATE
 // Applied ONLY to the grid offset (avoided cost) component of savings.
-// NOT applied to the FiT export component. See §7 Step 10 for detail.
-// Source: Aurora Energy historical price increase data; consistent with
-// competitor tools (SolarCalculator.com.au, TSS). Aurora's increases have
-// exceeded this figure in several recent years.
+// NOT applied to the FiT export component. See §7 Step 8 for detail.
+// Source: AEMC data; consistent with SolarCalculator.com.au industry standard.
 // ============================================================
-export const ANNUAL_BILL_INFLATION_RATE = 0.05; // 5% per year — offset savings only
+export const ANNUAL_BILL_INFLATION_RATE = 0.03; // 3% per year — offset savings only
 
-// NOTE: Panel degradation is NOT modelled in this calculator.
-// Tier-1 panels carry a 25-year performance warranty. Degradation is
-// a Phase 2 consideration if required. See §16.
+// ============================================================
+// PANEL DEGRADATION RATE
+// Solar panels degrade at approximately 0.5% per year (industry standard
+// warranty figure for tier-1 panels). Applied in the 25-year projection loop.
+// Without this, the 25-year savings figure is overstated by ~6–8%.
+// ============================================================
+export const PANEL_DEGRADATION_RATE = 0.005; // 0.5% per year
 
 // ============================================================
 // SOLAR YIELD CONSTANTS — Region-specific, Tasmania
 // Source: BOM solar exposure data + Australian PV Institute.
-// Values assume unshaded installation. DEFAULT_ORIENTATION_FACTOR
-// is applied on top to silently account for typical suburban roof mix.
+// Values are CONSERVATIVE — north-facing, unshaded, optimal tilt baseline.
+// Orientation multipliers are applied on top (see ORIENTATION_MULTIPLIERS).
 // Note: Hobart is lower than Launceston/Burnie due to higher latitude.
 // ============================================================
 export const KWH_PER_KW_PER_YEAR: Record<string, number> = {
@@ -228,15 +230,19 @@ export const KWH_PER_KW_PER_YEAR: Record<string, number> = {
 export const DEFAULT_KWH_PER_KW_PER_YEAR = 1150; // Fallback — uses conservative Hobart value
 
 // ============================================================
-// DEFAULT ORIENTATION FACTOR
-// Roof orientation is NOT asked of the user (removed for UX simplicity).
-// A fixed conservative factor of 0.88 is applied to all yield calculations,
-// reflecting the typical suburban mix of roof orientations (not all north-facing).
-// This silently accounts for orientation without burdening the user with the question.
-// Source: Clean Energy Council installer guidelines — 0.88 represents a typical
-// suburban roof orientation blend weighted toward north but not exclusively so.
+// ROOF ORIENTATION MULTIPLIERS
+// Applied to annualYieldKwh to adjust for non-optimal roof orientation.
+// North-facing at optimal tilt = 1.00 (baseline).
+// 'not_sure' uses a conservative assumption reflecting typical suburban mix.
+// Source: Clean Energy Council installer guidelines; APVI orientation data.
 // ============================================================
-export const DEFAULT_ORIENTATION_FACTOR = 0.88;
+export const ORIENTATION_MULTIPLIERS: Record<string, number> = {
+  north:           1.00,
+  north_east_west: 0.90,
+  east_west:       0.82,
+  south:           0.65,
+  not_sure:        0.88,  // Conservative assumption for unknown orientation
+};
 
 // ============================================================
 // SEASONAL MONTHLY YIELD MULTIPLIERS — Tasmania-specific
@@ -257,7 +263,7 @@ export const SEASONAL_MULTIPLIERS: Record<string, number[]> = {
 // ============================================================
 export const REGIONS: Record<string, { label: string; peakSunHours: number; postcodes: number[] }> = {
   hobart: {
-    label: 'Hobart & South',
+    label: 'Hobart',
     peakSunHours: 3.8,
     postcodes: [
       7000,7001,7004,7005,7007,7008,7009,7010,7011,7012,7015,7016,7017,7018,7019,
@@ -380,11 +386,13 @@ export const SC_RATIO_CAP = 0.85;
 export const SC_RATIO_FLOOR = 0.10;
 
 // ============================================================
-// SYSTEM COST ESTIMATES — INTERNAL USE ONLY (not displayed on results page)
-// Used exclusively for payback period and daily solar cost calculations.
-// System cost, STC rebate, and cost range are NOT shown to the user —
-// pricing is confirmed at the site assessment to avoid price anchoring.
-// 'netMid' is the only value used in calculations.
+// SYSTEM COST ESTIMATES
+// Displayed as a RANGE on the results page, not a single figure.
+// Solar installation costs vary ±20% based on roof complexity, panel
+// brand, inverter brand, and storey height. Presenting a single figure
+// creates price anchors that can damage trust if the actual quote differs.
+// 'mid' is used for payback/savings calculations. 'low' and 'high' are
+// displayed on the results page as the estimated range.
 // Source: Tasmania industry benchmarks 2025–26. Review annually.
 // ============================================================
 export const SYSTEM_COSTS: Record<number, {
@@ -475,9 +483,10 @@ import {
   FEED_IN_TARIFF,
   ANNUAL_SUPPLY_CHARGE,
   ANNUAL_BILL_INFLATION_RATE,
-  DEFAULT_ORIENTATION_FACTOR,
+  PANEL_DEGRADATION_RATE,
   KWH_PER_KW_PER_YEAR,
   DEFAULT_KWH_PER_KW_PER_YEAR,
+  ORIENTATION_MULTIPLIERS,
   SEASONAL_MULTIPLIERS,
   SELF_CONSUMPTION_BASE,
   SC_MODIFIERS,
@@ -504,10 +513,11 @@ export interface QuizInputs {
   // Step 3 — bill normalised to quarterly equivalent
   quarterlyBill: number;
 
-  // Step 4 — Your Home (3 questions — orientation removed, fixed factor applied internally)
+  // Step 4 — Your Home (4 questions)
   occupancyProfile: 'all_day' | 'morning_evening' | 'night_only';
   householdSize:    '1_2' | '3_4' | '5_plus';
   homeSize:         'apartment' | 'medium' | 'large' | 'rural';
+  roofOrientation:  'north' | 'north_east_west' | 'east_west' | 'south' | 'not_sure';
 
   // Step 5 — Appliances & EV
   hasElectricHotWater: boolean;
@@ -524,15 +534,16 @@ export interface QuizInputs {
 
 export interface YearProjection {
   year:                    number;
-  annualBillWithoutSolar:  number;  // $ — grid bill inflated at 5%
+  annualBillWithoutSolar:  number;  // $ — grid bill inflated at 3%
   annualBillWithSolar:     number;  // $ — remaining grid cost after solar offset
-  annualSavings:           number;  // $ — offset savings (inflated at 5%) + FiT savings (flat)
+  annualSavings:           number;  // $ — offset savings (inflated) + FiT savings (flat) − degradation
   cumulativeSavings:       number;  // $ — net of system cost (starts negative)
 }
 
 export interface BatteryScenario {
   additionalAnnualSavings: number;
   combinedAnnualSavings:   number;
+  batteryCost:             number;
   batteryPaybackYears:     number;
 }
 
@@ -568,9 +579,12 @@ export interface CalculationResult {
   newAnnualBill:           number;     // Cannot go below annualSupplyCharge
   dailySolarCost:          number;
 
-  // System cost — INTERNAL USE ONLY (not rendered in UI)
-  // Used only for payback period and daily cost calculations.
-  estimatedSystemCostMid:  number;
+  // System cost (ranges)
+  estimatedSystemCostMid:  number;     // Used in calculations
+  estimatedSystemCostLow:  number;     // Displayed as range low
+  estimatedSystemCostHigh: number;     // Displayed as range high
+  stcRebate:               number;
+  grossSystemCostMid:      number;
 
   // Payback
   simplePaybackYears:      number;
@@ -646,11 +660,10 @@ export function calculate(inputs: QuizInputs): CalculationResult {
   sc = Math.min(sc, SC_RATIO_CAP);
   sc = Math.max(sc, SC_RATIO_FLOOR);
 
-  // 4. ANNUAL YIELD — region-specific constant × fixed orientation factor (0.88)
-  // Orientation is not asked of the user. DEFAULT_ORIENTATION_FACTOR (0.88)
-  // is applied silently to account for the typical suburban roof mix.
+  // 4. ANNUAL YIELD — region-specific constant × orientation multiplier
   const baseYieldPerKw    = KWH_PER_KW_PER_YEAR[inputs.region] ?? DEFAULT_KWH_PER_KW_PER_YEAR;
-  const annualYieldKwh    = systemSizeKw * baseYieldPerKw * DEFAULT_ORIENTATION_FACTOR;
+  const orientationFactor = ORIENTATION_MULTIPLIERS[inputs.roofOrientation] ?? ORIENTATION_MULTIPLIERS['not_sure'];
+  const annualYieldKwh    = systemSizeKw * baseYieldPerKw * orientationFactor;
 
   const annualSavedFromGrid  = annualYieldKwh * sc;
   const annualExportedToGrid = annualYieldKwh * (1 - sc);
@@ -676,24 +689,31 @@ export function calculate(inputs: QuizInputs): CalculationResult {
   const newAnnualBill            = ANNUAL_SUPPLY_CHARGE + Math.max(0, saveableBill - actualOffsetSavings);
   const newQuarterlyBill         = Math.round(newAnnualBill / 4);
 
-  // 8. SYSTEM COST & PAYBACK — cost is internal only, not shown in UI
+  // 8. SYSTEM COST & PAYBACK
   const costData              = SYSTEM_COSTS[systemSizeKw] ?? SYSTEM_COSTS[6.6];
-  const estimatedSystemCostMid  = costData.netMid;  // used for payback calc only
+  const estimatedSystemCostMid  = costData.netMid;
+  const estimatedSystemCostLow  = costData.netLow;
+  const estimatedSystemCostHigh = costData.netHigh;
+  const stcRebate               = costData.stcRebate;
+  const grossSystemCostMid      = costData.grossMid;
   const simplePaybackYears      = estimatedSystemCostMid / annualSavings;
   const dailySolarCost          = estimatedSystemCostMid / (simplePaybackYears * 365);
 
   // 9. 25-YEAR PROJECTIONS
-  // Grid offset savings inflated at 5%/year (Aurora historical trend).
-  // FiT export savings held FLAT — regulated FiT has declined year-on-year.
-  // No panel degradation applied — tier-1 panels carry 25-year performance warranty.
+  // Grid offset savings are inflated at 3% per year (tariff escalation).
+  // FiT export savings are held FLAT — the regulated FiT has declined year-on-year
+  // and applying 3% inflation to it would overstate lifetime savings.
+  // Panel degradation of 0.5%/year is applied to the yield in each year.
   const yearProjections: YearProjection[] = [];
   let cumulativeSavings = -estimatedSystemCostMid; // Year 0 outlay
 
   for (let y = 1; y <= 25; y++) {
+    const degradationFactor      = Math.pow(1 - PANEL_DEGRADATION_RATE, y - 1);
     const gridInflationFactor    = Math.pow(1 + ANNUAL_BILL_INFLATION_RATE, y - 1);
 
-    const yearOffsetSavings      = savingsFromOffset * gridInflationFactor;
-    const yearExportSavings      = savingsFromExport; // FiT: flat, no inflation, no degradation
+    // Apply degradation to the base yield for this year
+    const yearOffsetSavings      = savingsFromOffset * gridInflationFactor * degradationFactor;
+    const yearExportSavings      = savingsFromExport * degradationFactor; // FiT: flat, degradation only
     const yearTotalSavings       = yearOffsetSavings + yearExportSavings;
 
     const annualBillWithoutSolar = Math.round(currentAnnualBill * gridInflationFactor);
@@ -741,6 +761,7 @@ export function calculate(inputs: QuizInputs): CalculationResult {
     batteryScenario = {
       additionalAnnualSavings,
       combinedAnnualSavings,
+      batteryCost: BATTERY.estimatedCost,
       batteryPaybackYears,
     };
   }
@@ -770,7 +791,11 @@ export function calculate(inputs: QuizInputs): CalculationResult {
     newQuarterlyBill,
     newAnnualBill:            Math.round(newAnnualBill),
     dailySolarCost:           Math.round(dailySolarCost * 100) / 100,
-    estimatedSystemCostMid,   // internal only — not rendered in UI
+    estimatedSystemCostMid,
+    estimatedSystemCostLow,
+    estimatedSystemCostHigh,
+    stcRebate,
+    grossSystemCostMid,
     simplePaybackYears:       Math.round(simplePaybackYears * 10) / 10,
     yearProjections,
     lifetimeSavings,
@@ -817,7 +842,8 @@ function buildNonViableResult(quarterlyBill: number): CalculationResult {
     annualSupplyCharge: Math.round(ANNUAL_SUPPLY_CHARGE),
     annualSavings: 0, savingsFromOffset: 0, savingsFromExport: 0,
     newQuarterlyBill: 0, newAnnualBill: 0, dailySolarCost: 0,
-    estimatedSystemCostMid: 0, simplePaybackYears: 0,
+    estimatedSystemCostMid: 0, estimatedSystemCostLow: 0, estimatedSystemCostHigh: 0,
+    stcRebate: 0, grossSystemCostMid: 0, simplePaybackYears: 0,
     yearProjections: empty25, lifetimeSavings: 0,
     billYear1WithoutSolar: 0, billYear25WithoutSolar: 0,
     billYear1WithSolar: 0, billYear25WithSolar: 0,
@@ -832,7 +858,7 @@ function buildNonViableResult(quarterlyBill: number): CalculationResult {
 ## 6. Quiz Flow — User Journey
 
 ### Overview
-The quiz consists of **7 steps** rendered sequentially. Step 4 contains **3 questions**. Total questions: **10**.
+The quiz consists of **7 steps** rendered sequentially. Step 4 now contains **4 questions** (up from 3) to capture roof orientation. Total questions: **11**.
 
 ---
 
@@ -867,7 +893,7 @@ The quiz consists of **7 steps** rendered sequentially. Step 4 contains **3 ques
 **Step 4 — Your Home**
 > "Tell us about your home"
 
-Three questions on one screen. All required to proceed.
+Four questions on one screen. All required to proceed.
 
 **Question A:** "When is your home most active?"
 - `All day` → `all_day` | `Mornings & evenings` → `morning_evening` | `Mostly at night` → `night_only`
@@ -881,7 +907,15 @@ Three questions on one screen. All required to proceed.
 - `Large home` *(250m²+)* → `large`
 - `Rural or acreage` → `rural`
 
-> **Implementation note:** Roof orientation is not asked. A fixed orientation factor of 0.88 is applied internally to all yield calculations, reflecting a typical suburban roof mix. This is transparent in the assumptions disclosure.
+**Question D — NEW:** "Which direction does your main roof face?"
+- Type: Single select (visual cards, ideally with a simple compass diagram)
+- `Mainly north` → `north`
+- `North-east or north-west` → `north_east_west`
+- `East or west` → `east_west`
+- `Mainly south` → `south`
+- `Not sure` → `not_sure`
+- Helper text: *"Face your home from the street — which way does the largest roof area point?"*
+- `Not sure` applies a conservative 0.88 multiplier to yield (reflects typical suburban mix)
 
 ---
 
@@ -939,15 +973,15 @@ Three questions on one screen. All required to proceed.
 3.  Apply system size nudges (household size, EV, appliances)
 4.  Calculate self-consumption ratio (base + home/appliance modifiers)
     NOTE: EV ownership does NOT modify SC ratio
-5.  Calculate annual yield (region yield constant × fixed orientation factor 0.88)
+5.  Calculate annual yield (region yield constant × orientation multiplier)
 6.  Calculate monthly yield breakdown (seasonal multipliers)
 7.  Calculate Year 1 savings (offset + export components separately)
 8.  Derive new bill — floored at annual supply charge (~$552)
-9.  Calculate system cost (internal only — netMid used for payback, not displayed)
+9.  Calculate system cost range (low/mid/high), STC rebate, payback, daily cost
 10. Build 25-year projection:
-      - Grid offset savings: inflated 5%/year
+      - Grid offset savings: inflated 3%/year
       - FiT export savings: held flat (declining trend in reality)
-      - No panel degradation applied (25-year warranty)
+      - Both streams: degraded 0.5%/year for panel degradation
       - New bill each year: floored at supply charge
 11. Calculate environmental metrics
 12. Calculate battery scenario with efficiency and capture discount applied
@@ -1030,14 +1064,23 @@ sc = clamp(sc, floor: 0.10, cap: 0.85)
 
 ```
 baseYieldPerKw   = KWH_PER_KW_PER_YEAR[region]   // 1,150 / 1,220 / 1,180
-annualYieldKwh   = systemSizeKw × baseYieldPerKw × DEFAULT_ORIENTATION_FACTOR (0.88)
+orientationFactor = ORIENTATION_MULTIPLIERS[roofOrientation]
+annualYieldKwh   = systemSizeKw × baseYieldPerKw × orientationFactor
 
 annualSavedFromGrid  = annualYieldKwh × sc
 annualExportedToGrid = annualYieldKwh × (1 − sc)
 isHighExport         = (1 − sc) > 0.55   // flag for contextual copy
 ```
 
-Roof orientation is not asked. The fixed factor of 0.88 is applied to all calculations, representing a typical suburban mix. This is disclosed in the assumptions.
+**Orientation multipliers:**
+
+| Orientation | Multiplier |
+|---|---|
+| Mainly north | 1.00 |
+| North-east or north-west | 0.90 |
+| East or west | 0.82 |
+| Mainly south | 0.65 |
+| Not sure | 0.88 (conservative assumption) |
 
 ---
 
@@ -1076,29 +1119,32 @@ newQuarterlyBill      = newAnnualBill / 4
 
 ---
 
-### Step 9: System Cost & Payback (Internal Only)
-
-System cost figures are used for payback and daily cost calculations only. They are **not displayed to the user**. Pricing is confirmed at the site assessment.
+### Step 9: System Cost & Payback
 
 ```
-estimatedSystemCostMid = SYSTEM_COSTS[systemSizeKw].netMid   // internal calc only
-simplePaybackYears     = estimatedSystemCostMid / annualSavings
-dailySolarCost         = estimatedSystemCostMid / (simplePaybackYears × 365)
+estimatedSystemCostMid  = SYSTEM_COSTS[systemSizeKw].netMid   // used in calculations
+estimatedSystemCostLow  = SYSTEM_COSTS[systemSizeKw].netLow   // displayed as range
+estimatedSystemCostHigh = SYSTEM_COSTS[systemSizeKw].netHigh  // displayed as range
+stcRebate               = SYSTEM_COSTS[systemSizeKw].stcRebate
+
+simplePaybackYears = estimatedSystemCostMid / annualSavings
+dailySolarCost     = estimatedSystemCostMid / (simplePaybackYears × 365)
 ```
 
 ---
 
 ### Step 10: 25-Year Projections
 
-Two separate savings streams projected independently and combined:
+Two separate savings streams are projected independently, then combined:
 
 ```
 for year y = 1 to 25:
 
-  gridInflation       = (1.05) ^ (y − 1)             // 5%/year — offset stream only
+  degradationFactor   = (1 − 0.005) ^ (y − 1)       // 0.5%/year panel degradation
+  gridInflation       = (1.03) ^ (y − 1)             // 3%/year — offset stream only
 
-  yearOffsetSavings   = savingsFromOffset × gridInflation
-  yearExportSavings   = savingsFromExport              // FiT held flat, no degradation
+  yearOffsetSavings   = savingsFromOffset × gridInflation × degradationFactor
+  yearExportSavings   = savingsFromExport × degradationFactor  // FiT held flat
   yearTotalSavings    = yearOffsetSavings + yearExportSavings
 
   annualBillWithoutSolar = currentAnnualBill × gridInflation
@@ -1108,9 +1154,8 @@ for year y = 1 to 25:
 ```
 
 **Why two streams?**
-- The grid retail rate has risen at ~5%/year under Aurora Energy — applying inflation to offset savings is appropriate and consistent with competitor tools.
-- The regulated FiT has fallen year-on-year (10.869c → 8.935c → 8.782c). Applying inflation to it would project in the wrong direction. It is held flat.
-- Panel degradation is not applied. Tier-1 panels carry a 25-year performance warranty and commonly outperform their rated degradation spec.
+- The grid retail rate has risen historically at ~3%/year — applying inflation to offset savings is appropriate.
+- The regulated FiT has fallen year-on-year (10.869c → 8.935c → 8.782c). Applying 3% inflation to it would overstate lifetime savings. It is held flat as a conservative assumption.
 
 ---
 
@@ -1132,7 +1177,7 @@ adjustedCapturableKwh = rawCapturableKwh × 0.85    // conservative capture disc
 usableKwh             = adjustedCapturableKwh × 0.90  // round-trip efficiency
 additionalSavings     = usableKwh × ($0.2535 − $0.08782)
 combinedAnnualSavings = annualSavings + additionalSavings
-batteryPaybackYears   = BATTERY.estimatedCost / additionalSavings   // internal only — cost not displayed
+batteryPaybackYears   = $12,000 / additionalSavings
 ```
 
 Displayed as a **parallel card** alongside solar-only figures. Not included in primary metrics.
@@ -1156,7 +1201,7 @@ roofAreaSqm    = numberOfPanels × 1.8
 - **Headline:** "Your Estimated Annual Savings"
 - **Primary value:** `$annualSavings` — large, bold display
 - **Secondary figure:** `"$lifetimeSavings over 25 years"`
-- **Subtext:** System + location — *"Based on a X.XkW system for your home in [Region]"*
+- **Subtext:** System + location + orientation — *"Based on a X.XkW [orientation]-facing system for your home in [Region]"*
 - Background: Brand gold (`#FFC640`), high contrast
 
 ---
@@ -1202,7 +1247,7 @@ This copy is a conversion opportunity, not a concern to suppress.
 | **Without Solar** | `$billYear1WithoutSolar` | `$billYear25WithoutSolar` |
 | **With Solar** | `$billYear1WithSolar` | `$billYear25WithSolar` |
 
-Note: *"Without-solar figures assume 5% annual electricity price increase, consistent with Aurora Energy's historical trend."*
+Note: *"Without-solar figures assume 3% annual electricity price increase. With-solar figures include panel degradation over time."*
 
 ---
 
@@ -1212,13 +1257,13 @@ Note: *"Without-solar figures assume 5% annual electricity price increase, consi
 - Starts negative (system cost at Year 0), rises to break-even, then continues positive
 - Break-even year marked with vertical reference line
 - Data: `yearProjections` array
-- Note beneath chart: *"Projection applies 5% annual electricity price growth to grid savings. Feed-in tariff held flat. No panel degradation applied — panels are warranted for 25 years."*
+- Note beneath chart: *"Projection applies 3% annual electricity price growth to grid savings and 0.5% annual panel degradation. Feed-in tariff held flat."*
 
 ---
 
 ### 8.7 Monthly Solar Production Chart
 - Component: shadcn-svelte Bar Chart (12 bars, Jan–Dec)
-- Data: `monthlyYieldKwh` array (seasonal multipliers applied per region)
+- Data: `monthlyYieldKwh` array (seasonal + orientation multipliers applied)
 - Copy: *"Tasmania's cooler winter means lower generation June–August — roughly half of summer output. Your panels still perform year-round, with summer generating the strongest returns."*
 
 ---
@@ -1232,8 +1277,10 @@ Stat card grid:
 - Daily average generation: `XX.X kWh`
 - Daily average export: `X.X kWh`
 - Self-consumption rate: `XX%`
-
-> **System cost, STC rebate, and cost range are NOT displayed.** Pricing is discussed and confirmed at the site assessment. This avoids price anchoring and protects the sales conversation.
+- System cost (before rebate): `$XX,XXX`
+- Federal STC rebate: `−$X,XXX`
+- **Estimated cost range: `$XX,XXX – $XX,XXX`** (low to high, after rebate)
+- Disclaimer beneath: *"Final pricing confirmed at your free site assessment and depends on your roof, preferred panels, and inverter."*
 
 ---
 
@@ -1241,9 +1288,8 @@ Stat card grid:
 - Combined annual savings: `$combinedAnnualSavings/year`
 - Additional savings from battery: `+$additionalAnnualSavings/year`
 - Battery payback: `X years`
-- Copy: *"A battery stores energy you'd otherwise export at 8.78c/kWh, making it available for evening use at 25.35c/kWh — nearly 3× the value."*
-
-> **Battery cost is not displayed.** Pricing is confirmed at the site assessment. The payback figure implies cost indirectly without anchoring the sales conversation to a specific number.
+- Battery cost estimate: `$12,000`
+- Copy: *"A battery stores energy you'd otherwise export at 8.78c/kWh, making it available for evening use at 25.35c/kWh — nearly 3× the value. Estimate assumes a 10kWh system with 90% round-trip efficiency."*
 
 ---
 
@@ -1257,7 +1303,7 @@ Stat card grid:
 ### 8.11 Assumptions Disclosure (Legal Requirement)
 Collapsible section, muted styling, always present and never hidden by default:
 
-> *"These figures are estimates based on average Tasmanian conditions and are not a guarantee of financial return. Calculations assume: Aurora Energy Tariff 93 blended rate of 25.35c/kWh; feed-in tariff of 8.78c/kWh (2025–26 regulated minimum, held flat in projections as the trend is declining); regional solar yield of 1,150–1,220 kWh/kW/year with a fixed orientation factor of 0.88 applied to reflect a typical suburban roof mix; 5% annual electricity price increase applied to grid savings only, consistent with Aurora Energy's historical pricing trend; no panel degradation applied — tier-1 panels are warranted for 25 years. Battery scenario assumes a 10kWh system with 90% round-trip efficiency. Battery pricing is confirmed at your free site assessment. A fixed daily supply charge of ~$552/year cannot be offset by solar and is included in projected bills. System cost is not displayed — pricing is confirmed at your free site assessment. Actual results will vary based on shading, roof pitch, household behaviour, and future tariff changes. Maximum Solar recommends a free in-home site assessment before making any investment decision."*
+> *"These figures are estimates based on average Tasmanian conditions and are not a guarantee of financial return. Calculations assume: Aurora Energy Tariff 93 blended rate of 25.35c/kWh; feed-in tariff of 8.78c/kWh (2025–26 regulated minimum, held flat in projections as the trend is declining); regional solar yield of 1,150–1,220 kWh/kW/year adjusted for roof orientation; 3% annual electricity price increase applied to grid savings only; 0.5% annual panel degradation applied across 25-year projection; system cost range post-STC rebate (mid-point used for calculations). Battery scenario assumes 10kWh system at $12,000 installed with 90% round-trip efficiency. A fixed daily supply charge of ~$552/year cannot be offset by solar and is included in projected bills. Actual results will vary based on shading, roof pitch, household behaviour, and future tariff changes. Maximum Solar recommends a free in-home site assessment before making any investment decision."*
 
 ---
 
@@ -1287,7 +1333,7 @@ Receives all quiz inputs plus serialised `CalculationResult`. Dispatches two ema
 **From:** `Solar Calculator <webmaster@quote.maximumsolar.com.au>`
 **Subject:** `New Solar Lead — [First Name] [Last Name] — [Postcode]`
 
-Body includes: contact details, postcode + region, exact bill + period, occupancy, household size, home size, appliances, EV owned/planned, battery interest, recommended system size, annual savings, payback period, timestamp.
+Body includes: contact details, postcode + region, exact bill + period, occupancy, household size, home size, **roof orientation** (new), appliances, EV owned/planned, battery interest, recommended system size, annual savings, payback period, timestamp.
 
 ### 9.3 User Results Email
 
@@ -1295,7 +1341,7 @@ Body includes: contact details, postcode + region, exact bill + period, occupanc
 **From:** `Solar Calculator <webmaster@quote.maximumsolar.com.au>`
 **Subject:** `Your Solar Savings Estimate — Maximum Solar`
 
-Body includes: greeting, annual + lifetime savings, before/after quarterly bill, supply charge note, system recommendation, payback, battery scenario (if applicable), environmental impact, assumptions disclosure, CTA, footer.
+Body includes: greeting, annual + lifetime savings, before/after quarterly bill, **supply charge note**, system recommendation + cost range, payback, battery scenario (if applicable), environmental impact, assumptions disclosure, CTA, footer.
 
 ### 9.4 Resend Configuration
 
@@ -1326,7 +1372,7 @@ src/
 │   │   │   │   ├── Step1Eligibility.svelte
 │   │   │   │   ├── Step2Location.svelte
 │   │   │   │   ├── Step3EnergyUsage.svelte
-│   │   │   │   ├── Step4YourHome.svelte         ← 3 questions (orientation removed)
+│   │   │   │   ├── Step4YourHome.svelte         ← Now contains 4 questions (incl. orientation)
 │   │   │   │   ├── Step5AppliancesEV.svelte
 │   │   │   │   ├── Step6BatteryInterest.svelte
 │   │   │   │   └── Step7LeadCapture.svelte
@@ -1344,7 +1390,7 @@ src/
 │   │   │       ├── Year1vs25Table.svelte
 │   │   │       ├── CumulativeSavingsChart.svelte
 │   │   │       ├── MonthlyProductionChart.svelte
-│   │   │       ├── SystemDetailsSummary.svelte   ← Cost, rebate, and range NOT shown
+│   │   │       ├── SystemDetailsSummary.svelte   ← Cost shown as range, not single figure
 │   │   │       ├── BatteryScenario.svelte
 │   │   │       ├── EnvironmentalImpact.svelte
 │   │   │       ├── AssumptionsDisclosure.svelte
@@ -1378,6 +1424,7 @@ export const quizState = $state({
     occupancyProfile:     null as 'all_day' | 'morning_evening' | 'night_only' | null,
     householdSize:        null as '1_2' | '3_4' | '5_plus' | null,
     homeSize:             null as 'apartment' | 'medium' | 'large' | 'rural' | null,
+    roofOrientation:      null as 'north' | 'north_east_west' | 'east_west' | 'south' | 'not_sure' | null,
     hasElectricHotWater:  false,
     hasDucatedHvac:       false,
     hasPool:              false,
@@ -1436,11 +1483,11 @@ All steps enforce completion. `calculate()` includes null guards with conservati
 - All figures qualified as estimates throughout
 - No "guaranteed savings" language
 - Full assumptions disclosure always present on results page (§8.11)
-- System cost not displayed — removes pricing claims from the estimate entirely
+- Cost presented as a range to avoid creating misleading price anchors
 
 ### Australian Consumer Law (ACL)
 - No "free" or "no cost" solar language
-- Fixed orientation factor and conservative SC ratios maintain reasonable basis for projections
+- Conservative constants used throughout (lower yield, lower SC, degradation applied)
 - Fixed supply charge shown on results page — no claim that the bill reaches zero
 - Environmental claims sourced and documented in `constants.ts`
 
@@ -1477,9 +1524,9 @@ Set in Vercel → Settings → Environment Variables. Accessed only via `$env/st
 
 | Feature | Notes |
 |---|---|
-| Solcast/PVWatts API | Replace region yield constants + fixed orientation factor with API call keyed on postcode |
-| Roof orientation as input | Removed in v4.0 for UX simplicity — can be reinstated with compass UI |
-| Panel degradation | Removed in v4.0 per client decision — can be reinstated as 0.5%/year in projection loop |
+| Solcast/PVWatts API | Replace region yield constants + orientation multiplier with API call keyed on postcode |
+| Roof pitch as input | Currently not asked — pitch affects yield, especially in winter |
+| Panel degradation curve | Currently linear 0.5%/year; real degradation is slightly steeper in early years |
 | FiT decline modelling | Apply negative −1%/year to FiT in projections rather than holding flat |
 | NEM12 upload | Replaces SC ratio with interval-derived figure |
 | VPP modelling | Revenue from grid services |
@@ -1533,15 +1580,15 @@ Set in Vercel → Settings → Environment Variables. Accessed only via `$env/st
 
 ---
 
-## Appendix D — Orientation Factor (Fixed)
+## Appendix D — Orientation Multipliers
 
-Roof orientation is not asked of the user. A single fixed factor is applied to all yield calculations:
-
-| Factor | Value | Rationale |
+| Orientation | Multiplier | Yield impact vs north |
 |---|---|---|
-| `DEFAULT_ORIENTATION_FACTOR` | 0.88 | Reflects typical suburban roof mix — not exclusively north-facing |
-
-> This factor was previously the 'not sure' value in the orientation multiplier table. It is now applied universally. If roof orientation input is reinstated in Phase 2, the full multiplier table from v3.0 should be restored.
+| Mainly north | 1.00 | Baseline |
+| North-east / North-west | 0.90 | −10% |
+| East or west | 0.82 | −18% |
+| Mainly south | 0.65 | −35% |
+| Not sure | 0.88 | Conservative assumption |
 
 ---
 
@@ -1574,10 +1621,10 @@ Roof orientation is not asked of the user. A single fixed factor is applied to a
 | 10kW | $8,500 | $11,000 | $13,500 | $2,000 |
 | 13.2kW | $11,500 | $15,000 | $18,500 | $2,500 |
 
-> Mid-point (netMid) used for all payback and projection calculations. Cost figures are **not displayed on the results page**. Pricing is confirmed at the site assessment.
+> Mid-point used for all payback and projection calculations. Low–High range shown on results page. Disclaimer directs users to the site assessment for a firm quote.
 
 ---
 
 *Document maintained by Codec Digital. For questions contact the project lead.*
 *Financial rate data: Aurora Energy, Tasmanian Economic Regulator, Clean Energy Council.*
-*Version 4.0 — May 2026. Supersedes Version 3.0.*
+*Version 3.0 — May 2026. Supersedes Version 2.0.*

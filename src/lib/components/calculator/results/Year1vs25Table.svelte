@@ -54,6 +54,6 @@
 	</div>
 
 	<p class="mt-4 text-xs text-zinc-600">
-		Without-solar figures assume 3% annual electricity price increase. With-solar figures include 0.5% annual panel degradation. Feed-in tariff held flat in projections.
+		Without-solar figures assume 5% annual electricity price increase, consistent with Aurora Energy's historical trend. Feed-in tariff held flat in projections.
 	</p>
 </div>

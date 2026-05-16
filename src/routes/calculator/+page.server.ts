@@ -38,14 +38,6 @@ const homeSizeMap: Record<string, string> = {
 	rural: 'Rural or acreage'
 };
 
-const orientationMap: Record<string, string> = {
-	north: 'Mainly north (optimal)',
-	north_east_west: 'North-east or north-west (−10%)',
-	east_west: 'East or west (−18%)',
-	south: 'Mainly south (−35%)',
-	not_sure: 'Not sure (conservative estimate applied)'
-};
-
 function bool(val: string) {
 	return val === 'true' ? '✅ Yes' : 'No';
 }
@@ -64,7 +56,6 @@ function buildInternalEmail(data: Record<string, string>) {
 		occupancyProfile,
 		householdSize,
 		homeSize,
-		roofOrientation,
 		hasElectricHotWater,
 		hasDucatedHvac,
 		hasPool,
@@ -122,8 +113,7 @@ function buildInternalEmail(data: Record<string, string>) {
           <tr style="background: #f9fafb;"><td style="color: #666;">Home occupancy</td><td>${occupancyMap[occupancyProfile] ?? occupancyProfile}</td></tr>
           <tr><td style="color: #666;">Household size</td><td>${householdMap[householdSize] ?? householdSize}</td></tr>
           <tr style="background: #f9fafb;"><td style="color: #666;">Home type</td><td>${homeSizeMap[homeSize] ?? homeSize}</td></tr>
-          <tr><td style="color: #666;">Roof orientation</td><td>${orientationMap[roofOrientation] ?? roofOrientation}</td></tr>
-          <tr style="background: #f9fafb;"><td style="color: #666;">Appliances</td><td>${appliances}</td></tr>
+          <tr><td style="color: #666;">Appliances</td><td>${appliances}</td></tr>
           <tr style="background: #f9fafb;"><td style="color: #666;">EV planned</td><td>${bool(hasEvPlanned)}</td></tr>
           <tr><td style="color: #666;">Battery interest</td><td>${batteryInterest === 'true' ? '✅ Yes — include in estimate' : batteryMaybe === 'true' ? '🟡 Maybe later' : 'No'}</td></tr>
         </table>

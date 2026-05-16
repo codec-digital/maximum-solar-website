@@ -37,7 +37,9 @@
 			<p class="text-sm text-zinc-400">Cumulative savings after system cost</p>
 		</div>
 		<div class="text-right">
-			<p class="font-heading text-2xl font-bold text-white">{formatCurrency(result.lifetimeSavings)}</p>
+			<p class="font-heading text-2xl font-bold text-white">
+				{formatCurrency(result.lifetimeSavings)}
+			</p>
 			<p class="text-xs text-zinc-500">total estimated return</p>
 		</div>
 	</div>
@@ -93,10 +95,10 @@
 	</div>
 
 	<p class="mt-4 text-sm text-zinc-400">
-		Break-even at approximately <strong class="text-white">Year {breakEvenYear}</strong>. After that,
-		savings accelerate as electricity prices rise 3% per year.
+		Break-even at approximately <strong class="text-white">Year {breakEvenYear}</strong>. After
+		that, savings accelerate as electricity prices rise 5% per year.
 	</p>
 	<p class="mt-2 text-xs text-zinc-600">
-		Projection applies 3% annual electricity price growth to grid savings and 0.5% annual panel degradation. Feed-in tariff held flat.
+		Projection applies 5% annual electricity price growth to grid savings. Feed-in tariff held flat.
 	</p>
 </div>
