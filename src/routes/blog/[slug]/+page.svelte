@@ -37,11 +37,11 @@
 					</p>
 				</div>
 				{#if data.post.image}
-					<div class="aspect-h-9 aspect-w-16 mt-10 w-full">
+					<div class="mt-10 aspect-video w-full">
 						<img
 							src={data.post.image}
 							alt={data.post.imageAlt}
-							class="w-full bg-gray-100 object-cover"
+							class="h-full w-full bg-gray-100 object-cover"
 						/>
 					</div>
 				{/if}
