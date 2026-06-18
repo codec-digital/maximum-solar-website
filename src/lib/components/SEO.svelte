@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { SITE_URL } from '$lib/site';
 
 	// Define types for our props
 	type SchemaType =
@@ -16,10 +17,10 @@
 	export let description =
 		'Tasmanian-owned solar experts offering high-quality installations in Hobart and beyond. Reduce bills and carbon footprint. Get a free quote for your home today.';
 	export let keywords = '';
-	export let canonical = $page.url.href;
+	export let canonical = `${SITE_URL}${$page.url.pathname}`;
 	export let siteName = 'Maximum Solar';
-	export let imageURL = '$lib/assets/images/hero.jpg';
-	export let logo = '$lib/assets/images/logo-black.png';
+	export let imageURL = '/images/hero.jpg';
+	export let logo = '/images/logo-black.png';
 	export let author = 'Maximum Solar';
 	export let type: SchemaType = 'WebSite';
 	export let name = 'Maximum Solar';
@@ -34,18 +35,17 @@
 	export let preconnect: string[] = [];
 	export let articleType: string | null = null;
 
-	// Make image URLs absolute
-	const absoluteImageURL = imageURL.startsWith('http')
-		? imageURL
-		: `${$page.url.origin}${imageURL}`;
-	const absoluteLogoURL = logo.startsWith('http') ? logo : `${$page.url.origin}${logo}`;
+	// Make image URLs absolute. Build from SITE_URL (not $page.url.origin) so
+	// prerendered pages get the real domain rather than the sveltekit-prerender placeholder.
+	const absoluteImageURL = imageURL.startsWith('http') ? imageURL : `${SITE_URL}${imageURL}`;
+	const absoluteLogoURL = logo.startsWith('http') ? logo : `${SITE_URL}${logo}`;
 
 	// Basic schema
 	const baseSchema = {
 		'@context': 'https://schema.org',
 		'@type': type,
 		name: name || siteName,
-		url: $page.url.href,
+		url: canonical,
 		image: absoluteImageURL,
 		description: description
 	};
@@ -139,7 +139,7 @@
 	<!-- Open Graph Meta Tags -->
 	{#if openGraph}
 		<meta property="og:site_name" content={siteName} />
-		<meta property="og:url" content={$page.url.href} />
+		<meta property="og:url" content={canonical} />
 		<meta property="og:type" content={type === 'Article' ? 'article' : 'website'} />
 		<meta property="og:title" content={title || siteName} />
 
@@ -166,8 +166,8 @@
 	<!-- Twitter Card Meta Tags -->
 	{#if twitter}
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta property="twitter:domain" content={$page.url.host} />
-		<meta property="twitter:url" content={$page.url.href} />
+		<meta property="twitter:domain" content={SITE_URL.replace(/^https?:\/\//, '')} />
+		<meta property="twitter:url" content={canonical} />
 		<meta name="twitter:title" content={title || siteName} />
 
 		{#if description}

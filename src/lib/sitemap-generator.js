@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
+import { SITE_URL } from './site.js';
 
-const baseUrl = 'https://maximumsolar.com.au';
+const baseUrl = SITE_URL;
 const pagesDir = path.resolve(process.cwd(), 'src/routes');
 const postsDir = path.resolve(process.cwd(), 'src/posts');
 

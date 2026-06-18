@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://maximumsolar.com.au/sitemap.xml
+Sitemap: https://www.maximumsolar.com.au/sitemap.xml
