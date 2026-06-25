@@ -4,6 +4,8 @@
 	import Button from './ui/button/button.svelte';
 	import * as DropdownMenu from './ui/dropdown-menu/index.js';
 	import { locationPages } from '$lib/data/locationPages';
+
+	const year = new Date().getFullYear();
 </script>
 
 <footer class="bg-black p-4">
@@ -44,7 +46,11 @@
 						class="size-4 transition-transform group-data-[state=open]:rotate-180"
 					/>
 				</DropdownMenu.Trigger>
-				<DropdownMenu.Content align="start" class="border-white/15 bg-black text-white">
+				<DropdownMenu.Content
+					align="start"
+					class="border-white/15 bg-black text-white"
+					onCloseAutoFocus={(e) => e.preventDefault()}
+				>
 					{#each locationPages as location (location.slug)}
 						<DropdownMenu.Item
 							class="cursor-pointer text-white data-highlighted:bg-white/10 data-highlighted:text-[#FFC640]"
@@ -97,7 +103,7 @@
 			</a>
 		</div>
 		<p class="mt-8 text-center text-sm/6 text-white md:order-1 md:mt-0">
-			&copy; 2025 <a href="https://www.maximumsolar.com.au/" target="_blank" class="underline"
+			&copy; {year} <a href="https://www.maximumsolar.com.au/" target="_blank" class="underline"
 				>Maximum Solar.</a
 			>
 			All rights reserved.

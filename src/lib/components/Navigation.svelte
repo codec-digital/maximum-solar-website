@@ -306,6 +306,17 @@
 				onmouseenter={() => (activeMenu = null)}
 				class="rounded-xl px-4 py-2 text-sm text-white transition hover:bg-white/10">Contact</a
 			>
+
+			<div class="mx-1 h-6 w-px bg-white/20"></div>
+
+			<a
+				href="/"
+				aria-label="Home"
+				onmouseenter={() => (activeMenu = null)}
+				class="flex items-center justify-center rounded-xl px-3 py-2 text-white transition hover:bg-white/10"
+			>
+				<House class="size-5" />
+			</a>
 		</div>
 
 		{#if activeMenu}
