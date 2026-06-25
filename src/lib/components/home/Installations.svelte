@@ -1,4 +1,8 @@
 <script>
+	import { slide } from 'svelte/transition';
+	import { ChevronDown } from '@lucide/svelte';
+
+	let showAll = false;
 </script>
 
 <!-- LOGO CLOUDS -->
@@ -103,48 +107,65 @@
 				width="400"
 				height="300"
 			/>
-			<enhanced:img
-				class="h-full w-full object-cover"
-				src="/src/lib/assets/images/installations/installation7.jpeg"
-				alt="Installation 7"
-				width="400"
-				height="300"
-			/>
-			<enhanced:img
-				class="h-full w-full object-cover"
-				src="/src/lib/assets/images/installations/installation8.jpeg"
-				alt="Installation 8"
-				width="400"
-				height="300"
-			/>
-			<enhanced:img
-				class="h-full w-full object-cover"
-				src="/src/lib/assets/images/installations/installation9.jpeg"
-				alt="Installation 9"
-				width="400"
-				height="300"
-			/>
-			<enhanced:img
-				class="h-full w-full object-cover"
-				src="/src/lib/assets/images/installations/installation10.jpeg"
-				alt="Installation 10"
-				width="400"
-				height="300"
-			/>
-			<enhanced:img
-				class="h-full w-full object-cover"
-				src="/src/lib/assets/images/installations/installation11.jpeg"
-				alt="Installation 11"
-				width="400"
-				height="300"
-			/>
-			<enhanced:img
-				class="h-full w-full object-cover"
-				src="/src/lib/assets/images/installations/installation12.jpeg"
-				alt="Installation 12"
-				width="400"
-				height="300"
-			/>
+		</div>
+		{#if showAll}
+			<div
+				transition:slide={{ duration: 500 }}
+				class="mx-auto mt-6 grid max-w-screen-2xl grid-cols-2 gap-6 lg:grid-cols-3"
+			>
+				<enhanced:img
+					class="h-full w-full object-cover"
+					src="/src/lib/assets/images/installations/installation7.jpeg"
+					alt="Installation 7"
+					width="400"
+					height="300"
+				/>
+				<enhanced:img
+					class="h-full w-full object-cover"
+					src="/src/lib/assets/images/installations/installation8.jpeg"
+					alt="Installation 8"
+					width="400"
+					height="300"
+				/>
+				<enhanced:img
+					class="h-full w-full object-cover"
+					src="/src/lib/assets/images/installations/installation9.jpeg"
+					alt="Installation 9"
+					width="400"
+					height="300"
+				/>
+				<enhanced:img
+					class="h-full w-full object-cover"
+					src="/src/lib/assets/images/installations/installation10.jpeg"
+					alt="Installation 10"
+					width="400"
+					height="300"
+				/>
+				<enhanced:img
+					class="h-full w-full object-cover"
+					src="/src/lib/assets/images/installations/installation11.jpeg"
+					alt="Installation 11"
+					width="400"
+					height="300"
+				/>
+				<enhanced:img
+					class="h-full w-full object-cover"
+					src="/src/lib/assets/images/installations/installation12.jpeg"
+					alt="Installation 12"
+					width="400"
+					height="300"
+				/>
+			</div>
+		{/if}
+		<div class="mt-12 text-center">
+			<button
+				type="button"
+				on:click={() => (showAll = !showAll)}
+				class="inline-flex items-center justify-center gap-2 rounded-full bg-black px-8 py-3 text-base font-semibold text-white transition-all hover:bg-gray-800"
+			>
+				{showAll ? 'Show less' : 'Show more'}
+				<ChevronDown class="h-5 w-5 transition-transform {showAll ? 'rotate-180' : ''}" />
+			</button>
 		</div>
 		<div
 			class="mx-auto mt-12 flex max-w-5xl flex-col items-center justify-center gap-8 lg:mt-24 lg:flex-row"

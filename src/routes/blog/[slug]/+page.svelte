@@ -13,7 +13,7 @@
 
 <section
 	id="about"
-	class="mx-auto flex items-center justify-center bg-[#236EA4] px-4 pb-12 text-white"
+	class="mx-auto flex items-center justify-center bg-black px-4 pb-12 text-white"
 >
 	<div class="container py-48">
 		<div class="mx-auto max-w-5xl">
@@ -47,7 +47,7 @@
 				{/if}
 			</div>
 
-			<div class="prose mt-8">
+			<div class="prose prose-invert mt-8">
 				<svelte:component this={data.post.content} />
 			</div>
 		</div>

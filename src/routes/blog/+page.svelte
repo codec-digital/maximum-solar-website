@@ -17,7 +17,7 @@
 
 <section
 	id="about"
-	class="mx-auto flex items-center justify-center bg-[#236EA4] px-4 py-12 text-white"
+	class="mx-auto flex items-center justify-center bg-black px-4 py-12 text-white"
 >
 	<div class="container mx-auto flex max-w-7xl flex-col items-center justify-center py-24 sm:py-32">
 		<div class="max-w-2xl">
@@ -35,7 +35,7 @@
 
 		<div class="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 			{#each data.posts as post}
-				<a href="/blog/{post.slug}" class="flex flex-col items-start justify-between">
+				<a href="/blog/{post.slug}" class="group flex flex-col items-start justify-between">
 					<Card.Root className="">
 						<div class="relative w-full">
 							<img
@@ -56,7 +56,9 @@
 								</time>
 							</div>
 							<div class="group relative">
-								<h3 class="font-heading mt-3 text-base leading-7 text-white lg:text-xl">
+								<h3
+									class="font-heading mt-3 text-base leading-7 text-white transition-colors group-hover:text-[#FFC640] lg:text-xl"
+								>
 									{post.title}
 								</h3>
 								<p class="mt-3 line-clamp-3 text-sm leading-6 text-white">

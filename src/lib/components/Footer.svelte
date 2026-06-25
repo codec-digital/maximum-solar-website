@@ -1,7 +1,9 @@
 <script>
-	import { Phone, Facebook, Instagram, Linkedin, ArrowRight } from '@lucide/svelte';
+	import { Phone, Facebook, Instagram, Linkedin, ArrowRight, ChevronDown } from '@lucide/svelte';
 	import MailingList from './MailingList.svelte';
 	import Button from './ui/button/button.svelte';
+	import * as DropdownMenu from './ui/dropdown-menu/index.js';
+	import { locationPages } from '$lib/data/locationPages';
 </script>
 
 <footer class="bg-black p-4">
@@ -33,6 +35,27 @@
 			<Button href="tel:1300457542" target="_blank" variant="link" class="pl-0 text-white"
 				>1300 457 542</Button
 			>
+			<DropdownMenu.Root>
+				<DropdownMenu.Trigger
+					class="group mt-2 flex cursor-pointer items-center gap-x-1 text-sm text-white transition-colors hover:text-[#FFC640]"
+				>
+					Areas we service
+					<ChevronDown
+						class="size-4 transition-transform group-data-[state=open]:rotate-180"
+					/>
+				</DropdownMenu.Trigger>
+				<DropdownMenu.Content align="start" class="border-white/15 bg-black text-white">
+					{#each locationPages as location (location.slug)}
+						<DropdownMenu.Item
+							class="cursor-pointer text-white data-highlighted:bg-white/10 data-highlighted:text-[#FFC640]"
+						>
+							{#snippet child({ props })}
+								<a href="/{location.slug}" {...props}>{location.areaName}</a>
+							{/snippet}
+						</DropdownMenu.Item>
+					{/each}
+				</DropdownMenu.Content>
+			</DropdownMenu.Root>
 		</div>
 		<div class="mt-12 flex w-full justify-center lg:mt-0 lg:justify-end">
 			<enhanced:img

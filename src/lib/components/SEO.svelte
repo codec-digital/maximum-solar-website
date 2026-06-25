@@ -34,6 +34,7 @@
 	export let modifiedTime: string | null = null;
 	export let preconnect: string[] = [];
 	export let articleType: string | null = null;
+	export let faq: { question: string; answer: string }[] = [];
 
 	// Make image URLs absolute. Build from SITE_URL (not $page.url.origin) so
 	// prerendered pages get the real domain rather than the sveltekit-prerender placeholder.
@@ -110,6 +111,26 @@
 	}
 
 	const jsonLdScript = `<script type="application/ld+json">${JSON.stringify(schemaData)}${'<'}/script>`;
+
+	// FAQPage structured data — emitted as a separate JSON-LD block when faq items
+	// are provided, so each Q&A maps to a Question entity per AEO/SEO requirements.
+	const faqSchema = faq.length
+		? {
+				'@context': 'https://schema.org',
+				'@type': 'FAQPage',
+				mainEntity: faq.map((item) => ({
+					'@type': 'Question',
+					name: item.question,
+					acceptedAnswer: {
+						'@type': 'Answer',
+						text: item.answer
+					}
+				}))
+			}
+		: null;
+	const faqLdScript = faqSchema
+		? `<script type="application/ld+json">${JSON.stringify(faqSchema)}${'<'}/script>`
+		: '';
 </script>
 
 <svelte:head>
@@ -185,5 +206,10 @@
 	<!-- Schema.org structured data -->
 	{#if schemaOrg}
 		{@html jsonLdScript}
+	{/if}
+
+	<!-- FAQPage structured data -->
+	{#if faqLdScript}
+		{@html faqLdScript}
 	{/if}
 </svelte:head>
