@@ -17,8 +17,25 @@
 	import { fly } from 'svelte/transition';
 	import { browser } from '$app/environment';
 	import type { LocationPage } from '$lib/data/locationPages';
+	import launcestonHero from '$lib/assets/images/locations/launceston.jpg?enhanced';
+	import devonportHero from '$lib/assets/images/locations/devonport.jpg?enhanced';
+	import burnieHero from '$lib/assets/images/locations/burnie.jpg?enhanced';
+	import huonValleyHero from '$lib/assets/images/locations/huon-valley.jpg?enhanced';
+	import sorellHero from '$lib/assets/images/locations/sorell.jpg?enhanced';
+	import kingboroughHero from '$lib/assets/images/locations/kingborough.jpg?enhanced';
 
 	export let page: LocationPage;
+
+	// Per-location hero imagery, keyed by route slug.
+	const heroImages: Record<string, typeof launcestonHero> = {
+		'solar-launceston': launcestonHero,
+		'solar-devonport': devonportHero,
+		'solar-burnie': burnieHero,
+		'solar-huon-valley': huonValleyHero,
+		'solar-sorell-midlands': sorellHero,
+		'solar-kingborough': kingboroughHero
+	};
+	$: heroImage = heroImages[page.slug] ?? launcestonHero;
 
 	function smoothScrollTo(e: MouseEvent, id: string) {
 		e.preventDefault();
@@ -151,9 +168,8 @@
 
 <!-- Hero Section -->
 <section class="relative flex w-full flex-col items-center justify-center pt-60 pb-24">
-	<!-- PLACEHOLDER hero image - swap per location once final imagery is supplied. -->
 	<enhanced:img
-		src="/src/lib/assets/images/hero.jpg"
+		src={heroImage}
 		alt="Solar panel installation in {region}, Tasmania"
 		class="absolute inset-0 h-full w-full object-cover"
 	/>
@@ -447,9 +463,8 @@
 
 <!-- Final CTA Section -->
 <section class="relative py-24">
-	<!-- PLACEHOLDER image - swap once final imagery is supplied. -->
 	<enhanced:img
-		src="/src/lib/assets/images/why-solar.jpg"
+		src="/src/lib/assets/images/hero.jpg"
 		alt="Solar panels in Tasmania"
 		class="absolute inset-0 h-full w-full object-cover"
 	/>

@@ -14,8 +14,26 @@
 	import { fly } from 'svelte/transition';
 	import { browser } from '$app/environment';
 	import type { ServicePage } from '$lib/data/servicePages';
+	import batteryHero from '$lib/assets/images/services/battery-storage.jpg?enhanced';
+	import farmHero from '$lib/assets/images/services/farm-solar.jpg?enhanced';
+	import offGridHero from '$lib/assets/images/services/off-grid-solar.jpg?enhanced';
+	import evChargingHero from '$lib/assets/images/services/ev-charging.jpg?enhanced';
+	import rebatesHero from '$lib/assets/images/why-solar.jpg?enhanced';
+	import maintenanceHero from '$lib/assets/images/why-solar-2.jpg?enhanced';
 
 	export let page: ServicePage;
+
+	// Per-service hero imagery, keyed by route slug. Solar rebates keeps the
+	// existing image; solar maintenance shares the maintenance-plans photo.
+	const heroImages: Record<string, typeof batteryHero> = {
+		'battery-storage': batteryHero,
+		'farm-solar-tasmania': farmHero,
+		'off-grid-solar-tasmania': offGridHero,
+		'ev-charging-solar': evChargingHero,
+		'solar-rebates-tasmania': rebatesHero,
+		'solar-maintenance': maintenanceHero
+	};
+	$: heroImage = heroImages[page.slug] ?? rebatesHero;
 
 	function smoothScrollTo(e: MouseEvent, id: string) {
 		e.preventDefault();
@@ -130,9 +148,8 @@
 
 <!-- Hero Section -->
 <section class="relative flex w-full flex-col items-center justify-center pt-60 pb-24">
-	<!-- PLACEHOLDER hero image - swap per service once final imagery is supplied. -->
 	<enhanced:img
-		src="/src/lib/assets/images/why-solar.jpg"
+		src={heroImage}
 		alt={page.h1}
 		class="absolute inset-0 h-full w-full object-cover"
 	/>
@@ -403,7 +420,6 @@
 
 <!-- Final CTA Section -->
 <section class="relative py-24">
-	<!-- PLACEHOLDER image - swap once final imagery is supplied. -->
 	<enhanced:img
 		src="/src/lib/assets/images/hero.jpg"
 		alt="Solar panels in Tasmania"
