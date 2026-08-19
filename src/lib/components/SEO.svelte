@@ -20,8 +20,12 @@
 	export let canonical = `${SITE_URL}${$page.url.pathname}`;
 	export let siteName = 'Maximum Solar';
 	export let imageURL = '/images/hero.jpg';
+	export let imageAlt: string | null = null;
 	export let logo = '/images/logo-black.png';
 	export let author = 'Maximum Solar';
+	// Article bylines are usually the company rather than an individual, so the
+	// schema author entity type is configurable.
+	export let authorType: 'Person' | 'Organization' = 'Person';
 	export let type: SchemaType = 'WebSite';
 	export let name = 'Maximum Solar';
 	export let index = true;
@@ -34,6 +38,9 @@
 	export let modifiedTime: string | null = null;
 	export let preconnect: string[] = [];
 	export let articleType: string | null = null;
+	// Falls back to `title`; pass separately when `title` carries site branding
+	// that shouldn't appear in the schema headline.
+	export let headline: string | null = null;
 	export let faq: { question: string; answer: string }[] = [];
 
 	// Make image URLs absolute. Build from SITE_URL (not $page.url.origin) so
@@ -58,9 +65,9 @@
 	if (type === 'Article') {
 		schemaData = {
 			...schemaData,
-			headline: title,
+			headline: headline || title,
 			author: {
-				'@type': 'Person',
+				'@type': authorType,
 				name: author
 			},
 			publisher: {
@@ -79,7 +86,8 @@
 				'@type': 'WebPage',
 				'@id': canonical
 			},
-			articleSection: articleType
+			// Omitted rather than emitted as null when the page has no section.
+			...(articleType ? { articleSection: articleType } : {})
 		};
 	} else if (type === 'WebSite' || type === 'WebPage') {
 		schemaData = {
@@ -170,7 +178,7 @@
 
 		{#if absoluteImageURL}
 			<meta property="og:image" content={absoluteImageURL} />
-			<meta property="og:image:alt" content={title || siteName} />
+			<meta property="og:image:alt" content={imageAlt || title || siteName} />
 		{/if}
 
 		{#if type === 'Article' && publishedTime}

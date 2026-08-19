@@ -251,7 +251,7 @@
 	class="font-heading pointer-events-auto fixed left-1/2 top-4 z-50 hidden -translate-x-1/2 lg:block"
 >
 	<div
-		class="relative flex flex-col items-center overflow-hidden rounded-2xl bg-black shadow-lg ring-1 ring-white/10 {mounted
+		class="relative flex flex-col items-center overflow-hidden bg-black shadow-lg ring-1 ring-white/10 {mounted
 			? 'transition-[width] duration-200 ease-[cubic-bezier(0.33,1,0.68,1)]'
 			: ''}"
 		style={triggerWidth ? `width:${targetWidth}px` : ''}
@@ -260,7 +260,7 @@
 			<button
 				onmouseenter={() => (activeMenu = 'services')}
 				onclick={() => (activeMenu = activeMenu === 'services' ? null : 'services')}
-				class="flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm text-white transition hover:bg-white/10 {activeMenu ===
+				class="flex items-center gap-1.5 px-4 py-2 text-sm text-white transition hover:bg-white/10 {activeMenu ===
 				'services'
 					? 'bg-white/10'
 					: ''}"
@@ -273,7 +273,7 @@
 			<button
 				onmouseenter={() => (activeMenu = 'about')}
 				onclick={() => (activeMenu = activeMenu === 'about' ? null : 'about')}
-				class="flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm text-white transition hover:bg-white/10 {activeMenu ===
+				class="flex items-center gap-1.5 px-4 py-2 text-sm text-white transition hover:bg-white/10 {activeMenu ===
 				'about'
 					? 'bg-white/10'
 					: ''}"
@@ -286,7 +286,7 @@
 			<a
 				href="/blog"
 				onmouseenter={() => (activeMenu = 'articles')}
-				class="flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm text-white transition hover:bg-white/10 {activeMenu ===
+				class="flex items-center gap-1.5 px-4 py-2 text-sm text-white transition hover:bg-white/10 {activeMenu ===
 				'articles'
 					? 'bg-white/10'
 					: ''}"
@@ -299,12 +299,12 @@
 			<a
 				href="/faq"
 				onmouseenter={() => (activeMenu = null)}
-				class="rounded-xl px-4 py-2 text-sm text-white transition hover:bg-white/10">FAQ</a
+				class="px-4 py-2 text-sm text-white transition hover:bg-white/10">FAQ</a
 			>
 			<a
 				href="/contact"
 				onmouseenter={() => (activeMenu = null)}
-				class="rounded-xl px-4 py-2 text-sm text-white transition hover:bg-white/10">Contact</a
+				class="px-4 py-2 text-sm text-white transition hover:bg-white/10">Contact</a
 			>
 
 			<div class="mx-1 h-6 w-px bg-white/20"></div>
@@ -313,7 +313,7 @@
 				href="/"
 				aria-label="Home"
 				onmouseenter={() => (activeMenu = null)}
-				class="flex items-center justify-center rounded-xl px-3 py-2 text-white transition hover:bg-white/10"
+				class="flex items-center justify-center px-3 py-2 text-white transition hover:bg-white/10"
 			>
 				<House class="size-5" />
 			</a>
@@ -331,7 +331,7 @@
 					<div class="w-[720px] p-5">
 						<!-- Primary: Residential / Commercial image cards -->
 						<div class="grid grid-cols-2 gap-4">
-							<a href="/residential-solar" class="group relative block overflow-hidden rounded-xl">
+							<a href="/residential-solar" class="group relative block overflow-hidden">
 								<enhanced:img
 									src="/src/lib/assets/images/residential-solar-1.jpg"
 									alt="Residential Solar"
@@ -342,7 +342,7 @@
 									>Residential Solar</span
 								>
 							</a>
-							<a href="/commercial-solar" class="group relative block overflow-hidden rounded-xl">
+							<a href="/commercial-solar" class="group relative block overflow-hidden">
 								<enhanced:img
 									src="/src/lib/assets/images/commercial-solar.jpg"
 									alt="Commercial Solar"
@@ -366,7 +366,7 @@
 								{@const Icon = s.icon}
 								<a
 									href={s.href}
-									class="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-white/80 transition hover:bg-white/10 hover:text-white"
+									class="flex items-center gap-2 px-2 py-2 text-sm text-white/80 transition hover:bg-white/10 hover:text-white"
 								>
 									<Icon class="size-4 shrink-0 text-[#FFC640]" />
 									{s.name}
@@ -385,7 +385,7 @@
 								{@const Icon = s.icon}
 								<a
 									href={s.href}
-									class="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-white/80 transition hover:bg-white/10 hover:text-white"
+									class="flex items-center gap-2 px-2 py-2 text-sm text-white/80 transition hover:bg-white/10 hover:text-white"
 								>
 									<Icon class="size-4 shrink-0 text-[#FFC640]" />
 									{s.name}
@@ -396,7 +396,7 @@
 				{:else if activeMenu === 'about'}
 					<div class="w-[720px] p-5">
 						<div class="grid grid-cols-3 gap-4">
-							<a href="/the-process" class="group relative block overflow-hidden rounded-xl">
+							<a href="/the-process" class="group relative block overflow-hidden">
 								<enhanced:img
 									src="/src/lib/assets/images/the-process.jpg"
 									alt="The Process"
@@ -405,7 +405,7 @@
 								<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/10"></div>
 								<span class="absolute bottom-3 left-4 text-lg font-semibold text-white">The Process</span>
 							</a>
-							<a href="/financial-incentives" class="group relative block overflow-hidden rounded-xl">
+							<a href="/financial-incentives" class="group relative block overflow-hidden">
 								<enhanced:img
 									src="/src/lib/assets/images/financial-incentives.jpg"
 									alt="Financial Incentives"
@@ -416,7 +416,7 @@
 									>Financial Incentives</span
 								>
 							</a>
-							<a href="/careers" class="group relative block overflow-hidden rounded-xl">
+							<a href="/careers" class="group relative block overflow-hidden">
 								<enhanced:img
 									src="/src/lib/assets/images/careers.jpg"
 									alt="Careers"
@@ -432,7 +432,7 @@
 						<div class="grid grid-cols-3 gap-4">
 							{#each recentPosts as post (post.slug)}
 								<a href="/blog/{post.slug}" class="group block">
-									<div class="relative overflow-hidden rounded-xl">
+									<div class="relative overflow-hidden">
 										<img
 											src={post.image}
 											alt={post.imageAlt ?? post.title}

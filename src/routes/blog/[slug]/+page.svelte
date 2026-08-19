@@ -4,12 +4,26 @@
 	export let data;
 
 	const seo = {
-		title: `Maximum Solar | ${data.post.title}`,
+		// Posts may supply their own meta title in frontmatter; otherwise fall back
+		// to the site-wide pattern.
+		title: data.post.metaTitle ?? `Maximum Solar | ${data.post.title}`,
 		description: data.post.description
 	};
 </script>
 
-<SEO title={seo.title} description={seo.description} />
+<SEO
+	title={seo.title}
+	description={seo.description}
+	type="Article"
+	headline={data.post.title}
+	name={data.post.title}
+	author={data.post.author}
+	authorType="Organization"
+	imageURL={data.post.image}
+	imageAlt={data.post.imageAlt}
+	publishedTime={data.post.publishedAt}
+	modifiedTime={data.post.updatedAt ?? null}
+/>
 
 <section
 	id="about"
