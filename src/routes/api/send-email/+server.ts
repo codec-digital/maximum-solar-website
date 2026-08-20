@@ -42,7 +42,7 @@ export const POST: RequestHandler = async ({ request }) => {
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Phone:</strong> ${phone}</p>
-                <p><strong>Suburb / Postcode:</strong> ${postCode || 'Not provided'}</p>
+                <p><strong>Suburb and State:</strong> ${postCode || 'Not provided'}</p>
                 <p><strong>Job Areas of Interest:</strong> ${jobAreas.join(', ')}</p>
                 <p><strong>Message:</strong></p>
                 <p>${message}</p>
@@ -55,7 +55,7 @@ export const POST: RequestHandler = async ({ request }) => {
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Phone:</strong> ${phone}</p>
-                <p><strong>Suburb / Postcode:</strong> ${postCode || 'Not provided'}</p>
+                <p><strong>Suburb and State:</strong> ${postCode || 'Not provided'}</p>
                 <p><strong>Preferred Contact Method:</strong> ${preferredContact}</p>
                 <p><strong>Message:</strong></p>
                 <p>${message}</p>

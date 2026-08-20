@@ -214,7 +214,7 @@
 					</div>
 					<div class="grid gap-2">
 						<Label for="postcode" class="text-sm/6 font-semibold text-white"
-							>Suburb / Postcode</Label
+							>Suburb and State</Label
 						>
 						<div class="mt-2.5">
 							<input
@@ -395,7 +395,7 @@
 						</div>
 						<div class="grid gap-2">
 							<Label for="mobile-postcode" class="text-sm/6 font-semibold text-white"
-								>Suburb / Postcode</Label
+								>Suburb and State</Label
 							>
 							<div class="mt-2.5">
 								<input
