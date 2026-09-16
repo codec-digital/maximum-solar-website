@@ -81,7 +81,8 @@
 		postCode: '',
 		preferredContact: 'Either',
 		message: '',
-		formType: `Solar Enquiry - ${region}`
+		formType: `Solar Enquiry - ${region}`,
+		website: '' // honeypot — real visitors never fill this in
 	};
 
 	let loading = false;
@@ -118,7 +119,8 @@
 			postCode: formData.postCode,
 			preferredContact: formData.preferredContact,
 			message: formData.message,
-			type: formData.formType
+			type: formData.formType,
+			website: formData.website
 		};
 
 		try {
@@ -300,6 +302,17 @@
 		<div class="mt-12">
 			{#if !submitted}
 				<form on:submit={handleSubmit} method="POST" class="grid items-start gap-6">
+					<div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+						<label for="website">Website</label>
+						<input
+							type="text"
+							id="website"
+							name="website"
+							tabindex="-1"
+							autocomplete="off"
+							bind:value={formData.website}
+						/>
+					</div>
 					{#if error}
 						<Alert.Root class="mb-4 bg-red-50/10 text-white">
 							<AlertTriangle class="h-4 w-4 text-red-400" />

@@ -10,6 +10,7 @@
 			lastName: string;
 			email: string;
 			phone: string;
+			website: string;
 		}) => Promise<void>;
 		onBasicReport: () => void;
 		submitting: boolean;
@@ -22,6 +23,10 @@
 	let lastName = $state(quizState.inputs.lastName);
 	let email = $state(quizState.inputs.email);
 	let phone = $state(quizState.inputs.phone);
+	// Honeypot: kept empty by real visitors, invisible via CSS below. Any
+	// bot that blindly fills every field trips this and the server discards
+	// the submission silently.
+	let website = $state('');
 	let errors = $state<Record<string, string>>({});
 
 	function validate() {
@@ -45,7 +50,7 @@
 		quizState.inputs.email = email;
 		quizState.inputs.phone = phone;
 
-		await onSubmit({ firstName, lastName, email, phone });
+		await onSubmit({ firstName, lastName, email, phone, website });
 	}
 
 	const inputBase =
@@ -58,6 +63,20 @@
 	subtitle="Enter your details to unlock your full results. Free and no obligation."
 >
 	<form onsubmit={handleSubmit} class="space-y-4">
+		<!-- Honeypot field: hidden from real visitors, left blank by them.
+		     Bots that fill in every field will trip it and be silently dropped. -->
+		<div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+			<label for="website">Website</label>
+			<input
+				id="website"
+				name="website"
+				type="text"
+				tabindex="-1"
+				autocomplete="off"
+				bind:value={website}
+			/>
+		</div>
+
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 			<div>
 				<Label for="firstName" class="mb-1.5 block text-sm font-medium text-zinc-300"

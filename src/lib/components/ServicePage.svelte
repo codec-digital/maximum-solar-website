@@ -61,7 +61,8 @@
 		postCode: '',
 		preferredContact: 'Either',
 		message: '',
-		formType: `Service Enquiry - ${page.shortName}`
+		formType: `Service Enquiry - ${page.shortName}`,
+		website: '' // honeypot — real visitors never fill this in
 	};
 
 	let loading = false;
@@ -98,7 +99,8 @@
 			postCode: formData.postCode,
 			preferredContact: formData.preferredContact,
 			message: formData.message,
-			type: formData.formType
+			type: formData.formType,
+			website: formData.website
 		};
 
 		try {
@@ -148,11 +150,7 @@
 
 <!-- Hero Section -->
 <section class="relative flex w-full flex-col items-center justify-center pt-60 pb-24">
-	<enhanced:img
-		src={heroImage}
-		alt={page.h1}
-		class="absolute inset-0 h-full w-full object-cover"
-	/>
+	<enhanced:img src={heroImage} alt={page.h1} class="absolute inset-0 h-full w-full object-cover" />
 	<div class="absolute inset-0 bg-black opacity-65"></div>
 	<div class="relative z-10 mx-auto max-w-5xl px-6 text-center">
 		<p
@@ -257,6 +255,17 @@
 		<div class="mt-12">
 			{#if !submitted}
 				<form on:submit={handleSubmit} method="POST" class="grid items-start gap-6">
+					<div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+						<label for="website">Website</label>
+						<input
+							type="text"
+							id="website"
+							name="website"
+							tabindex="-1"
+							autocomplete="off"
+							bind:value={formData.website}
+						/>
+					</div>
 					{#if error}
 						<Alert.Root class="mb-4 bg-red-50/10 text-white">
 							<AlertTriangle class="h-4 w-4 text-red-400" />

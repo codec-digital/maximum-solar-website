@@ -20,7 +20,8 @@
 		phone: '',
 		jobAreas: [] as string[],
 		message: '',
-		formType: 'Career Interest'
+		formType: 'Career Interest',
+		website: '' // honeypot — real visitors never fill this in
 	};
 
 	const jobAreaOptions = ['Sales', 'Installation', 'Administration', 'Electrician'];
@@ -73,7 +74,8 @@
 			phone: formData.phone,
 			jobAreas: formData.jobAreas,
 			message: formData.message,
-			type: formData.formType
+			type: formData.formType,
+			website: formData.website
 		};
 
 		try {
@@ -176,6 +178,17 @@
 	<div class="mx-auto max-w-5xl px-6">
 		{#if !submitted}
 			<form on:submit={handleSubmit} method="POST" class="grid items-start gap-6">
+				<div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+					<label for="website">Website</label>
+					<input
+						type="text"
+						id="website"
+						name="website"
+						tabindex="-1"
+						autocomplete="off"
+						bind:value={formData.website}
+					/>
+				</div>
 				{#if error}
 					<Alert.Root class="mb-4 border-red-200 bg-red-50 text-red-800">
 						<AlertTriangle class="h-4 w-4 text-red-600" />

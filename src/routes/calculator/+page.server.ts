@@ -2,6 +2,14 @@ import { Resend } from 'resend';
 import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { RESEND_API_KEY } from '$env/static/private';
+import {
+	escapeHtml,
+	isHoneypotTripped,
+	isSafeEmail,
+	isSafeName,
+	isSafePhone,
+	isSafeSuburb
+} from '$lib/server/form-guard';
 
 export const prerender = false;
 
@@ -92,7 +100,7 @@ function buildInternalEmail(data: Record<string, string>) {
     <tr>
       <td style="background: #FFC640; padding: 24px 32px; border-radius: 8px 8px 0 0;">
         <h1 style="margin: 0; font-size: 20px; color: #1a1a1a;">New Solar Lead</h1>
-        <p style="margin: 4px 0 0; font-size: 14px; color: #333;">${firstName} ${lastName} — ${postcode} (${regionLabel})</p>
+        <p style="margin: 4px 0 0; font-size: 14px; color: #333;">${escapeHtml(firstName)} ${escapeHtml(lastName)} — ${escapeHtml(postcode)} (${escapeHtml(regionLabel)})</p>
       </td>
     </tr>
     <tr>
@@ -100,15 +108,15 @@ function buildInternalEmail(data: Record<string, string>) {
 
         <h2 style="font-size: 16px; margin: 0 0 16px; color: #111;">Contact Details</h2>
         <table width="100%" cellpadding="6" cellspacing="0" style="border-collapse: collapse; margin-bottom: 24px;">
-          <tr><td style="color: #666; width: 40%;">Name</td><td style="font-weight: bold;">${firstName} ${lastName}</td></tr>
-          <tr style="background: #f9fafb;"><td style="color: #666;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
-          <tr><td style="color: #666;">Phone</td><td><a href="tel:${phone}">${phone}</a></td></tr>
+          <tr><td style="color: #666; width: 40%;">Name</td><td style="font-weight: bold;">${escapeHtml(firstName)} ${escapeHtml(lastName)}</td></tr>
+          <tr style="background: #f9fafb;"><td style="color: #666;">Email</td><td>${escapeHtml(email)}</td></tr>
+          <tr><td style="color: #666;">Phone</td><td><a href="tel:${escapeHtml(phone)}">${escapeHtml(phone)}</a></td></tr>
         </table>
 
         <h2 style="font-size: 16px; margin: 0 0 16px; color: #111;">Property & Usage</h2>
         <table width="100%" cellpadding="6" cellspacing="0" style="border-collapse: collapse; margin-bottom: 24px;">
-          <tr><td style="color: #666; width: 40%;">Postcode</td><td style="font-weight: bold;">${postcode}</td></tr>
-          <tr style="background: #f9fafb;"><td style="color: #666;">Region</td><td>${regionLabel}</td></tr>
+          <tr><td style="color: #666; width: 40%;">Postcode</td><td style="font-weight: bold;">${escapeHtml(postcode)}</td></tr>
+          <tr style="background: #f9fafb;"><td style="color: #666;">Region</td><td>${escapeHtml(regionLabel)}</td></tr>
           <tr><td style="color: #666;">Bill amount</td><td>$${billAmount} ${billPeriod} (≈ $${quarterlyBill}/quarter)</td></tr>
           <tr style="background: #f9fafb;"><td style="color: #666;">Home occupancy</td><td>${occupancyMap[occupancyProfile] ?? occupancyProfile}</td></tr>
           <tr><td style="color: #666;">Household size</td><td>${householdMap[householdSize] ?? householdSize}</td></tr>
@@ -142,7 +150,25 @@ export const actions: Actions = {
 		const data = await request.formData();
 		const fields = Object.fromEntries(data.entries()) as Record<string, string>;
 
-		const { email, isViable, firstName, lastName, postcode } = fields;
+		const { email, isViable, firstName, lastName, postcode, phone, website } = fields;
+
+		// Honeypot: hidden field a real visitor never fills in.
+		if (isHoneypotTripped(website)) {
+			return { success: true };
+		}
+
+		if (!isSafeName(firstName) || !isSafeName(lastName)) {
+			return fail(400, { success: false, error: 'Please enter a valid name.' });
+		}
+		if (!isSafeEmail(email)) {
+			return fail(400, { success: false, error: 'Please enter a valid email address.' });
+		}
+		if (!isSafePhone(phone)) {
+			return fail(400, { success: false, error: 'Please enter a valid phone number.' });
+		}
+		if (!isSafeSuburb(postcode)) {
+			return fail(400, { success: false, error: 'Please enter a valid postcode.' });
+		}
 
 		const viabilityTag = isViable === 'false' ? ' [LOW USAGE]' : '';
 

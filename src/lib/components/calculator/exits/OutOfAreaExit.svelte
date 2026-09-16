@@ -7,6 +7,7 @@
 	let submitted = $state(false);
 	let loading = $state(false);
 	let error = $state('');
+	let website = $state(''); // honeypot — real visitors never fill this in
 
 	async function handleSubmit(e: SubmitEvent) {
 		e.preventDefault();
@@ -28,7 +29,8 @@
 					postCode: '',
 					preferredContact: 'Email',
 					message:
-						'User is outside Tasmania and would like to be notified of future service expansion.'
+						'User is outside Tasmania and would like to be notified of future service expansion.',
+					website
 				})
 			});
 			submitted = true;
@@ -63,17 +65,21 @@
 		</div>
 	{:else}
 		<form onsubmit={handleSubmit} class="mx-auto mt-8 max-w-sm space-y-3">
+			<div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+				<label for="ooa-website">Website</label>
+				<input id="ooa-website" type="text" tabindex="-1" autocomplete="off" bind:value={website} />
+			</div>
 			<input
 				type="text"
 				placeholder="Your name (optional)"
 				bind:value={name}
-				class="w-full rounded-xl border-2 border-zinc-700 bg-zinc-800 px-4 py-3 text-base text-white outline-none transition-all placeholder:text-zinc-500 focus:border-[#FFC640]"
+				class="w-full rounded-xl border-2 border-zinc-700 bg-zinc-800 px-4 py-3 text-base text-white transition-all outline-none placeholder:text-zinc-500 focus:border-[#FFC640]"
 			/>
 			<input
 				type="email"
 				placeholder="Your email address"
 				bind:value={email}
-				class="w-full rounded-xl border-2 border-zinc-700 bg-zinc-800 px-4 py-3 text-base text-white outline-none transition-all placeholder:text-zinc-500 focus:border-[#FFC640] {error
+				class="w-full rounded-xl border-2 border-zinc-700 bg-zinc-800 px-4 py-3 text-base text-white transition-all outline-none placeholder:text-zinc-500 focus:border-[#FFC640] {error
 					? 'border-red-500'
 					: ''}"
 			/>

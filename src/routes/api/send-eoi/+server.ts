@@ -2,6 +2,14 @@ import { Resend } from 'resend';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { RESEND_API_KEY } from '$env/static/private';
+import {
+	escapeHtml,
+	isHoneypotTripped,
+	isSafeEmail,
+	isSafeName,
+	isSafePhone,
+	isSafeShortText
+} from '$lib/server/form-guard';
 
 // Exclude this endpoint from prerendering
 export const prerender = false;
@@ -29,7 +37,39 @@ export const POST: RequestHandler = async ({ request }) => {
 	}
 
 	const body = await request.json();
-	const { companyName, yourName, positionHeld, phone, email, type } = body;
+	const { companyName, yourName, positionHeld, phone, email, type, website } = body;
+
+	if (isHoneypotTripped(website)) {
+		return json({ success: true }, { headers });
+	}
+
+	if (!isSafeShortText(companyName, 150)) {
+		return json(
+			{ success: false, error: 'Please enter a valid company name.' },
+			{ status: 400, headers }
+		);
+	}
+	if (!isSafeName(yourName)) {
+		return json({ success: false, error: 'Please enter a valid name.' }, { status: 400, headers });
+	}
+	if (!isSafeShortText(positionHeld, 100)) {
+		return json(
+			{ success: false, error: 'Please enter a valid position held.' },
+			{ status: 400, headers }
+		);
+	}
+	if (!isSafePhone(phone)) {
+		return json(
+			{ success: false, error: 'Please enter a valid phone number.' },
+			{ status: 400, headers }
+		);
+	}
+	if (!isSafeEmail(email)) {
+		return json(
+			{ success: false, error: 'Please enter a valid email address.' },
+			{ status: 400, headers }
+		);
+	}
 
 	try {
 		// Custom HTML template for Expression of Interest
@@ -71,7 +111,7 @@ export const POST: RequestHandler = async ({ request }) => {
                                                     <strong style="color: #666666; font-size: 14px;">Company Name:</strong>
                                                 </td>
                                                 <td style="padding: 8px 0; text-align: right;">
-                                                    <span style="color: #333333; font-size: 14px;">${companyName}</span>
+                                                    <span style="color: #333333; font-size: 14px;">${escapeHtml(companyName)}</span>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -79,7 +119,7 @@ export const POST: RequestHandler = async ({ request }) => {
                                                     <strong style="color: #666666; font-size: 14px;">Contact Name:</strong>
                                                 </td>
                                                 <td style="padding: 8px 0; text-align: right; border-top: 1px solid #e0e0e0;">
-                                                    <span style="color: #333333; font-size: 14px;">${yourName}</span>
+                                                    <span style="color: #333333; font-size: 14px;">${escapeHtml(yourName)}</span>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -87,7 +127,7 @@ export const POST: RequestHandler = async ({ request }) => {
                                                     <strong style="color: #666666; font-size: 14px;">Position:</strong>
                                                 </td>
                                                 <td style="padding: 8px 0; text-align: right; border-top: 1px solid #e0e0e0;">
-                                                    <span style="color: #333333; font-size: 14px;">${positionHeld}</span>
+                                                    <span style="color: #333333; font-size: 14px;">${escapeHtml(positionHeld)}</span>
                                                 </td>
                                             </tr>
                                         </table>
@@ -107,7 +147,7 @@ export const POST: RequestHandler = async ({ request }) => {
                                                     <strong style="color: #666666; font-size: 14px;">Email:</strong>
                                                 </td>
                                                 <td style="padding: 8px 0; text-align: right;">
-                                                    <a href="mailto:${email}" style="color: #0066cc; font-size: 14px; text-decoration: none;">${email}</a>
+                                                    <span style="color: #333333; font-size: 14px;">${escapeHtml(email)}</span>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -115,7 +155,7 @@ export const POST: RequestHandler = async ({ request }) => {
                                                     <strong style="color: #666666; font-size: 14px;">Phone:</strong>
                                                 </td>
                                                 <td style="padding: 8px 0; text-align: right; border-top: 1px solid #e0e0e0;">
-                                                    <a href="tel:${phone}" style="color: #0066cc; font-size: 14px; text-decoration: none;">${phone}</a>
+                                                    <a href="tel:${escapeHtml(phone)}" style="color: #0066cc; font-size: 14px; text-decoration: none;">${escapeHtml(phone)}</a>
                                                 </td>
                                             </tr>
                                         </table>

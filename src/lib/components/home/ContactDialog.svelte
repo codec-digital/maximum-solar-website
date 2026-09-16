@@ -29,7 +29,8 @@
 		postCode: '',
 		preferredContact: 'Either',
 		message: '',
-		formType: 'General Contact Form'
+		formType: 'General Contact Form',
+		website: '' // honeypot — real visitors never fill this in
 	};
 
 	let loading = false;
@@ -75,7 +76,8 @@
 			postCode: formData.postCode,
 			preferredContact: formData.preferredContact,
 			message: formData.message,
-			type: formData.formType
+			type: formData.formType,
+			website: formData.website
 		};
 
 		try {
@@ -158,6 +160,17 @@
 
 			{#if !submitted}
 				<form on:submit={handleSubmit} method="POST" class="mt-6 grid items-start gap-4">
+					<div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+						<label for="website">Website</label>
+						<input
+							type="text"
+							id="website"
+							name="website"
+							tabindex="-1"
+							autocomplete="off"
+							bind:value={formData.website}
+						/>
+					</div>
 					{#if error}
 						<Alert.Root class="mb-4 bg-red-50/10 text-white">
 							<AlertTriangle class="h-4 w-4 text-red-400" />
@@ -213,8 +226,7 @@
 						</div>
 					</div>
 					<div class="grid gap-2">
-						<Label for="postcode" class="text-sm/6 font-semibold text-white"
-							>Suburb and State</Label
+						<Label for="postcode" class="text-sm/6 font-semibold text-white">Suburb and State</Label
 						>
 						<div class="mt-2.5">
 							<input
@@ -335,6 +347,17 @@
 
 				{#if !submitted}
 					<form on:submit={handleSubmit} method="POST" class="grid items-start gap-4 px-4">
+						<div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+							<label for="mobile-website">Website</label>
+							<input
+								type="text"
+								id="mobile-website"
+								name="website"
+								tabindex="-1"
+								autocomplete="off"
+								bind:value={formData.website}
+							/>
+						</div>
 						{#if error}
 							<Alert.Root class="mb-4 bg-red-50/10 text-white">
 								<AlertTriangle class="h-4 w-4 text-red-400" />

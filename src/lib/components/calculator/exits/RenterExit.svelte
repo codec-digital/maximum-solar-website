@@ -12,6 +12,7 @@
 	let submitted = $state(false);
 	let loading = $state(false);
 	let error = $state('');
+	let website = $state(''); // honeypot — real visitors never fill this in
 
 	async function handleSubmit(e: SubmitEvent) {
 		e.preventDefault();
@@ -32,7 +33,9 @@
 					phone: '',
 					postCode: '',
 					preferredContact: 'Email',
-					message: 'User indicated they rent and would like to be notified of renter solar options.'
+					message:
+						'User indicated they rent and would like to be notified of renter solar options.',
+					website
 				})
 			});
 			submitted = true;
@@ -67,11 +70,21 @@
 		</div>
 	{:else}
 		<form onsubmit={handleSubmit} class="mx-auto mt-8 max-w-sm space-y-3">
+			<div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+				<label for="renter-website">Website</label>
+				<input
+					id="renter-website"
+					type="text"
+					tabindex="-1"
+					autocomplete="off"
+					bind:value={website}
+				/>
+			</div>
 			<input
 				type="email"
 				placeholder="Your email address"
 				bind:value={email}
-				class="w-full rounded-xl border-2 border-zinc-700 bg-zinc-800 px-4 py-3 text-base text-white outline-none transition-all placeholder:text-zinc-500 focus:border-[#FFC640] {error
+				class="w-full rounded-xl border-2 border-zinc-700 bg-zinc-800 px-4 py-3 text-base text-white transition-all outline-none placeholder:text-zinc-500 focus:border-[#FFC640] {error
 					? 'border-red-500'
 					: ''}"
 			/>

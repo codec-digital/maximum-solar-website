@@ -27,7 +27,9 @@
 	$effect(() => {
 		quizState.currentStep; // reactive dependency
 		if (stepInitialized) {
-			document.getElementById('calculator-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			document
+				.getElementById('calculator-card')
+				?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 		}
 		stepInitialized = true;
 	});
@@ -71,6 +73,7 @@
 		lastName: string;
 		email: string;
 		phone: string;
+		website: string;
 	}) {
 		submitting = true;
 		submitError = '';
@@ -111,7 +114,13 @@
 	}
 
 	function buildFormData(
-		contactData: { firstName: string; lastName: string; email: string; phone: string },
+		contactData: {
+			firstName: string;
+			lastName: string;
+			email: string;
+			phone: string;
+			website: string;
+		},
 		result: ReturnType<typeof calculate>
 	) {
 		const inp = quizState.inputs;
@@ -120,6 +129,7 @@
 		fd.append('lastName', contactData.lastName);
 		fd.append('email', contactData.email);
 		fd.append('phone', contactData.phone);
+		fd.append('website', contactData.website);
 		fd.append('postcode', inp.postcode);
 		fd.append('region', inp.region);
 		fd.append('billAmount', String(inp.billAmount ?? ''));
