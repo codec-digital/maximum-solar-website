@@ -1,5 +1,6 @@
 <script>
 	import { ArrowRight } from '@lucide/svelte';
+	import CommunityClubs from './CommunityClubs.svelte';
 </script>
 
 <section class="n relative flex items-center justify-center overflow-hidden py-48">
@@ -90,8 +91,10 @@
 	</div>
 </div>
 
+<CommunityClubs />
+
 <div class="mx-auto">
-	<div class="relative isolate overflow-hidden px-6 py-20 text-center shadow-2xl sm:px-16">
+	<div class="relative isolate overflow-hidden px-6 py-20 text-center sm:px-16">
 		<h2 class="font-heading mx-auto mt-6 max-w-5xl text-4xl sm:text-6xl/18">
 			Do you have referrals or are part of a community group?
 		</h2>

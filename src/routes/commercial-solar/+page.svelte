@@ -1,5 +1,6 @@
 <script>
 	import Seo from '$lib/components/SEO.svelte';
+	import ProjectVideo from '$lib/components/ProjectVideo.svelte';
 	import { ArrowRight } from '@lucide/svelte';
 </script>
 
@@ -65,17 +66,18 @@
 </section>
 
 <div class="mx-auto">
-	<div class="relative isolate overflow-hidden px-6 pb-12 text-center sm:px-16">
-		<div class="relative mx-auto w-full max-w-screen-2xl font-sans">
-			<div class="mt-12 overflow-hidden rounded-3xl">
-				<enhanced:img
-					src="/src/lib/assets/images/commercial-solar-2.jpg"
-					alt="Commercial Solar"
-					class="h-auto w-full max-w-5xl rounded-3xl"
-				/>
-			</div>
+	<div class="px-6 pb-12 sm:px-16">
+		<div
+			class="mx-auto flex w-full max-w-5xl flex-col items-center font-sans lg:flex-row lg:justify-center"
+		>
+			<ProjectVideo
+				src="/videos/commercial-collins-st-hobart.mp4"
+				poster="/videos/commercial-collins-st-hobart-poster.jpg"
+				label="Drone footage of a rooftop commercial solar installation on Collins St in the Hobart CBD"
+				class="max-w-sm shrink-0 lg:aspect-[2/3] lg:max-w-md"
+			/>
 			<div
-				class="bg-opacity-80 top-10 right-10 mt-8 w-full rounded-3xl bg-[#FFC640] p-12 lg:absolute lg:max-w-xl"
+				class="relative z-10 -mt-16 w-[calc(100%-2rem)] max-w-[22rem] rounded-3xl bg-[#FFC640] p-8 lg:mt-0 lg:-ml-12 lg:w-full lg:max-w-xl lg:p-12"
 			>
 				<h3 class="font-heading mb-4 text-left text-3xl">Detailed Analysis.</h3>
 				<p class="text-left text-base font-medium">
@@ -85,33 +87,36 @@
 			</div>
 		</div>
 	</div>
-	<div class="relative isolate overflow-hidden px-6 py-12 text-center sm:px-16">
-		<div class="relative mx-auto w-full max-w-screen-2xl font-sans">
-			<div class="mt-12 flex justify-end overflow-hidden rounded-3xl">
-				<enhanced:img
-					src="/src/lib/assets/images/commercial-solar-3.jpeg"
-					alt="Commercial Solar"
-					class="h-auto w-full max-w-5xl rounded-3xl"
-				/>
-			</div>
+	<div class="px-6 py-12 sm:px-16">
+		<div
+			class="mx-auto flex w-full max-w-5xl flex-col items-center font-sans lg:flex-row-reverse lg:justify-center"
+		>
+			<ProjectVideo
+				src="/videos/commercial-kfc.mp4"
+				poster="/videos/commercial-kfc-poster.jpg"
+				label="Drone footage of a rooftop commercial solar installation on a KFC restaurant"
+				class="max-w-sm shrink-0 lg:aspect-[2/3] lg:max-w-md"
+			/>
 			<div
-				class="bg-opacity-80 top-10 left-10 mt-8 w-full rounded-3xl bg-[#FFC640] p-12 lg:absolute lg:max-w-xl"
+				class="relative z-10 -mt-16 w-[calc(100%-2rem)] max-w-[22rem] lg:mt-0 lg:-mr-12 lg:w-full lg:max-w-xl"
 			>
-				<h3 class="font-heading mb-4 text-left text-3xl">High Quality Installation.</h3>
-				<p class="text-left text-base font-medium">
-					Once we have exactly what we need to proceed with installation and the solution has been
-					agreed upon. We will use our Solar Accreditation Australia accredited installers to ensure
-					the commercial systems are fitted and installed to the highest standards.
-				</p>
-			</div>
-			<div class="bottom-40 left-10 mt-12 text-center lg:absolute">
-				<a
-					href="/contact"
-					class="inline-flex items-center justify-center gap-2 rounded-full bg-black px-8 py-3 text-base font-semibold text-white transition-all hover:bg-gray-800"
-				>
-					Get Your Free Quote
-					<ArrowRight class="h-5 w-5" />
-				</a>
+				<div class="rounded-3xl bg-[#FFC640] p-8 lg:p-12">
+					<h3 class="font-heading mb-4 text-left text-3xl">High Quality Installation.</h3>
+					<p class="text-left text-base font-medium">
+						Once we have exactly what we need to proceed with installation and the solution has been
+						agreed upon. We will use our Solar Accreditation Australia accredited installers to
+						ensure the commercial systems are fitted and installed to the highest standards.
+					</p>
+				</div>
+				<div class="mt-12 text-center lg:text-left">
+					<a
+						href="/contact"
+						class="inline-flex items-center justify-center gap-2 rounded-full bg-black px-8 py-3 text-base font-semibold text-white transition-all hover:bg-gray-800"
+					>
+						Get Your Free Quote
+						<ArrowRight class="h-5 w-5" />
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
