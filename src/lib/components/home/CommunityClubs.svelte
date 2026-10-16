@@ -10,6 +10,8 @@
 	import richmond from '$lib/assets/images/community-clubs/logos/richmond-football-club.jpg?enhanced';
 	import whitemore from '$lib/assets/images/community-clubs/logos/whitemore-warriors-cricket-club.jpg?enhanced';
 	import kingborough from '$lib/assets/images/community-clubs/logos/kingborough-lions-united-fc.png?enhanced';
+	import hobartCity from '$lib/assets/images/community-clubs/logos/hobart-city-fc.png?enhanced';
+	import bracknell from '$lib/assets/images/community-clubs/logos/bracknell-football-club.png?enhanced';
 	import football1 from '$lib/assets/images/community-clubs/images/football-match-1.jpg?enhanced';
 	import football2 from '$lib/assets/images/community-clubs/images/football-match-2.jpg?enhanced';
 	import football3 from '$lib/assets/images/community-clubs/images/football-match-3.jpg?enhanced';
@@ -22,7 +24,9 @@
 		{ name: 'Lauderdale Football Club', logo: lauderdale, bleed: true },
 		{ name: 'Richmond Football Club (TAS)', logo: richmond, bleed: true },
 		{ name: 'Whitemore Warriors Cricket Club', logo: whitemore },
-		{ name: 'Kingborough Lions United Football Club', logo: kingborough }
+		{ name: 'Kingborough Lions United Football Club', logo: kingborough },
+		{ name: 'Hobart City Football Club', logo: hobartCity },
+		{ name: 'Bracknell Football Club', logo: bracknell }
 	];
 
 	const photos = [
@@ -61,7 +65,7 @@
 		We’re proud to back local Tasmanian sport, on the field and off it.
 	</p>
 
-	<ul class="mx-auto mt-16 grid max-w-5xl grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4 lg:gap-x-10">
+	<ul class="mx-auto mt-16 grid max-w-5xl grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:gap-x-10">
 		{#each clubs as club}
 			<li class="flex flex-col items-center">
 				<div

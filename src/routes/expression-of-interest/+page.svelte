@@ -319,7 +319,7 @@
 
 			<!-- Contact Information Section -->
 			<div class="flex-shrink-0 bg-black px-6 py-12 lg:px-12">
-				<div class="space-y-12 lg:space-y-48">
+				<div class="space-y-12 lg:space-y-16">
 					<!-- Hobart Section -->
 					<div>
 						<h3 class="font-heading mb-4 text-5xl text-white">Hobart</h3>
@@ -332,6 +332,22 @@
 								Warehouse 3, Lot 4/21 South Arm Hwy<br />
 								Mornington TAS<br />
 								7018
+							</a>
+						</p>
+					</div>
+
+					<!-- Melbourne Section -->
+					<div>
+						<h3 class="font-heading mb-4 text-5xl text-white">Melbourne</h3>
+						<p class="text-gray-300">
+							<a
+								href="https://www.google.com/maps/search/?api=1&query=4+Expo+Court,+Mount+Waverley+VIC+3149"
+								target="_blank"
+								class="hover:underline"
+							>
+								4 Expo Court<br />
+								Mount Waverley VIC<br />
+								3149
 							</a>
 						</p>
 					</div>
